@@ -207,7 +207,7 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE OUTPUT:
+# THIS IS THE OUTPUT IMAGE:
 
 
 ![Alt Text](534.jpg)
@@ -402,7 +402,7 @@ Close all windows**
 
 
 
-# THIS IS THE OUTPUT IAGE:
+# THIS IS THE OUTPUT IMAGE:
 
 
 ![Alt Text](602.jpg)
@@ -658,9 +658,10 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE OUTPUT:
+# THIS IS THE OUTPUT IMAGE:
 
 
-![Alt Text](290.jpg)
+![Alt Text](920.jpg)
+
 
 
