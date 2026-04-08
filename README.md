@@ -110,7 +110,7 @@ neighborhood = block around pixel
 C = constant (tuning value)
 
 
-2. Gaussian Adaptive Threshold
+# ***2. Gaussian Adaptive Threshold:***
 
 
 Threshold is weighted sum (Gaussian) of neighbors:
