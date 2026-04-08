@@ -214,7 +214,8 @@ cv2.destroyAllWindows()
 # THIS IS THE OUTPUT:
 
 
-![Alt Text](images/534.jpg)
+![Alt Text](534.jpg)
+
 
 
 
