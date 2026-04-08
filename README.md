@@ -1,11 +1,10 @@
 # Python-Notes-From-Bsics-to-advance
 
 
-# Python Codes With Bsics To Advance.
-
-
 ## Here we starting the codes of python with outputs:
 
+
+# 1st CODE:
 
 
 # ADAPTIVE THRESHOLDING
@@ -21,9 +20,6 @@
 
 
 ***lets start:***
-
-
-# *1st Code:*
 
 
 **Theory:**
