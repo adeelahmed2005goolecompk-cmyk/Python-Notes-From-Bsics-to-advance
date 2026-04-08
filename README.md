@@ -665,3 +665,506 @@ cv2.destroyAllWindows()
 
 
 
+
+# CODE NO 4 WITH THEORY:
+
+
+# Theory: Bitwise Operations in OpenCV (AND, OR, NOT, XOR):
+
+
+
+***Operations includes AND, OR, NOT, XOR.
+It is more important and used for various purposes like making
+and finding ROI (Region of Interest)***
+
+
+***This program demonstrates bitwise operations in OpenCV. Bitwise operations are used to manipulate images at the pixel level. These operations are very important in image masking, background removal, and Region of Interest (ROI) extraction.
+The basic bitwise operations used in image processing are:
+AND
+OR
+NOT
+XOR***
+
+
+# 1. Importing Libraries:
+
+
+***import cv2
+import numpy as np
+OpenCV (cv2) is used for image processing
+NumPy is used to create blank images***
+
+
+# 2. Creating Blank Images:
+
+
+**img1 = np.zeros((250, 500, 3), np.uint8)
+img2 = np.zeros((250, 500, 3), np.uint8)**
+
+
+# Two black images are created:
+
+
+***Height = 250 pixels
+Width = 500 pixels
+Channels = 3 (color image)
+np.zeros() creates completely black images.***
+
+
+# 3. Drawing Rectangles:
+
+
+**img1 = cv2.rectangle(img1, (150, 100), (200, 250), (255, 255, 255), -1)
+img2 = cv2.rectangle(img2, (10, 10), (170, 190), (255, 255, 255), -1)**
+
+
+# Two white rectangles are drawn:
+
+***White color → (255,255,255)
+Thickness → -1 (filled)
+These rectangles act as binary shapes for bitwise operations.***
+
+# 4. Displaying Images:
+
+
+**cv2.imshow("img1", img1)
+cv2.imshow("img2", img2)**
+
+
+***Displays both images before applying operations.
+Bitwise Operations
+Bitwise operations compare pixel values of two images.
+White = 255
+Black = 0***
+
+
+# 5. Bitwise AND Operation:
+
+
+**bitAnd = cv2.bitwise_and(img1,img2)**
+
+
+# Logic:
+
+***White + White → White
+White + Black → Black
+Black + White → Black
+Black + Black → Black***
+
+
+# Result:
+
+
+**Only overlapping region remains white.**
+
+
+# Used for:
+
+***extracting common area
+masking
+ROI extraction***
+
+
+# 6. Bitwise OR Operation:
+
+
+**bitOr = cv2.bitwise_or(img1,img2)**
+
+
+# Logic:
+
+
+***White + White → White
+White + Black → White
+Black + White → White
+Black + Black → Black***
+
+
+# Result:
+
+
+**Combined shapes appear.**
+
+
+# Used for:
+
+
+**merging masks
+combining objects**
+
+
+# 7. Bitwise NOT Operation:
+
+
+**bitNot1 = cv2.bitwise_not(img1)
+bitNot2 = cv2.bitwise_not(img2)**
+
+
+# Logic:
+
+
+**White → Black
+Black → White**
+
+
+# Result:
+
+
+*Image colors are inverted.*
+
+# Used for:
+
+**background inversion
+mask reversal**
+
+
+# 8. Bitwise XOR Operation:
+
+
+**bitXor = cv2.bitwise_xor(img1, img2)**
+
+
+# Logic:
+
+**White + White → Black
+White + Black → White
+Black + White → White
+Black + Black → Black**
+
+
+# Result:
+
+
+**Only non-overlapping areas remain white.
+This removes the common region and keeps different parts.**
+
+
+# 9. Displaying XOR Result:
+
+
+**cv2.imshow('bitXor', bitXor)**
+
+
+*Shows XOR output image.*
+
+
+# 10. Closing Windows
+
+
+**cv2.waitKey(0)
+cv2.destroyAllWindows()
+waitKey(0) waits for key press
+destroyAllWindows() closes windows**
+
+
+# Conclusion:
+
+***This program demonstrates how bitwise operations work on binary images. These operations are essential in computer vision for masking, ROI extraction, object segmentation, and image blending***
+
+
+
+# THIS IS THE FULL CODE:
+
+
+```Python Code:
+
+
+import cv2
+import numpy as np
+
+# create blank images
+img1 = np.zeros((250, 500, 3), np.uint8)
+img2 = np.zeros((250, 500, 3), np.uint8)
+
+# draw rectangles
+img1 = cv2.rectangle(img1, (150, 100), (200, 250), (255, 255, 255), -1)
+img2 = cv2.rectangle(img2, (10, 10), (170, 190), (255, 255, 255), -1)
+
+# show images
+cv2.imshow("img1", img1)
+cv2.imshow("img2", img2)
+
+# bitAnd operation
+
+# bitAnd = cv2.bitwise_and(img1,img2)
+
+# cv2.imshow('bitAnd',bitAnd)
+
+
+# OR operation
+
+# bitOr = cv2.bitwise_or(img1,img2)
+# cv2.imshow('bitOr',bitOr)
+
+# NOT operation
+
+# bitNot1 = cv2.bitwise_not(img1)
+# bitNot2 = cv2.bitwise_not(img2)
+
+# cv2.imshow('bitNot1',bitNot1)
+# cv2.imshow('bitNot2',bitNot2)
+
+# XOR operation
+bitXor = cv2.bitwise_xor(img1, img2)
+cv2.imshow('bitXor', bitXor)
+
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+# THIS UPPER CODE HAS NO USES THE ANY TYPE OF IMAGE.
+
+
+
+
+
+
+
+
+
+# CODE NO 5 WITH THEORY:
+
+
+# ***Theory: Canny Edge Detection Using OpenCV (Two Methods)***
+
+
+***This program demonstrates Canny Edge Detection using OpenCV. Canny edge detection is a widely used algorithm for detecting edges in an image. It detects sharp intensity changes and highlights object boundaries.
+The algorithm was developed by John F. Canny (1986) and works using a multi-stage process.
+Canny Edge Detection Steps***
+
+
+# The Canny algorithm consists of the following stages:
+
+# ***1. Noise Reduction:***
+
+
+**Gaussian filter is applied
+Removes noise from image
+Prevents false edges.**
+
+
+# 2. Gradient Calculation:
+
+
+**Finds intensity change in image
+Detects strong edges
+Uses Sobel operators**
+
+
+# 3. Non-Maximum Suppression:
+
+
+**Removes unwanted thick edges
+Keeps only thin edge lines**
+
+
+# 4. Double Threshold:
+
+
+**Uses two thresholds:
+Low threshold
+High threshold
+Classifies edges as:
+Strong edges
+Weak edges
+Non edges**
+
+
+# 5. Edge Tracking by Hysteresis:
+
+
+***Weak edges connected to strong edges are kept
+Others are removed
+This produces clean and accurate edge detection.***
+
+
+# Method 1: Static Threshold Canny Edge Detection:
+
+
+**img = cv2.imread(r"A:\computer_Vision\43.jpg")
+img = cv2.resize(img, (250, 250))
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+canny = cv2.Canny(img_gray, 50, 150)**
+
+
+# Explanation:
+
+
+***Image is loaded and resized
+Converted to grayscale
+Canny edge detection applied with:
+Threshold1 = 50
+Threshold2 = 150
+These thresholds are fixed values.
+Edges are detected based on these constant limits.***
+
+
+# Output Windows:
+
+
+**cv2.imshow("Original Image:", img)
+cv2.imshow("Gray Image:", img_gray)
+cv2.imshow("Canny:", canny)**
+
+
+# Displays:
+
+**Original image
+Grayscale image
+Edge detected image**
+
+
+# Method 2: Dynamic Threshold Using Trackbar:
+
+
+*This method allows interactive threshold adjustment.*
+
+
+# Creating Trackbars:
+
+
+**cv2.namedWindow("Canny")
+cv2.createTrackbar("Threshold", "Canny", 0, 255, nothing)**
+
+
+**Trackbar is created to control threshold value.**
+
+
+# Reading Trackbar Value:
+
+
+**a = cv2.getTrackbarPos("Threshold", "Canny")**
+
+
+***This reads current slider position.
+Applying Canny Dynamically
+res = cv2.Canny(img_gray, a, 255)
+Lower threshold = trackbar value
+Upper threshold = 255
+This allows real-time edge tuning.
+Loop for Continuous Update
+while True:
+The loop continuously:
+Reads trackbar value
+Applies Canny
+Displays result
+Exit Condition
+k = cv2.waitKey(1) & 0xFF
+if k == 110:
+    break**
+
+
+# Press n key to stop program:
+
+
+***Difference Between Two Methods
+Method	Threshold	Control	Use
+Method 1	Fixed	No	Simple detection
+Method 2	Dynamic	Yes	Interactive tuning
+Applications of Canny Edge Detection
+Object detection
+Lane detection
+Shape detection
+Image segmentation
+Medical image analysis
+Feature extraction***
+
+
+# Conclusion:
+
+
+***This program demonstrates two methods of Canny edge detection. The first method uses fixed thresholds, while the second method uses a trackbar for interactive adjustment. Canny edge detection is an effective technique for detecting object boundaries and important image features.***
+
+
+# THIS IS THE FULL CODE:
+
+
+```Pthon Code:
+
+
+                  # ----Canny edge detection----
+# Cannye edge detection using open cv
+
+# Canny edge detection is a popular edge detection approach.
+# It is use multi-stage algorithm to detect a edge.
+# It was developed by Jhon f. Canny in 1986.
+# This approach combine with 5 steps.
+# step no1):-Noise reduction (gauss,2) and (Gradient clacilation).
+# step no2):-None maximum supperson,4) and (Double Threshold).
+# step no3):-Edge tracking by Hystresis.
+'''
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\43.jpg")
+img = cv2.resize(img, (250, 250))
+
+# convert to grayscale
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Canny(img, threshold1, threshold2)
+canny = cv2.Canny(img_gray, 50, 150)
+
+cv2.imshow("Original Image:", img)
+cv2.imshow("Gray Image:", img_gray)
+cv2.imshow("Canny:", canny)
+'''
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\54.jpg")
+img = cv2.resize(img, (250, 250))
+
+# convert to grayscale
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+def nothing(x):
+    pass
+
+cv2.namedWindow("Canny")
+cv2.createTrackbar("Threshold", "Canny", 0, 255, nothing)
+
+while True:
+    a = cv2.getTrackbarPos("Threshold", "Canny")
+    res = cv2.Canny(img_gray, a, 255)
+
+    cv2.imshow("Canny", res)
+
+    k = cv2.waitKey(1) & 0xFF
+    if k == 110:  # n key
+        break
+
+cv2.destroyAllWindows()
+```
+
+***THIS CODE HAS USES 2 IAMGES***
+
+
+# THIS IS THE IMAGE NO 1:
+
+
+![Alt Text](43.jpg)
+
+
+# THIS IS THE IMAGE NO 2:
+
+
+![Alt Text](53.jpg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
