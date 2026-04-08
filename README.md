@@ -23,7 +23,7 @@
 ***lets start:***
 
 
-***1st Code:***
+# *1st Code:*
 
 
 **Theory:**
@@ -218,4 +218,194 @@ cv2.destroyAllWindows()
 
 
 
+
+# 2nd Code With Theory:
+
+
+# ***Theory: Drawing Shapes and Text Using OpenCV in Python:***
+
+
+This program demonstrates how to draw geometric shapes and text on an image using the OpenCV library in Python. OpenCV provides built-in functions to draw primitives such as rectangles, circles, lines, arrows, ellipses, and text. These drawing operations are commonly used in computer vision for annotation, object detection visualization, and debugging.
+The program first imports NumPy and OpenCV, which are required for image creation and manipulation.
+
+
+***CODE WITH EVERY LINES INTRO:***
+
+
+# codes intro:
+
+
+import numpy as np
+import cv2
+
+*NumPy is used to create blank images, while OpenCV functions are used to draw shapes.*
+
+
+***1. Reading an Image:***
+
+
+**img = cv2.imread("A:/computer_Vision/602.jpg")**
+
+
+**This function loads an image from disk into memory. The image is stored as a NumPy array where:
+Height × Width × Channels
+Channels represent BGR color format (Blue, Green, Red):**
+
+
+***2. Drawing Rectangle:***
+
+
+**cv2.rectangle(img, (50, 50), (200, 200), (0, 255, 0), -2)**
+
+
+***Rectangle is drawn using:***
+
+
+***Start point → (50, 50)
+End point → (200, 200)
+Color → (0,255,0) → Green
+Thickness → -2 (filled rectangle)***
+
+
+**This function is useful for bounding boxes in object detection.**
+
+
+***3. Drawing Circle:***
+
+
+**cv2.circle(img, (200, 200), 50, (255, 0, 0), -2)**
+
+
+***Parameters:***
+
+
+**Center → (200,200)
+Radius → 50
+Color → Blue (BGR format)
+Thickness → -2 (filled circle
+Circles are used for feature visualization and tracking points.**
+
+
+***4. Drawing Line:***
+
+
+**cv2.line(img, (0, 0), (200, 200), (0, 0, 255), 2)**
+
+
+***Draws a line:***
+
+***Start → top-left corner
+End → (200,200)
+Color → Red
+Thickness → 2 pixels***
+
+Lines are used for trajectory visualization.
+
+***5. Arrowed Line:***
+
+
+**img = cv2.arrowedLine(img, (0, 125), (255, 255), (255, 0, 125), 3)**
+
+**This draws a directional arrow. It is commonly used to:**
+
+**Show motion direction
+Indicate object movement
+Visualize vectors**
+
+
+***6. Putting Text:***
+
+
+**img = cv2.putText(img, "MR.SHAMEER", (20, img.shape[0]-20),
+                  cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 1,
+                  (0,125,255), 2, cv2.LINE_AA)**
+
+**This upper function writes text on image:**
+
+
+**Text → "MR.SHAMEER"
+Position → bottom-left
+Font → Script style
+Font size → 1
+Color → orange-like
+Thickness → 2
+LINE_AA → smooth text.**
+
+**Used for:**
+
+**labeling objects
+watermarking
+displaying info**
+
+
+***7. Drawing Ellipse.***
+
+
+**img = cv2.ellipse(img, (200, 200), (100, 50), 70, 70, 500, (155, 155, 155), -5)**
+
+
+***Ellipse parameters:***
+
+
+***Center → (200,200)
+Axis lengths → (100,50)
+Rotation → 70 degrees
+Start angle → 70
+End angle → 500
+Color → gray
+Thickness → filled
+Ellipse is useful for object contour approximation.***
+
+
+# ***8. Creating Blank Image (Black)***
+
+
+**img = np.zeros([512, 512, 3], np.uint8)*255**
+
+
+# Creates black image:
+
+**Size → 512 × 512
+3 channels → color image
+zeros → black background**
+
+
+# 9. Creating Blank Image (White)
+
+
+**img = np.ones([512, 512, 3], np.uint8)*255**
+
+
+***Creates white image:***
+
+
+**ones × 255 → white background
+Used for drawing shapes on blank canvas**
+
+
+# THIS IS THE DISPLAY SIDE:
+
+
+10. Displaying Image
+cv2.imshow("Image", img)
+
+
+# THIS IS THE LAST AND IMPORTTANT LINES OF EVERY CODE:
+
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+***These functions:***
+
+**Show image window
+Wait for key press
+Close all windows**
+
+
+
+# THIS IS THE OUTPUT IAGE:
+
+
+![Alt Text](602.jpg)
 
