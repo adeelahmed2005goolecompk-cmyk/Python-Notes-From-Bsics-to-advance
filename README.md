@@ -3144,6 +3144,237 @@ cv2.destroyAllWindows()
 
 
 
+# CODE NO 15-) WITH THEORY:
+
+
+# Hand Detection Using Contours:
+
+
+***This code is used to detect a hand from an image using contours, convex hull, and convexity defects.
+It processes the image, finds the hand shape, and highlights important points like fingers and extreme positions.***
+
+
+# Step 1 — Load Image:
+
+
+**The code first checks if the image exists and loads it:**
+
+
+**If file not found → program stops
+If image loaded → continue processing
+The image is then resized to 250 × 250.**
+
+
+# Step 2 — Convert to Grayscale:
+
+
+**img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+The image is converted to gray to simplify processing.**
+
+
+# Step 3 — Blur Image:
+
+
+**blur = cv2.medianBlur(img1, 5)
+Blurring removes noise and smooths the image.**
+
+
+# Step 4 — Threshold Image:
+
+
+**ret, thresh = cv2.threshold(blur, 80, 255, cv2.THRESH_BINARY_INV)**
+
+
+***Threshold converts image into black and white:***
+
+
+**White → hand
+Black → background
+This helps in contour detection.**
+
+
+# Step 5 — Find Contours:
+
+
+**cnts, hier = cv2.findContours(...)
+Contours detect the boundary of the hand.
+The program draws contours around the detected shape.**
+
+
+# Step 6 — Convex Hull:
+
+
+**hull = cv2.convexHull(data)
+Convex hull creates a smooth outer boundary around the hand.
+This helps in detecting finger gaps.**
+
+
+# Step 7 — Convexity Defects:
+
+
+**defect = cv2.convexityDefects(cnts[0], hull2)
+Convexity defects find gaps between fingers.**
+
+
+***The code draws:***
+
+***Lines between fingers
+Circles at deepest finger gap points
+This helps identify hand shape and fingers.**(
+
+
+# Step 8 — Extreme Points Detection:
+
+
+*The code finds:*
+
+
+**Left-most point
+Right-most point
+Top-most point
+Bottom-most point
+These are called extreme points of the hand.
+Circles are drawn on these positions to highlight hand boundaries.**
+
+
+# Step 9 — Display Output:
+
+
+*The program shows three windows:*
+
+
+**Original hand with detection
+Gray image
+Threshold image
+Purpose of This Code**
+
+
+# This code teaches:
+
+**Hand detection using contours
+Convex hull and convexity defects
+Finger gap detection
+Extreme point detection
+Image thresholding**
+
+
+# Used for:
+
+
+**Hand gesture recognition
+Finger counting
+Sign language detection
+Computer vision hand tracking**
+
+
+# THIS IS THE FULL CODE:
+
+
+```Pthon Code:
+
+
+Hand detection:
+
+
+import cv2
+import numpy as np
+import os
+import sys
+
+# Image path:
+path = "A:\computer_Vision\hand.jpg"
+
+# Check if file exists
+if not os.path.exists(path):
+    print("File not found! Check the path:", path)
+    sys.exit()
+
+# Read image
+img = cv2.imread(path)
+
+# Check if image loaded successfully
+if img is None:
+    print("Failed to load image! Check format/extension.")
+    sys.exit()
+
+# Resize image
+img = cv2.resize(img, (250, 250))
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# blur image
+blur = cv2.medianBlur(img1, 5)
+
+# threshold image
+ret, thresh = cv2.threshold(blur, 80, 255, cv2.THRESH_BINARY_INV)
+
+# find contour image
+cnts, hier = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+cv2.drawContours(img, cnts, -1, (180, 185, 0), 2)
+
+print("Number of contours:", cnts, "\ntotal contour:", len(cnts))
+print("Hierachry:\n", hier)
+
+# convexhull image
+# Loop Over The Contours
+for c in cnts:
+    epsilon = 0.0001 * cv2.arcLength(c, True)
+    data = cv2.approxPolyDP(c, epsilon, True)
+    hull = cv2.convexHull(data)
+    cv2.drawContours(img, [c], -1, (50, 50, 100), 2)
+    cv2.drawContours(img, [hull], -1, (212, 234, 234), 2)
+
+# find convexity defect
+hull2 = cv2.convexHull(cnts[0], returnPoints=False)
+# defect returns an array which contains values:
+[start_point, end_point, farthest_point, approximation_point]
+defect = cv2.convexityDefects(cnts[0], hull2)
+
+if defect is not None:
+    for i in range(defect.shape[0]):
+        s, e, f, d = defect[i, 0]
+        print(s, e, d, f)
+        start = tuple(cnts[0][s][0])
+        end   = tuple(cnts[0][e][0])
+        far   = tuple(cnts[0][f][0])
+        cv2.line(img, start, end, (255, 0, 0), 2)
+        cv2.circle(img, far, 5, (0, 0, 255), -1)
+else:
+    print("No convexity defects found.")
+
+# Extreme points
+# It means the topmost, bottommost, leftmost, and rightmost points of an object along its contour.
+c_max = max(cnts, key=cv2.contourArea)
+
+# determine the most extreme points along the contour
+extLeft  = tuple(c_max[c_max[:, :, 0].argmin()][0])
+extRight = tuple(c_max[c_max[:, :, 0].argmax()][0])
+extTop   = tuple(c_max[c_max[:, :, 1].argmin()][0])
+extBot   = tuple(c_max[c_max[:, :, 1].argmax()][0])
+
+# draw the outline of the object then draw each of the extreme points
+# Left-most is pink, right-most is brown, topmost is blue, bottom-most is teal
+cv2.circle(img, extLeft , 8, (255, 0, 255), -1)   # pink
+cv2.circle(img, extRight, 8, (0, 125, 255), -1)   # brown
+cv2.circle(img, extTop  , 8, (255, 10, 0), -1)    # blue
+cv2.circle(img, extBot  , 8, (19, 152, 152), -1)  # teal
+
+# DISPLAY SIDE
+cv2.imshow("Original hand1:", img)
+cv2.imshow("Gray hand2:", img1)
+cv2.imshow("Thresh hand3:", thresh)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+
+# THIS IS THE OUTPUT IAMGE:
+
+
+![Alt Text](hand.jpg)
+
+
 
 
 
