@@ -2312,7 +2312,7 @@ while cap.isOpened():
         frame = cv2.resize(frame, (500, 600))
         cv2.imshow("frame", frame)
         
-        if cv2.waitKey(10) & 0xFF == ord('f'):
+        if cv2.waitKey(10) & 0xFF == ord('n'):
             break
     else:
         break
@@ -2320,3 +2320,393 @@ while cap.isOpened():
 cap.release()
 cv2.destroyAllWindows()
 ```
+
+
+
+# CODE NO 11-) WITH THEORY:
+
+
+# Face + Eyes Detecting Live:
+
+
+***This code is used to detect face and eyes in real-time using webcam.
+It uses Haar Cascade classifiers in OpenCV to identify faces and eyes and draw shapes around them.***
+
+
+# Step 1 — Import Libraries:
+
+
+**import cv2
+import numpy as np
+cv2 is used for computer vision
+numpy is used for image processing
+
+
+# Step 2 — Load Haar Cascade Files:
+
+
+face = cv2.CascadeClassifier(...)
+eyes = cv2.CascadeClassifier(...)
+
+
+***These files are pre-trained models used for detection:***
+
+
+**haarcascade_frontalface_default.xml → detects faces
+haarcascade_eye.xml → detects eyes**
+
+
+# Step 3 — Open Webcam
+**cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)**
+
+
+# IF YOU ARE USING A PYTHON VERSION LOWER THAN 8, YOU MUST WRITE THIS LINE >>cv2.CAP_DSHOW << IF YOU ARE 
+# USING A VERSION HIGHER THAN 8, YOU DO NOT NEED TO WRITE THIS LINE, OTHERWISE A WARNING MAY APPEAR.
+
+
+***This opens the default webcam and starts capturing live video.***
+
+
+# Step 4 — Convert Frame to Gray:
+
+
+**gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)**
+
+
+***The image is converted to grayscale because Haar cascades work better on gray images.***
+
+
+# Step 5 — Detect Faces:
+
+
+**faces = face.detectMultiScale(gray, 1.3, 5)**
+
+
+*This detects faces in the frame:*
+
+
+**Returns coordinates of detected faces
+Draws rectangle around face
+cv2.rectangle(...)**
+
+# Step 6 — Detect Eyes Inside Face:
+
+
+**detected_eyes = eyes.detectMultiScale(roi_gray, 1.3, 2)**
+
+
+**The program searches eyes only inside the face area (ROI).
+This improves accuracy.**
+
+# Step 7 — Draw Circles on Eyes:
+
+
+**cv2.circle(...)**
+
+
+*This draws pink circles around detected eyes.*
+
+# Step 8 — Flip Frame:
+
+
+**frame = cv2.flip(frame, 1)**
+
+*This flips the camera view like a mirror.*
+
+
+# Step 9 — Display Result:
+
+
+**cv2.imshow("Face & Eyes Detection", detector(frame))**
+
+
+# This shows:
+
+
+**Face rectangle
+Eye circles
+Live webcam video
+Step 10 — Exit Condition
+if key == 13 or key == ord('n'):**
+
+# Press:
+
+**Enter key OR
+n key
+to stop the program.
+Purpose of This Code**
+
+
+# This code teaches:
+
+
+**Face detection
+Eye detection
+Haar cascade classifiers
+Real-time webcam processing
+Region of Interest (ROI) detection**
+
+
+# This is used in:
+
+**Face recognition systems
+Attendance systems
+Security cameras
+AI camera applications**
+
+
+# THIS IS THE FULL CODE:
+
+
+# THIS IS THE LIVE DETECTION CODE:
+
+
+```Python Code:
+
+
+# FACE+EYES DETECTING LIVE):-
+
+import cv2
+import numpy as np
+
+
+# ----------Load Haar Cascades----------
+face = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+eyes = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye.xml")
+
+# ----------Open Webcam----------
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+
+def detector(img):
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = face.detectMultiScale(gray, 1.3, 5)
+
+    for (x, y, w, h) in faces:
+        cv2.rectangle(img, (x, y), (x + w, y + h), (200, 0, 0), 2)
+        roi_gray = gray[y:y+h, x:x+w]
+        roi_color = img[y:y+h, x:x+w]
+        detected_eyes = eyes.detectMultiScale(roi_gray, 1.3, 2)
+
+        for (ex, ey, ew, eh) in detected_eyes:
+            cv2.circle(roi_color, (ex + ew//2, ey + eh//2), 20, (255, 105, 180), 2)  # Pink color
+
+    return img
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        print("Error: Camera not working")
+        break
+
+    frame = cv2.flip(frame, 1)
+    cv2.imshow("Face & Eyes Detection", detector(frame))
+
+    # Press 'Enter' (13) or 'n' (110) to exit
+    key = cv2.waitKey(1) & 0xFF
+    if key == 13 or key == ord('n'):
+        break
+
+# ----------Release Camera----------
+cap.release()
+cv2.destroyAllWindows()
+```
+
+
+
+
+
+
+
+# CODE NO 12-) WITH THEORY:
+
+
+## Face and Eye Detection on Image:
+
+
+***This code is used to detect face and eyes from a single image using Haar Cascade classifiers.
+It loads an image, finds faces, then detects eyes inside each face, and draws rectangles around them.***
+
+
+# Step 1 — Load Image:
+
+
+**image = cv2.imread(image_path)**
+
+
+**The program loads an image from the computer.
+If the image is not found, it shows an error message.**
+
+
+# Step 2 — Resize Image:
+
+
+**image = cv2.resize(image, (500, 500))
+The image is resized to 500 × 500 for better processing and display.**
+
+
+# Step 3 — Convert to Grayscale:
+
+
+**gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+The image is converted to gray because Haar cascade detection works better on grayscale images.**
+
+
+# Step 4 — Load Haar Cascade Files:
+
+
+**face_cascade = cv2.CascadeClassifier(...)
+eye_cascade = cv2.CascadeClassifier(...)**
+
+
+# These are pre-trained models used for detection:
+
+
+**Face cascade → detects faces
+Eye cascade → detects eyes
+Step 5 — Detect Faces
+faces = face_cascade.detectMultiScale(...)**
+
+
+# This detects all faces in the image and returns:
+
+
+**x position
+y position
+width
+height
+A blue rectangle is drawn around each face.**
+
+
+# Step 6 — Select Face Region (ROI):
+
+
+**roi_gray = gray[y:y+h, x:x+w]
+roi_color = image[y:y+h, x:x+w]
+This selects only the face area to detect eyes more accurately.**
+
+
+# Step 7 — Detect Eyes Inside Face:
+
+
+**eyes = eye_cascade.detectMultiScale(...)
+This detects eyes only inside the face region.
+A pink rectangle is drawn around each eye.**
+
+
+# Step 8 — Display Output:
+
+
+**cv2.imshow("Face and Eyes Detection:", image)**
+
+
+# The final image is shown with:
+
+
+**Blue rectangle → Face
+Pink rectangles → Eyes
+Step 9 — Wait and Close
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+The program waits until a key is pressed, then closes the window.
+Purpose of This Code**
+
+
+# This code teaches:
+
+
+**Face detection on image
+Eye detection inside face
+Haar cascade classifiers
+ROI (Region of Interest)
+Drawing rectangles on image**
+
+
+# This is useful for:
+
+
+**Face recognition systems
+Photo analysis
+Security applications
+Computer vision projec.**
+
+
+# THIS IS THE FULL CODE:
+
+
+```Python Code:
+
+
+Face and Eye Detection On Image:
+
+
+Face Detection Using Haarcascade File:
+
+
+import cv2
+import numpy as np
+
+Load Image:
+image_path = r"A:\computer_Vision\56.jpg"
+image = cv2.imread(image_path)
+if image is None:
+    print("Error: Image not found.")
+    exit()
+
+Resize Image:
+image = cv2.resize(image, (500, 500))  # Resize to 500x500
+
+Convert to Gray:
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+Load Haar Cascades:
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye.xml")
+
+Detect Faces and Eyes:
+faces = face_cascade.detectMultiScale(
+    gray,
+    scaleFactor=1.05,  # More sensitive for faces
+    minNeighbors=4,
+    minSize=(30, 30)
+)
+
+# Loop through all faces
+for (x, y, w, h) in faces:
+    # Draw rectangle around face (Blue) with thin border
+    cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 1)
+    
+    # Region of interest for eyes
+    roi_gray = gray[y:y+h, x:x+w]
+    roi_color = image[y:y+h, x:x+w]
+    
+    Detect Eyes inside this face:
+    eyes = eye_cascade.detectMultiScale(
+        roi_gray,
+        scaleFactor=1.03,  # Even smaller step for more accuracy
+        minNeighbors=2,     # Lower to detect additional eyes
+        minSize=(8, 8)      # Smaller size to catch tiny eyes
+    )
+    
+    # Loop through all detected eyes
+    for (ex, ey, ew, eh) in eyes:
+        # Draw rectangle around eyes (Pink) with thin border
+        cv2.rectangle(roi_color, (ex, ey), (ex+ew, ey+eh), (255, 0, 255), 1)
+
+Display Image
+cv2.imshow("roi:",roi_color)
+cv2.imshow("Face and Eyes Detection:", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+# THIS IS THE OUTPUT IMAGE:
+
+
+![Alt Text](56.jpg)
+
+
+
+
+
+
