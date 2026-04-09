@@ -2977,4 +2977,173 @@ cv2.destroyAllWindows()
 
 
 
+# CODE NO 14-) WITH THEORY:
+
+
+# GrabCut Algorithm:
+
+
+***This code is used to remove background and extract object from an image using the GrabCut algorithm.
+It selects an object inside a rectangle and removes everything outside it.***
+
+
+
+#                   Grabcut Algorithm
+
+##          Here is the some theory of grabcut algorithm
+
+***Grabcut algorithm with the help of this algorithm we easily cutoff any 
+ graound object from image or video. Its work like a rectangle portion mark on
+ the image and area outise the rectangle is treat as a extra part so this 
+ algo remove it completely. Gaussian mixtuere model help to achive the target.***
+
+
+# Step 1 — Load Image:
+
+
+**img = cv2.imread("A:\\computer_Vision\\car.jpg")
+The program loads an image (car image) and resizes it for processing.**
+
+
+# Step 2 — Create Mask:
+
+
+**mask = np.zeros(img.shape[:2], np.uint8)
+A mask is created to separate:
+Foreground (object)
+Background
+Initially, everything is set to background.**
+
+
+# Step 3 — Background and Foreground Models:
+
+
+**bgdModel = np.zeros((1, 65), np.float64)
+fgdModel = np.zeros((1, 65), np.float64)
+These models help the GrabCut algorithm learn background and foreground colors using Gaussian Mixture Model.**
+
+
+# Step 4 — Define Rectangle:
+
+
+**rect = (60, 60, 580, 380)
+A rectangle is drawn around the object:
+Inside rectangle → probable object
+Outside rectangle → background**
+
+
+# Step 5 — Apply GrabCut:
+
+
+**cv2.grabCut(img, mask, rect, bgdModel, fgdModel, 7, cv2.GC_INIT_WITH_RECT)
+GrabCut separates:
+Foreground object
+Background area
+It runs 7 iterations for better accuracy.**
+
+
+# Step 6 — Refine Mask:
+
+
+**mask2 = np.where(...)
+This keeps only foreground pixels and removes background.**
+
+
+# Step 7 — Remove Noise (Morphology):
+
+
+**cv2.morphologyEx(...)
+This step:
+Removes small background noise
+Cleans object edges
+Improves detection**
+
+
+# Step 8 — Apply Mask to Image:
+
+
+**result = img * mask2[:, :, np.newaxis]
+The clean mask is applied, leaving only the object and removing background.**
+
+
+# Step 9 — Show Result:
+
+
+**cv2.imshow("Sharp Car Detection", result)
+The final image shows car only, background removed.
+Purpose of This Code**
+
+
+# This code teaches:
+
+
+**GrabCut algorithm
+Background removal
+Foreground extraction
+Mask creation
+Image segmentation**
+
+
+# Used for:
+
+
+**Background removal
+Object extraction
+Photo editing
+Computer vision projects**
+
+
+# THIS IS THE FULL CODE:
+
+
+```Python Code:
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread("A:\\computer_Vision\\car.jpg")
+img = cv2.resize(img, (700, 500))
+
+# Create mask
+mask = np.zeros(img.shape[:2], np.uint8)
+
+# Background & Foreground models
+bgdModel = np.zeros((1, 65), np.float64)
+fgdModel = np.zeros((1, 65), np.float64)
+
+# Rectangle (adjust if needed)
+rect = (60, 60, 580, 380)
+
+# Apply GrabCut
+cv2.grabCut(img, mask, rect, bgdModel, fgdModel, 7, cv2.GC_INIT_WITH_RECT)
+
+# Proper mask refinement
+mask2 = np.where((mask == cv2.GC_FGD) | (mask == cv2.GC_PR_FGD), 1, 0).astype('uint8')
+
+# Stronger morphology to remove background noise
+kernel = np.ones((3, 3), np.uint8)
+mask2 = cv2.morphologyEx(mask2, cv2.MORPH_CLOSE, kernel, iterations=3)
+mask2 = cv2.morphologyEx(mask2, cv2.MORPH_OPEN, kernel, iterations=2)
+
+# Apply clean mask (NO BLUR)
+result = img * mask2[:, :, np.newaxis]
+
+cv2.imshow("Sharp Car Detection", result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+
+# THIS IS THE OUTPUT IMAGE:
+
+
+![Alt Text](car.jpg)
+
+
+
+
+
+
 
