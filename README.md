@@ -3378,3 +3378,413 @@ cv2.destroyAllWindows()
 
 
 
+# CODE NO 17-) WITH THEORY:
+
+
+# Detecting Circle by Hough Transform:
+
+
+***This code is used to detect circular objects using the Hough Circle Transform in OpenCV.
+It contains two methods:***
+
+
+**Circle detection on image
+Circle detection using webcam (live)**
+
+
+# Method 1 — Circle Detection on Image:
+
+
+*This method detects circles from a saved image.*
+
+
+# How it works:
+
+
+**Image is loaded and resized
+Converted to grayscale
+Blur applied to remove noise
+cv2.HoughCircles() detects circles
+Circles drawn on original image
+Hough Circle Function
+circles = cv2.HoughCircles(...)
+This function detects circular shapes based on edges.**
+
+
+# Parameters:
+
+
+**dp → resolution of detection
+minDist → minimum distance between circles
+param1 → edge detection threshold
+param2 → circle detection sensitivity
+minRadius → minimum circle size
+maxRadius → maximum circle size**
+
+
+***Detected circles are drawn using:**
+
+
+**cv2.circle()**
+
+
+# Method 2 — Circle Detection Using Webcam:
+
+
+**This method detects circles in real-time using webcam.**
+
+
+# How it works:
+
+
+**Webcam is opened
+Frames captured continuously
+Frame converted to gray
+Blur applied
+HoughCircles() detects circles
+Circles drawn live on screen**
+
+
+# If circles are found:
+
+**Outer circle drawn
+Center point marked
+Press 'n' to exit the program.
+Purpose of This Code**
+
+
+# This code teaches:
+
+**Hough Circle Transform
+Circle detection in image
+Real-time circle detection
+Webcam processing
+Shape detection in OpenCV**
+
+# Used for:
+
+**Ball detection
+Coin detection
+Object tracking
+Shape recognitio**
+
+
+
+# THIS IS THE FULL CODE:
+
+
+```Pyhton Code:
+
+
+Detecting Circle By Hough:
+
+INTRO:
+
+Circle detection using open cv and HoughCirle:
+
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\collor_balls.jpg")
+img = cv2.resize(img, (250, 250))
+img2 = img.copy()
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+gray = cv2.medianBlur(gray, 5)
+
+# ...Now writing the parameters of hough circle detection...
+
+# parameters):--(img,circle_method,dp,mindist,parm1,parm2[p1>p2],)
+
+circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 20,
+                           param1=50, param2=30,
+                           minRadius=0, maxRadius=0)
+
+data = np.uint16(np.around(circles))
+
+# Starting there loop):--
+for (x, y, r) in data[0, :]:
+    cv2.circle(img2, (x, y), r, (50, 10, 50),3)
+    cv2.circle(img2, (x, y), 2, (123, 53, 234), -1)
+    
+      
+# Display Side):--
+
+cv2.imshow("result:", img2)
+cv2.imshow("gray:", gray)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+# THIS IS THE OUTPUT IMAGE:
+
+
+![Alt Text](color_balls.jpg)
+
+
+
+
+# PRT(2) OF THE CODE:
+
+
+# IN THIS CODE USES THE LIVE DETCETION:
+
+
+```Python Code:
+
+
+import cv2
+import numpy as np
+
+# Open webcam
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)  # use 0 for default webcam
+
+while True:
+    ret, img = cap.read()
+    if not ret:
+        break
+
+    img2 = img.copy()
+
+    # Convert to grayscale and blur
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.medianBlur(gray, 5)
+
+    # Detect circles
+    circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 50,
+                               param1=50, param2=30,
+                               minRadius=10, maxRadius=0)
+
+    if circles is not None:
+        data = np.uint16(np.around(circles))
+
+        for (x, y, r) in data[0, :]:
+            cv2.circle(img2, (x, y), r, (50, 10, 50), 3)
+            cv2.circle(img2, (x, y), 2, (123, 53, 234), -1)
+
+    # Show result
+    cv2.imshow("Detected Circles", img2)
+
+    # Press 'n' to exit
+    if cv2.waitKey(25) & 0xFF == ord("n"):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+```
+
+
+
+# CODE NO 17:
+
+
+# Method 1 — HoughLines (Standard Line Detection):
+
+
+***Hough Transformation Lines***
+
+
+**Hough Transformation is a popular techniqu todetect any shape,
+ If you can represent that shape in mathemtical form. It can detect the shape
+ even if it is broken or distored a little bit.**
+ 
+ 
+ # Functions:
+
+ 
+ cv2.houghLines(), cv2.houghLinesP()
+
+ 
+ # Its steps:
+
+ 
+ ## step no1:
+
+ 
+ Convert image into gray.
+ 
+ ### step no2:
+ 
+ 
+ detect edges.
+ 
+ 
+ #### step no3:
+
+ 
+ then apply hough method.
+ 
+# cv2.houghLines():
+ 
+ 
+ **We represent the shpes with the help of lines.
+ And lines are expressed for hough transformation by ---
+ certain CS(cordinte sysytem--->) y = mx+c and polar CS---> xcos0+ysin0**
+
+
+**This method detects infinite straight lines using rho and theta values.**
+
+
+# How it works:
+
+
+**Image is loaded and resized
+Converted to grayscale
+Canny() detects edges
+cv2.HoughLines() detects lines
+Lines are drawn on image
+lines = cv2.HoughLines(edges, 1, np.pi/180, 200)**
+
+
+# This function detects lines using:
+
+
+**rho → distance from origin
+theta → angle of line
+threshold → line detection strength
+The code converts rho and theta into line coordinates and draws them.**
+
+
+# This part:
+
+
+**if y1 < 100 and y2 < 100:
+draws only top lines in the image.**
+
+
+# Method 2 — HoughLinesP (Probabilistic Line Detection):
+
+
+**This method detects short line segments instead of full lines.
+It is faster and more accurate.**
+
+
+# How it works:
+
+
+**Image loaded and resized
+Convert to gray
+Edge detection using Canny()
+cv2.HoughLinesP() detects line segments
+Lines drawn directly using endpoints
+lines = cv2.HoughLinesP(...)**
+
+
+# Parameters:
+
+
+**minLineLength → minimum line size
+maxLineGap → gap between lines
+threshold → detection accuracy**
+
+
+# Each detected line has:
+
+
+**x1, y1, x2, y2
+These are start and end points of the line.
+Purpose of This Code**
+
+
+# This code teaches:
+
+
+**Hough Line Transform
+Edge detection using Canny
+Line detection in images
+Standard vs Probabilistic Hough**
+
+
+# Used for:
+
+
+**Road lane detection
+Shape detection
+Object boundaries
+Computer vision projects**
+
+
+# THIS IS THE FULL CODE:
+
+
+```Python Code:
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\chess_1.png")
+img = cv2.resize(img, (250, 250))
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+edges = cv2.Canny(gray, 20, 250)
+
+lines = cv2.HoughLines(edges, 1, np.pi/180, 200)
+
+for line in lines:
+    rho, theta = line[0]
+    a = np.cos(theta)
+    b = np.sin(theta)
+    x0 = a * rho
+    y0 = b * rho
+    x1 = int(x0 + 1000 * (-b))
+    y1 = int(y0 + 1000 * (a))
+    x2 = int(x0 - 1000 * (-b))
+    y2 = int(y0 - 1000 * (a))
+    
+    # Draw only top lines (y-coordinates less than 100)
+    if y1 < 100 and y2 < 100:
+        cv2.line(img, (x1, y1), (x2, y2), (255, 0, 255), 2)
+
+cv2.imshow("Edges", edges)
+cv2.imshow("Top Lines", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+# THIS IS THE OUTPUT IMAGE:
+
+
+![Alt Text](chess_1.png)
+
+
+# Type No2 Of Hough Transformation:
+
+
+**THIS IS THE FULL CODE PRT(2)**
+
+
+```Python Code:
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\square.jpg")
+img = cv2.resize(img, (250, 250))
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+edges = cv2.Canny(gray, 20, 250)
+
+lines = cv2.HoughLinesP(edges, 1, np.pi/180, 100,
+                        minLineLength=8, maxLineGap=100)
+
+# insane loop):--
+for line in lines:
+    x1,y1,x2,y2 = line[0]
+    cv2.line(img,(x1,y1),(x2,y2),(100,200,125),2)
+    
+
+
+#DISPLAY SIDE):--- 
+
+cv2.imshow("Edges", edges)
+cv2.imshow("Top Lines", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+# THIS IS THE OUTPUT IMAGE:
+
+
+![Alt Text](square.jpg)
+
