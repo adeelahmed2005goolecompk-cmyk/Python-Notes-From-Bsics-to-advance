@@ -3794,4 +3794,182 @@ cv2.destroyAllWindows()
 
 
 
+# CODE NO 18-) WITH THEORY:
+
+
+***Image Background Removal Using Histogram Back Projection
+This code is used to remove background from an image using Histogram Back Projection.
+It compares a sample image (ROI) with the original image and detects similar colors, keeping the object and removing background.***
+
+
+# Step 1 — Load Original Image:
+
+
+**original_image = cv2.imread(...)
+The program loads the main image and resizes it.
+This is the image where background will be removed.**
+
+
+# Step 2 — Convert Image to HSV:
+
+
+**hsv_original = cv2.cvtColor(original_image, cv2.COLOR_BGR2HSV)
+The image is converted to HSV color space.
+HSV makes color detection easier and more accurate.**
+
+
+# Step 3 — Load ROI Image:
+
+
+**roi = cv2.imread(...)
+ROI (Region of Interest) is a sample image containing the object color.
+This image helps the program understand which color to detect.**
+
+
+# Step 4 — Convert ROI to HSV:
+
+
+**hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+The ROI image is also converted to HSV.**
+
+
+# Step 5 — Create Histogram of ROI:
+
+
+**roi_hist = cv2.calcHist(...)
+Histogram stores color information of the ROI image.
+This is used as a reference for detection.**
+
+
+# Step 6 — Back Projection:
+
+
+**mask = cv2.calcBackProject(...)
+Back projection finds similar colors in the original image based on ROI histogram.**
+
+
+# It creates a mask:
+
+
+**White → matching color (object)
+Black → background
+Step 7 — Remove Noise
+mask = cv2.filter2D(...)
+Filtering removes small noise and smooths the mask.**
+
+
+# Then threshold converts it into binary image:
+
+**White = object
+Black = background
+Step 8 — Merge Mask
+mask = cv2.merge((mask, mask, mask))
+Mask is converted into 3 channels to match original image.**
+
+
+# Step 9 — Apply Mask:
+
+
+**result = cv2.bitwise_or(original_image, mask)
+Mask is applied to original image.
+This highlights the object and removes background.**
+
+
+# Step 10 — Display Output:
+
+
+## The program shows:
+
+
+**Original image
+Mask image
+Result image
+HSV image
+Purpose of This Code**
+
+
+# This code teaches:
+
+
+**Background removal
+Histogram back projection
+ROI based color detection
+Mask creation
+Image segmentation**
+
+
+# Used for:
+
+**Object tracking
+Background removal
+Color detection
+Computer vision projects**
+
+
+
+# THIS IS THE FULL CODE:
+
+
+```Pyhton Code:
+
+
+
+#                    ---image backgraound removal---
+
+
+#BACK PROJECTION USING HISTOGRAM TECNIQUES.
+
+import cv2
+import numpy as np
+original_image = cv2.imread(r"A:\computer_Vision\919.jpg")
+original_image = cv2.resize(original_image, (250, 250))
+
+hsv_original = cv2.cvtColor(original_image, cv2.COLOR_BGR2HSV)
+
+#roi of second image):-
+roi = cv2.imread(r"A:\computer_Vision\copy.jpg")
+hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+
+#HISTOGRAM Roi):-
+roi_hist = cv2.calcHist([hsv_roi], [0,1], None,
+                        [180, 256], [0, 180, 0, 256], 1)
+mask = cv2.calcBackProject([hsv_original],
+                        [0, 1], roi_hist, [0, 180, 0, 256], 1)
+
+#Filtering remove noise):-
+kernal = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+mask = cv2.filter2D(mask, -1, kernal)
+_, mask = cv2.threshold(mask, 200, 500, cv2.THRESH_BINARY)
+
+#merging mask):-
+mask = cv2.merge((mask, mask, mask))
+result = cv2.bitwise_or(original_image, mask)
+
+
+cv2.imshow("original image:", original_image)
+cv2.imshow("mask:",mask)
+cv2.imshow("result:",result)
+cv2.imshow("hsv_original:",hsv_original)
+
+
+#---Display Side---
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+
+# THIS IS THE OUTPUT IAMGE:
+
+
+![Alt Text](919.jpg)
+
+
+# THIS IMAGE USED TWICE IN THE THE CODE:
+
+
+## OUTPUT:
+
+
+![Alt Text](copy.jpg)
 
