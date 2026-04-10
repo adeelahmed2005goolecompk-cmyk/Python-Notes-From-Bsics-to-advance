@@ -3921,13 +3921,13 @@ Computer vision projects**
 
 import cv2
 import numpy as np
-original_image = cv2.imread(r"A:\computer_Vision\919.jpg")
+original_image = cv2.imread(r"A:\computer_Vision\bike.jp3g")
 original_image = cv2.resize(original_image, (250, 250))
 
 hsv_original = cv2.cvtColor(original_image, cv2.COLOR_BGR2HSV)
 
 #roi of second image):-
-roi = cv2.imread(r"A:\computer_Vision\copy.jpg")
+roi = cv2.imread(r"A:\computer_Vision\bike-Copy.jpeg")
 hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
 #HISTOGRAM Roi):-
@@ -3962,7 +3962,7 @@ cv2.destroyAllWindows()
 # THIS IS THE OUTPUT IAMGE:
 
 
-![Alt Text]()
+![Alt Text](bike.jpeg)
 
 
 # THIS IMAGE USED TWICE IN THE THE CODE:
@@ -3971,5 +3971,11 @@ cv2.destroyAllWindows()
 ## OUTPUT:
 
 
-![Alt Text]()
+![Alt Text](bike-Copy.jpeg)
+
+
+
+
+
+
 
