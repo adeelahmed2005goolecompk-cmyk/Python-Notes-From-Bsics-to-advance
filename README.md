@@ -3962,7 +3962,7 @@ cv2.destroyAllWindows()
 # THIS IS THE OUTPUT IAMGE:
 
 
-![Alt Text](919.jpg)
+![Alt Text]()
 
 
 # THIS IMAGE USED TWICE IN THE THE CODE:
@@ -3971,5 +3971,5 @@ cv2.destroyAllWindows()
 ## OUTPUT:
 
 
-![Alt Text](copy.jpg)
+![Alt Text]()
 
