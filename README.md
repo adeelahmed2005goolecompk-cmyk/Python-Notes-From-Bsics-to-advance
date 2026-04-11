@@ -234,7 +234,7 @@ import cv2
 *NumPy is used to create blank images, while OpenCV functions are used to draw shapes.*
 
 
-***1. Reading an Image:***
+# 1. Reading an Image:
 
 
 **img = cv2.imread("A:/computer_Vision/602.jpg")**
@@ -245,7 +245,7 @@ Height × Width × Channels
 Channels represent BGR color format (Blue, Green, Red):**
 
 
-**2. Drawing Rectangle:**
+# 2. Drawing Rectangle:
 
 
 **cv2.rectangle(img, (50, 50), (200, 200), (0, 255, 0), -2)**
@@ -263,7 +263,7 @@ Thickness → -2 (filled rectangle)***
 **The upper function is useful for bounding boxes in object detection.**
 
 
-**3. Drawing Circle:**
+# 3. Drawing Circle
 
 
 **cv2.circle(img, (200, 200), 50, (255, 0, 0), -2)**
@@ -279,7 +279,7 @@ Thickness → -2 (filled circle
 Circles are used for feature visualization and tracking points.**
 
 
-**4. Drawing Line:**
+# 4. Drawing Line:
 
 
 **cv2.line(img, (0, 0), (200, 200), (0, 0, 255), 2)**
@@ -294,7 +294,7 @@ Thickness → 2 pixels***
 
 Lines are used for trajectory visualization.
 
-**5. Arrowed Line:**
+# 5. Arrowed Line:
 
 
 **img = cv2.arrowedLine(img, (0, 125), (255, 255), (255, 0, 125), 3)**
@@ -306,7 +306,7 @@ Indicate object movement
 Visualize vectors**
 
 
-**6. Putting Text:**
+6. Putting Text:
 
 
 **img = cv2.putText(img, "MR.SHAMEER", (20, img.shape[0]-20),
@@ -331,7 +331,7 @@ watermarking
 displaying info**
 
 
-**7. Drawing Ellipse:**
+# 7. Drawing Ellipse:
 
 
 **img = cv2.ellipse(img, (200, 200), (100, 50), 70, 70, 500, (155, 155, 155), -5)**
@@ -353,7 +353,7 @@ Ellipse is useful for object contour approximation.***
 **Creating Blank Image (Black)**
 
 
-**img = np.zeros([512, 512, 3], np.uint8)*255**
+**img = np.zeros([512, 512, 3], np.uint8)*255***
 
 
 **This Function Creates black image:**
@@ -364,10 +364,10 @@ Ellipse is useful for object contour approximation.***
 zeros → black background**
 
 
-**9. Creating Blank Image (White)**
+# 9. Creating Blank Image (White)
 
 
-**img = np.ones([512, 512, 3], np.uint8)*255**
+**img = np.ones([512, 512, 3], np.uint8)*255***
 
 
 ***This Code Has Creates white image:***
@@ -380,7 +380,7 @@ Used for drawing shapes on blank canvas**
 ***THIS IS THE DISPLAY SIDE:***
 
 
-**10. Displaying Image:**
+# 10. Displaying Image:**
 
 
 cv2.imshow("Image", img)
@@ -467,14 +467,14 @@ import numpy as np**
 NumPy is used for matrix operations.**
 
 
-**2. Reading the Image:**
+# 2. Reading the Image:**
 
 
 **img = cv2.imread(r"A:\computer_Vision\920.jpg")
 This loads the original image from disk. The image is stored in BGR color format.**
 
 
-**3. Resizing the Image:**
+# 3. Resizing the Image:**
 
 
 **img = cv2.resize(img, (400, 400))**
@@ -486,7 +486,7 @@ Height = 400
 Resizing ensures consistent processing speed and reduces computation.***
 
 
-**4. Converting Image to HSV:**
+# 4. Converting Image to HSV:**
 
 
 **hsv_original = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)**
@@ -499,7 +499,7 @@ Saturation represents purity
 Value represents brightness
 HSV makes color-based segmentation more robust than RGB.***
 
-**5. Creating Region of Interest (ROI):**
+# 5. Creating Region of Interest (ROI):**
 
 
 **roi = cv2.imread(r"A:\computer_Vision\bgr.jpg")
@@ -515,7 +515,7 @@ Resize ROI
 Convert ROI to HSV**
 
 
-**6. Creating Histogram of ROI:**
+# 6. Creating Histogram of ROI:**
 
 
 **roi_hist = cv2.calcHist([hsv_roi], [0, 1], None, [180, 256],
@@ -528,7 +528,7 @@ Channel 1 → Saturation
 The histogram represents color distribution of the object.***
 
 
-**7. Normalizing Histogram:**
+# 7. Normalizing Histogram:**
 
 
 **cv2.normalize(roi_hist, roi_hist, 0, 255, cv2.NORM_MINMAX)**
@@ -541,7 +541,7 @@ Makes matching more stable
 This step is important for better segmentation.***
 
 
-**8. Back Projection:**
+# 8. Back Projection:**
 
 
 **mask = cv2.calcBackProject([hsv_original], [0, 1], roi_hist,
@@ -551,7 +551,7 @@ This step is important for better segmentation.***
 **Back projection finds pixels in original image that match ROI colors.**
 
 
-**Output:**
+***Output:***
 
 
 ***Bright pixels → match ROI
@@ -559,7 +559,7 @@ Dark pixels → background
 This produces a probability mask.***
 
 
-**9. Noise Filtering:**
+# 9. Noise Filtering:**
 
 
 **kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
@@ -575,7 +575,7 @@ Improves segmentation
 Elliptical kernel preserves object shape.**
 
 
-**10. Binary Thresholding:**
+*# 10. Binary Thresholding:**
 
 
 **_, mask = cv2.threshold(mask, 200, 255, cv2.THRESH_BINARY)**
@@ -586,7 +586,7 @@ White → objectBlack → background
 This step removes weak matches.***
 
 
-**11. Merging Mask Channels:**
+# 11. Merging Mask Channels:**
 
 
 **mask_3ch = cv2.merge([mask, mask, mask])**
@@ -597,7 +597,7 @@ This step removes weak matches.***
 This is required for bitwise operation.***
 
 
-**12. Removing Background:**
+# 12. Removing Background:**
 
 
 **result = cv2.bitwise_and(img, mask_3ch)**
@@ -609,7 +609,7 @@ Background pixels → removed
 This produces the final foreground image.***
 
 
-**13. Displaying Results:**
+# 13. Displaying Results:**
 
 
 **cv2.imshow("ORIGINAL IMAGE (BGR):", img)
@@ -706,10 +706,8 @@ cv2.destroyAllWindows()
 
 
 
-**CODE NO 4-) WITH THEORY:**
 
-
-**Bitwise Operations in OpenCV (AND, OR, NOT, XOR):**
+***Bitwise Operations in OpenCV (AND, OR, NOT, XOR):***
 
 
 ***Operations includes AND, OR, NOT, XOR.
@@ -725,7 +723,7 @@ NOT
 XOR***
 
 
-**1. Importing Libraries:**
+# 1. Importing Libraries:**
 
 
 ***import cv2
@@ -734,7 +732,7 @@ OpenCV (cv2) is used for image processing
 NumPy is used to create blank images***
 
 
-**2. Creating Blank Images:**
+# 2. Creating Blank Images:**
 
 
 **img1 = np.zeros((250, 500, 3), np.uint8)
@@ -750,7 +748,7 @@ Channels = 3 (color image)
 np.zeros() creates completely black images.***
 
 
-**3. Drawing Rectangles:**
+# 3. Drawing Rectangles:**
 
 
 **img1 = cv2.rectangle(img1, (150, 100), (200, 250), (255, 255, 255), -1)
@@ -764,7 +762,7 @@ Thickness → -1 (filled)
 These rectangles act as binary shapes for bitwise operations.***
 
 
-**4. Displaying Images:**
+# 4. Displaying Images:**
 
 
 **cv2.imshow("img1", img1)
@@ -778,7 +776,7 @@ White = 255
 Black = 0***
 
 
-**5. Bitwise AND Operation:**
+# 5. Bitwise AND Operation:**
 
 
 **bitAnd = cv2.bitwise_and(img1,img2)**
@@ -804,7 +802,7 @@ masking
 ROI extraction***
 
 
-**6. Bitwise OR Operation:**
+# 6. Bitwise OR Operation:**
 
 
 **bitOr = cv2.bitwise_or(img1,img2)**
@@ -823,7 +821,7 @@ Black + Black → Black***
 combining objects**
 
 
-**7. Bitwise NOT Operation:**
+# 7. Bitwise NOT Operation:**
 
 
 **bitNot1 = cv2.bitwise_not(img1)
@@ -842,7 +840,7 @@ Black → White**
 mask reversal**
 
 
-**8. Bitwise XOR Operation:**
+# 8. Bitwise XOR Operation:**
 
 
 **bitXor = cv2.bitwise_xor(img1, img2)**
@@ -858,7 +856,7 @@ Black + Black → Black**
 This removes the common region and keeps different parts.**
 
 
-**9. Displaying XOR Result:**
+# 9. Displaying XOR Result:**
 
 
 **cv2.imshow('bitXor', bitXor)**
@@ -867,7 +865,7 @@ This removes the common region and keeps different parts.**
 *Shows XOR output image.*
 
 
-**10. Closing Windows**
+# 10. Closing Windows**
 
 
 **cv2.waitKey(0)
@@ -936,10 +934,7 @@ cv2.destroyAllWindows()
 
 
 
-***Theory: Canny Edge Detection Using OpenCV (Two Methods)***
-
-
-# Cannye edge detection using open cv
+# Canny Edge Detection Using OpenCV (Two Methods)***
 
 
  **Canny edge detection is a popular edge detection approach.
@@ -965,7 +960,7 @@ Canny Edge Detection Steps***
 **The Canny algorithm consists of the following stages:**
 
 
-***1. Noise Reduction:***
+# 1. Noise Reduction:***
 
 
 **Gaussian filter is applied
@@ -973,7 +968,7 @@ Removes noise from image
 Prevents false edges.**
 
 
-**2. Gradient Calculation:**
+# 2. Gradient Calculation:**
 
 
 **Finds intensity change in image
@@ -981,14 +976,14 @@ Detects strong edges
 Uses Sobel operators**
 
 
-**3. Non-Maximum Suppression:**
+# 3. Non-Maximum Suppression:**
 
 
 **Removes unwanted thick edges
 Keeps only thin edge lines**
 
 
-**4. Double Threshold:**
+# 4. Double Threshold:**
 
 
 **Uses two thresholds:
@@ -1000,7 +995,7 @@ Weak edges
 Non edges**
 
 
-**5. Edge Tracking by Hysteresis:**
+# 5. Edge Tracking by Hysteresis:**
 
 
 ***Weak edges connected to strong edges are kept
@@ -1008,7 +1003,7 @@ Others are removed
 This produces clean and accurate edge detection.***
 
 
-**Method 1: Static Threshold Canny Edge Detection:**
+***Method 1: Static Threshold Canny Edge Detection:***
 
 
 **img = cv2.imread(r"A:\computer_Vision\43.jpg")
@@ -1036,7 +1031,7 @@ Grayscale image
 Edge detected image**
 
 
-**Method 2: Dynamic Threshold Using Trackbar:**
+***Method 2: Dynamic Threshold Using Trackbar:***
 
 
 *This method allows interactive threshold adjustment.*
@@ -1098,7 +1093,8 @@ Feature extraction***
 ```Pthon Code:
 
 
-                  Canny edge detection
+Canny edge detection:
+
 
 
 import cv2
@@ -1150,7 +1146,7 @@ cv2.destroyAllWindows()
 ***THIS CODE HAS USES 2 IAMGES***
 
 
-***OUT PUT***
+***OUT PUT No 1:***
 
 
 ![Alt Text](43.jpg)
@@ -1176,7 +1172,7 @@ cv2.destroyAllWindows()
 Method 2 → Approximation and Convex Hull.*
 
 
-**Step 1: Reading and Preprocessing Image:**
+# Step 1: Reading and Preprocessing Image:**
 
 
 ***img = cv2.imread("shapes.png")
@@ -1197,7 +1193,7 @@ Apply binary threshold*
 **Threshold converts image into black and white so contours can be detected easily.**
 
 
-# Finding Contours:
+**Finding Contours:**
 
 
 ***cnts, hier = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -1257,7 +1253,7 @@ shape analysis**
 Calculates area of contour.**
 
 
-**2. Contour Approximation:**
+# 2. Contour Approximation:**
 
 
 **epsilon = 0.01*cv2.arcLength(c,True)
@@ -1272,7 +1268,7 @@ Simplifies shape
 Helps identify shapes (triangle, square, etc.)**
 
 
-***3. Convex Hull:***
+# 3. Convex Hull:***
 
 
 **hull = cv2.convexHull(data)**
@@ -1294,7 +1290,7 @@ object detection
 contour smoothing**
 
 
-***4. Bounding Rectangle:***
+# 4. Bounding Rectangle:***
 
 
 **x,y,w,h = cv2.boundingRect(hull)
@@ -1330,7 +1326,7 @@ threshold image**
 *This Code Uses The Same Image Twice:*
 
 
-**THIS IS THE FULL CODE:**
+***THIS IS THE FULL CODE:***
 
 
 ```Python Code:
@@ -1421,7 +1417,7 @@ print("Number of contours:", len(cnts))
 print("Contours:", cnts)
 print("Hierarchy:", hier)
 
-# draw contours):-
+# draw contours.
 area1 = []
 # img = cv2.drawContours(img, cnts, -1, (255, 20, 100), 2)
 # loop over the contours):-
@@ -1436,7 +1432,7 @@ for c in cnts:
         area = cv2.contourArea(c)
         area1.append(area)
             
-# Contour Approx):-
+# Contour Approx.
         epsilon = 0.01*cv2.arcLength(c,True)
         data = cv2.approxPolyDP(c,epsilon,True)
 # Convexhull is used to provide proper contours convexity.
@@ -1448,7 +1444,7 @@ for c in cnts:
         cv2.putText(img, "Center", (cX - 20, cY - 10),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 255, 0), 1)
 
-# DISPLAY SIDE):-
+# DISPLAY SIDE.
 
 cv2.imshow("original image:", img)
 cv2.imshow("gray image:", img1)
@@ -3932,7 +3928,8 @@ cv2.destroyAllWindows()
 **OUTPUT:**
 
 
-![Alt Text](bike-Copy.jpeg)
+![Alt Text](bike-Copy.jpg)
+
 
 
 
@@ -4054,6 +4051,7 @@ cv2.destroyAllWindows()
 
 
 ![Alt Text](pic_2.jpg)
+
 
 
 
