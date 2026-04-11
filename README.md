@@ -4667,3 +4667,265 @@ cv2.destroyAllWindows()
 
 
 
+# Canny Edge Detection using OpenCV:
+
+
+This project demonstrates **Canny Edge Detection** using OpenCV.  
+Canny is a popular **multi-stage edge detection algorithm** used to detect object boundaries in images.
+
+***Theory:***
+
+
+Canny edge detection works in multiple steps:
+1. Noise reduction using Gaussian blur  
+2. Gradient calculation  
+3. Non-maximum suppression  
+4. Double threshold  
+5. Edge tracking by hysteresis  
+
+
+It detects **strong and weak edges** and removes noise.
+
+
+***Method 1 — Basic Canny Edge Detection***:
+
+
+**Steps**
+
+
+- Load image  
+- Resize image  
+- Convert to grayscale  
+- Apply Canny edge detection  
+- Display result  
+
+**Function Used**
+
+
+# THESE LINES ARE ONLY FOR EXAMPLE:
+
+
+canny = cv2.Canny(img_gray, 50, 150)
+50 → lower threshold
+150 → upper threshold
+Method 2 — Canny Edge Detection using Trackbar
+
+This method uses a trackbar to change threshold values dynamically.
+
+Steps
+Load image
+Convert to grayscale
+Create trackbar
+Get threshold value
+Apply Canny in loop
+Show live edge detection
+Trackbar
+cv2.createTrackbar("Threshold", "Canny", 0, 255, nothing)
+Apply Canny
+res = cv2.Canny(img_gray, a, 255)
+
+Press ESC key to exit.
+
+Requirements
+Python
+OpenCV
+NumPy
+
+
+The program displays:
+
+
+Original image
+Grayscale image
+Canny edge detection result
+Trackbar controlled edge detection
+
+
+
+# THIS IS THE FULL CODE:
+
+
+## THIS CODE HAVE 2 METHODS:
+
+```Python Code:
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\43.jpg")
+img = cv2.resize(img, (250, 250))
+
+# convert to grayscale
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Canny(img, threshold1, threshold2)
+canny = cv2.Canny(img_gray, 50, 150)
+
+cv2.imshow("Original Image:", img)
+cv2.imshow("Gray Image:", img_gray)
+cv2.imshow("Canny:", canny)
+```
+
+
+***THIS IS THE 1ST OUTPUT IAMGE:***
+
+
+![Alt Text](43.jpg)
+
+
+***CODE NO2:***
+
+
+```Python Code
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\54.jpg")
+img = cv2.resize(img, (250, 250))
+
+# convert to grayscale
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+def nothing(x):
+    pass
+
+cv2.namedWindow("Canny")
+cv2.createTrackbar("Threshold", "Canny", 0, 255, nothing)
+
+while True:
+    a = cv2.getTrackbarPos("Threshold", "Canny")
+    res = cv2.Canny(img_gray, a, 255)
+
+    cv2.imshow("Canny", res)
+
+    k = cv2.waitKey(1) & 0xFF
+    if k == 27:  # ESC key
+        break
+
+cv2.destroyAllWindows()
+```
+
+
+# THIS IS THE 2ND OUTPUT IMAGE:
+
+
+![Alt Text](54.jpg)
+
+
+
+
+
+
+
+
+# Image Pyramids using OpenCV:
+
+
+***Theory***
+
+Image pyramids are used in computer vision to process images at multiple resolutions.  
+They are helpful when we need to detect objects (like faces or eyes) at different scales or when blending images smoothly.
+
+Instead of working on a single resolution image, we create a set of images with different resolutions. This set is called an **image pyramid**.
+
+There are two main types of image pyramids:
+
+# 1. Gaussian Pyramid
+- Used for reducing image resolution step by step.
+- Built using two main operations:
+  - `cv2.pyrDown()` → decreases image size
+  - `cv2.pyrUp()` → increases image size
+
+# 2. Laplacian Pyramid
+- Used for image reconstruction and blending.
+- It is derived from the Gaussian pyramid.
+
+---
+
+# Implementation (Python + OpenCV)
+
+
+***THIS CODE IS ONLY FOR EXPLAINING:***
+
+
+import cv2
+import numpy as np
+
+# Load image
+img = cv2.imread(r"A:\computer_Vision\HARD.JPG")
+
+# Resize image
+img = cv2.resize(img, (400, 400))
+
+ Gaussian Pyramid.
+# Downsampling (reduce resolution)
+pd1 = cv2.pyrDown(img)
+pd2 = cv2.pyrDown(pd1)
+
+# Upsampling (increase resolution)
+pu1 = cv2.pyrUp(pd2)
+pu2 = cv2.pyrUp(pu1)
+
+Display Images.
+cv2.imshow("Original Image", img)
+cv2.imshow("Pyramid Down 1", pd1)
+cv2.imshow("Pyramid Down 2", pd2)
+cv2.imshow("Pyramid Up 1", pu1)
+cv2.imshow("Pyramid Up 2", pu2)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+Notes
+pyrDown() reduces image size (each step makes the image smaller).
+pyrUp() increases image size (but may not restore original quality).
+Image pyramids are widely used in object detection, image blending, and multi-scale analysis.
+
+
+
+
+# THIS IS THE FULL CODE:
+
+
+```python Code:
+import cv2
+import numpy as np
+
+# Loading the image ):-
+
+img = cv2.imread("A:\computer_Vision\HARD.JPG")
+
+# Getting the resized image):-
+img = cv2.resize(img,(400,400))
+
+# Gaussian pyramid have 2 functions: 1)-purUp, 2)-pyrDown.
+
+# pyramid Down):-
+pd1 = cv2.pyrDown(img)
+pd2 = cv2.pyrDown(pd1)
+
+# Now using the pyramid Up):-
+pu1 = cv2.pyrUp(pd2)
+pu2 = cv2.pyrUp(pu1)
+
+
+
+# Now showing the image):-
+
+img = cv2.imshow("The image:",img)
+img = cv2.imshow("PYRAMID DOWN:",pd1)
+img = cv2.imshow("PYRAMID DOWN 2:",pd2)
+img = cv2.imshow("PYRAMID UP:",pu1)
+img = cv2.imshow("PYRAMID UP:",pu2)
+
+
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+**THIS IS THE OUTPUT IMAGE:**
+
+
+![Alt Text](HARD.jpg)
+
+
