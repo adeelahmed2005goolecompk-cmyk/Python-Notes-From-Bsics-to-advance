@@ -4,18 +4,22 @@
 ## Here we starting the codes of python with outputs:
 
 
-# 1st CODE-) WITH THEORY CODE:
-
-
 # ADAPTIVE THRESHOLDING:
 
 
-#We use it because simple thresholding is not able to handl. 
-# differrent type of low luminous pixels.
-# this is algorithm calculate the threshold for a small regions in same image.
-#so we get multiple threshold for diff regions in same image. 
+**We use it because simple thresholding is not able to handl.**
 
-# Adaptive methode: it decides how thresholding value is calculated. 
+
+**differrent type of low luminous pixels.**
+
+
+**this is algorithm calculate the threshold for a small regions in same image.**
+
+
+**so we get multiple threshold for diff regions in same image.**
+
+
+**Adaptive methode: it decides how thresholding value is calculated.** 
 
 
 ***cv2.ADAPTIVE_THRESH_MEAN_C :
@@ -38,7 +42,7 @@ a binary image by calculating different threshold values for different regions o
 It’s widely used in computer vision tasks like text detection, pedestrian detection, and object segmentation.
 
 
-# Basic Idea:
+**Basic Idea:**
 
 
 In normal (global) thresholding:
@@ -56,7 +60,7 @@ The threshold is computed locally for each pixel using nearby pixels.
 This works better when lighting is uneven.
 
 
-# Why Adaptive Threshold is Needed?
+**Why Adaptive Threshold is Needed?**
 
 
 Adaptive thresholding is useful when:
@@ -71,7 +75,7 @@ Objects are partially illuminated
 Global threshold fails in these cases, but adaptive threshold works well.
 
 
-# Mathematical Theory:
+**Mathematical Theory:**
 
 
 For each pixel (x, y):
@@ -92,10 +96,10 @@ I(x,y) = pixel intensity
 T(x,y) = local threshold calculated from neighborhood
 
 
-# Two Common Methods:
+**Two Common Methods:**
 
 
-# ***1. Mean Adaptive Threshold:***
+***1. Mean Adaptive Threshold:***
 
 
 Threshold is the mean of neighboring pixels:
@@ -110,7 +114,7 @@ neighborhood = block around pixel
 C = constant (tuning value)
 
 
-# ***2. Gaussian Adaptive Threshold:***
+***2. Gaussian Adaptive Threshold:***
 
 
 Threshold is weighted sum (Gaussian) of neighbors:
@@ -122,7 +126,7 @@ T(x,y) = gaussian_weighted_sum − C
 This gives more importance to nearby pixels.
 
 
-# Advantages:
+**Advantages:**
 
 
 Works with uneven lighting
@@ -135,8 +139,9 @@ Good for real-world images
 
 
 Useful for pedestrian detection preprocessing
-# Disadvantages:
 
+
+**Disadvantages:**
 
 
 Slower than global threshold
@@ -148,7 +153,7 @@ Needs parameter tuning (block size, C)
 Sensitive to noise
 
 
-# Example Use Cases:
+**Example Use Cases:**
 
 
 Document text extraction
@@ -207,28 +212,20 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE OUTPUT IMAGE:
+**THIS IS THE OUTPUT IMAGE:**
 
 
 ![Alt Text](534.jpg)
 
 
+**Drawing Shapes and Text Using OpenCV in Python:**
 
 
-# 2nd Code-) With Theory:
+***This program demonstrates how to draw geometric shapes and text on an image using the OpenCV library in Python. OpenCV provides built-in functions to draw primitives such as rectangles, circles, lines, arrows, ellipses, and text. These drawing operations are commonly used in computer vision for annotation, object detection visualization, and debugging.
+The program first imports NumPy and OpenCV, which are required for image creation and manipulation.***
 
 
-# Theory: Drawing Shapes and Text Using OpenCV in Python:
-
-
-This program demonstrates how to draw geometric shapes and text on an image using the OpenCV library in Python. OpenCV provides built-in functions to draw primitives such as rectangles, circles, lines, arrows, ellipses, and text. These drawing operations are commonly used in computer vision for annotation, object detection visualization, and debugging.
-The program first imports NumPy and OpenCV, which are required for image creation and manipulation.
-
-
-***CODE WITH EVERY LINES INTRO:***
-
-
-# codes intro:
+**codes intro:**
 
 
 import numpy as np
@@ -248,7 +245,7 @@ Height × Width × Channels
 Channels represent BGR color format (Blue, Green, Red):**
 
 
-# 2. Drawing Rectangle:
+**2. Drawing Rectangle:**
 
 
 **cv2.rectangle(img, (50, 50), (200, 200), (0, 255, 0), -2)**
@@ -266,7 +263,7 @@ Thickness → -2 (filled rectangle)***
 **The upper function is useful for bounding boxes in object detection.**
 
 
-# 3. Drawing Circle:
+**3. Drawing Circle:**
 
 
 **cv2.circle(img, (200, 200), 50, (255, 0, 0), -2)**
@@ -282,7 +279,7 @@ Thickness → -2 (filled circle
 Circles are used for feature visualization and tracking points.**
 
 
-# 4. Drawing Line:
+**4. Drawing Line:**
 
 
 **cv2.line(img, (0, 0), (200, 200), (0, 0, 255), 2)**
@@ -297,7 +294,7 @@ Thickness → 2 pixels***
 
 Lines are used for trajectory visualization.
 
-# 5. Arrowed Line:
+**5. Arrowed Line:**
 
 
 **img = cv2.arrowedLine(img, (0, 125), (255, 255), (255, 0, 125), 3)**
@@ -309,7 +306,7 @@ Indicate object movement
 Visualize vectors**
 
 
-# 6. Putting Text:
+**6. Putting Text:**
 
 
 **img = cv2.putText(img, "MR.SHAMEER", (20, img.shape[0]-20),
@@ -334,7 +331,7 @@ watermarking
 displaying info**
 
 
-# 7. Drawing Ellipse:
+**7. Drawing Ellipse:**
 
 
 **img = cv2.ellipse(img, (200, 200), (100, 50), 70, 70, 500, (155, 155, 155), -5)**
@@ -353,20 +350,21 @@ Thickness → filled
 Ellipse is useful for object contour approximation.***
 
 
-# 8. Creating Blank Image (Black)
+**Creating Blank Image (Black)**
 
 
 **img = np.zeros([512, 512, 3], np.uint8)*255**
 
 
-# This Function Creates black image:
+**This Function Creates black image:**
+
 
 **Size → 512 × 512
 3 channels → color image
 zeros → black background**
 
 
-# 9. Creating Blank Image (White)
+**9. Creating Blank Image (White)**
 
 
 **img = np.ones([512, 512, 3], np.uint8)*255**
@@ -382,13 +380,13 @@ Used for drawing shapes on blank canvas**
 ***THIS IS THE DISPLAY SIDE:***
 
 
-# 10. Displaying Image:
+**10. Displaying Image:**
 
 
 cv2.imshow("Image", img)
 
 
-# THIS IS THE LAST AND IMPORTTANT LINES OF EVERY CODE:
+***THIS IS THE LAST AND IMPORTTANT LINES OF EVERY CODE:***
 
 
 cv2.waitKey(0)
@@ -401,7 +399,7 @@ Wait for key press
 Close all windows**
 
 
-# THIS IS THE FULL CODE:
+**THIS IS THE FULL CODE:**
 
 
 ```Python Code:
@@ -445,25 +443,20 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE OUTPUT IMAGE:
+**THIS IS THE OUTPUT IMAGE:**
 
 
 ![Alt Text](602.jpg)
 
 
-
-# 3rd CODE-) WITH THEORY:
-
-
-
-# Theory: Background Removal Using Histogram Back Projection in OpenCV:
+**Background Removal Using Histogram Back Projection in OpenCV:**
 
 
 ***This program demonstrates background removal using HSV color space, ROI histogram, and back projection. The goal is to extract objects that have similar color distribution as the selected ROI (Region of Interest) and remove the rest of the background.
 This technique is widely used in object tracking, segmentation, and foreground extraction.***
 
 
-# 1. Importing Libraries:
+**1. Importing Libraries:**
 
 
 **import cv2
@@ -474,14 +467,14 @@ import numpy as np**
 NumPy is used for matrix operations.**
 
 
-# 2. Reading the Image:
+**2. Reading the Image:**
 
 
 **img = cv2.imread(r"A:\computer_Vision\920.jpg")
 This loads the original image from disk. The image is stored in BGR color format.**
 
 
-# 3. Resizing the Image:
+**3. Resizing the Image:**
 
 
 **img = cv2.resize(img, (400, 400))**
@@ -493,7 +486,7 @@ Height = 400
 Resizing ensures consistent processing speed and reduces computation.***
 
 
-# 4. Converting Image to HSV:
+**4. Converting Image to HSV:**
 
 
 **hsv_original = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)**
@@ -506,7 +499,9 @@ Saturation represents purity
 Value represents brightness
 HSV makes color-based segmentation more robust than RGB.***
 
-# 5. Creating Region of Interest (ROI):
+**5. Creating Region of Interest (ROI):**
+
+
 **roi = cv2.imread(r"A:\computer_Vision\bgr.jpg")
 roi = cv2.resize(roi, (100, 100))
 hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)**
@@ -520,7 +515,7 @@ Resize ROI
 Convert ROI to HSV**
 
 
-# 6. Creating Histogram of ROI:
+**6. Creating Histogram of ROI:**
 
 
 **roi_hist = cv2.calcHist([hsv_roi], [0, 1], None, [180, 256],
@@ -533,7 +528,7 @@ Channel 1 → Saturation
 The histogram represents color distribution of the object.***
 
 
-# 7. Normalizing Histogram:
+**7. Normalizing Histogram:**
 
 
 **cv2.normalize(roi_hist, roi_hist, 0, 255, cv2.NORM_MINMAX)**
@@ -546,7 +541,7 @@ Makes matching more stable
 This step is important for better segmentation.***
 
 
-# 8. Back Projection:
+**8. Back Projection:**
 
 
 **mask = cv2.calcBackProject([hsv_original], [0, 1], roi_hist,
@@ -556,21 +551,22 @@ This step is important for better segmentation.***
 **Back projection finds pixels in original image that match ROI colors.**
 
 
-# Output:
+**Output:**
 
 
 ***Bright pixels → match ROI
 Dark pixels → background
 This produces a probability mask.***
 
-# 9. Noise Filtering:
+
+**9. Noise Filtering:**
 
 
 **kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
 mask = cv2.filter2D(mask, -1, kernel)**
 
 
-# Filtering:
+**Filtering:**
 
 
 **Removes small noise
@@ -579,7 +575,7 @@ Improves segmentation
 Elliptical kernel preserves object shape.**
 
 
-# 10. Binary Thresholding:
+**10. Binary Thresholding:**
 
 
 **_, mask = cv2.threshold(mask, 200, 255, cv2.THRESH_BINARY)**
@@ -590,7 +586,7 @@ White → objectBlack → background
 This step removes weak matches.***
 
 
-# 11. Merging Mask Channels:
+**11. Merging Mask Channels:**
 
 
 **mask_3ch = cv2.merge([mask, mask, mask])**
@@ -601,7 +597,7 @@ This step removes weak matches.***
 This is required for bitwise operation.***
 
 
-# 12. Removing Background:
+**12. Removing Background:**
 
 
 **result = cv2.bitwise_and(img, mask_3ch)**
@@ -613,7 +609,7 @@ Background pixels → removed
 This produces the final foreground image.***
 
 
-# 13. Displaying Results:
+**13. Displaying Results:**
 
 
 **cv2.imshow("ORIGINAL IMAGE (BGR):", img)
@@ -624,7 +620,8 @@ cv2.imshow("MASK IMAGE", mask)
 cv2.imshow("RESULT IMAGE", result)**
 
 
-# Displays:
+**Displays:**
+
 
 ***Original image
 HSV image
@@ -638,7 +635,7 @@ Conclusion***
 
 
 
-# THIS IS THE FULL CODE
+**THIS IS THE FULL CODE:**
 
 
 ```Python:
@@ -701,7 +698,7 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE OUTPUT IMAGE:
+**THIS IS THE OUTPUT IMAGE:**
 
 
 ![Alt Text](920.jpg)
@@ -709,11 +706,10 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 4-) WITH THEORY:
+**CODE NO 4-) WITH THEORY:**
 
 
-# Theory: Bitwise Operations in OpenCV (AND, OR, NOT, XOR):
-
+**Bitwise Operations in OpenCV (AND, OR, NOT, XOR):**
 
 
 ***Operations includes AND, OR, NOT, XOR.
@@ -729,7 +725,7 @@ NOT
 XOR***
 
 
-# 1. Importing Libraries:
+**1. Importing Libraries:**
 
 
 ***import cv2
@@ -738,14 +734,14 @@ OpenCV (cv2) is used for image processing
 NumPy is used to create blank images***
 
 
-# 2. Creating Blank Images:
+**2. Creating Blank Images:**
 
 
 **img1 = np.zeros((250, 500, 3), np.uint8)
 img2 = np.zeros((250, 500, 3), np.uint8)**
 
 
-# Two black images are created:
+**Two black images are created:**
 
 
 ***Height = 250 pixels
@@ -754,20 +750,21 @@ Channels = 3 (color image)
 np.zeros() creates completely black images.***
 
 
-# 3. Drawing Rectangles:
+**3. Drawing Rectangles:**
 
 
 **img1 = cv2.rectangle(img1, (150, 100), (200, 250), (255, 255, 255), -1)
 img2 = cv2.rectangle(img2, (10, 10), (170, 190), (255, 255, 255), -1)**
 
 
-# Two white rectangles are drawn:
+**Two white rectangles are drawn:**
 
 ***White color → (255,255,255)
 Thickness → -1 (filled)
 These rectangles act as binary shapes for bitwise operations.***
 
-# 4. Displaying Images:
+
+**4. Displaying Images:**
 
 
 **cv2.imshow("img1", img1)
@@ -781,13 +778,11 @@ White = 255
 Black = 0***
 
 
-# 5. Bitwise AND Operation:
+**5. Bitwise AND Operation:**
 
 
 **bitAnd = cv2.bitwise_and(img1,img2)**
 
-
-# Logic:
 
 ***White + White → White
 White + Black → Black
@@ -795,26 +790,24 @@ Black + White → Black
 Black + Black → Black***
 
 
-# Result:
+**Result:**
 
 
 **Only overlapping region remains white.**
 
 
-# Used for:
+**Used for:**
+
 
 ***extracting common area
 masking
 ROI extraction***
 
 
-# 6. Bitwise OR Operation:
+**6. Bitwise OR Operation:**
 
 
 **bitOr = cv2.bitwise_or(img1,img2)**
-
-
-# Logic:
 
 
 ***White + White → White
@@ -823,51 +816,37 @@ Black + White → White
 Black + Black → Black***
 
 
-# Result:
-
-
 **Combined shapes appear.**
-
-
-# Used for:
 
 
 **merging masks
 combining objects**
 
 
-# 7. Bitwise NOT Operation:
+**7. Bitwise NOT Operation:**
 
 
 **bitNot1 = cv2.bitwise_not(img1)
 bitNot2 = cv2.bitwise_not(img2)**
 
 
-# Logic:
-
-
 **White → Black
 Black → White**
 
 
-# Result:
-
-
 *Image colors are inverted.*
 
-# Used for:
+
 
 **background inversion
 mask reversal**
 
 
-# 8. Bitwise XOR Operation:
+**8. Bitwise XOR Operation:**
 
 
 **bitXor = cv2.bitwise_xor(img1, img2)**
 
-
-# Logic:
 
 **White + White → Black
 White + Black → White
@@ -875,14 +854,11 @@ Black + White → White
 Black + Black → Black**
 
 
-# Result:
-
-
 **Only non-overlapping areas remain white.
 This removes the common region and keeps different parts.**
 
 
-# 9. Displaying XOR Result:
+**9. Displaying XOR Result:**
 
 
 **cv2.imshow('bitXor', bitXor)**
@@ -891,7 +867,7 @@ This removes the common region and keeps different parts.**
 *Shows XOR output image.*
 
 
-# 10. Closing Windows
+**10. Closing Windows**
 
 
 **cv2.waitKey(0)
@@ -900,13 +876,7 @@ waitKey(0) waits for key press
 destroyAllWindows() closes windows**
 
 
-# Conclusion:
-
 ***This program demonstrates how bitwise operations work on binary images. These operations are essential in computer vision for masking, ROI extraction, object segmentation, and image blending***
-
-
-
-# THIS IS THE FULL CODE:
 
 
 ```Python Code:
@@ -957,7 +927,7 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS UPPER CODE HAS NO USES THE ANY TYPE OF IMAGE.
+***THIS UPPER CODE HAS NO USES THE ANY TYPE OF IMAGE***
 
 
 
@@ -966,11 +936,25 @@ cv2.destroyAllWindows()
 
 
 
+***Theory: Canny Edge Detection Using OpenCV (Two Methods)***
 
-# CODE NO 5-) WITH THEORY:
+
+# Cannye edge detection using open cv
 
 
-# ***Theory: Canny Edge Detection Using OpenCV (Two Methods)***
+ **Canny edge detection is a popular edge detection approach.
+ It is use multi-stage algorithm to detect a edge.
+ It was developed by Jhon f. Canny in 1986.
+ This approach combine with 5 steps.**
+
+ 
+ *Step No1 Noise reduction (gauss,2) and (Gradient clacilation).*
+ 
+ 
+ *Step No 2 None maximum supperson,4) and (Double Threshold).*
+ 
+ 
+ *Step No3 Edge tracking by Hystresis.*
 
 
 ***This program demonstrates Canny Edge Detection using OpenCV. Canny edge detection is a widely used algorithm for detecting edges in an image. It detects sharp intensity changes and highlights object boundaries.
@@ -978,9 +962,10 @@ The algorithm was developed by John F. Canny (1986) and works using a multi-stag
 Canny Edge Detection Steps***
 
 
-# The Canny algorithm consists of the following stages:
+**The Canny algorithm consists of the following stages:**
 
-# ***1. Noise Reduction:***
+
+***1. Noise Reduction:***
 
 
 **Gaussian filter is applied
@@ -988,7 +973,7 @@ Removes noise from image
 Prevents false edges.**
 
 
-# 2. Gradient Calculation:
+**2. Gradient Calculation:**
 
 
 **Finds intensity change in image
@@ -996,14 +981,14 @@ Detects strong edges
 Uses Sobel operators**
 
 
-# 3. Non-Maximum Suppression:
+**3. Non-Maximum Suppression:**
 
 
 **Removes unwanted thick edges
 Keeps only thin edge lines**
 
 
-# 4. Double Threshold:
+**4. Double Threshold:**
 
 
 **Uses two thresholds:
@@ -1015,7 +1000,7 @@ Weak edges
 Non edges**
 
 
-# 5. Edge Tracking by Hysteresis:
+**5. Edge Tracking by Hysteresis:**
 
 
 ***Weak edges connected to strong edges are kept
@@ -1023,16 +1008,13 @@ Others are removed
 This produces clean and accurate edge detection.***
 
 
-# Method 1: Static Threshold Canny Edge Detection:
+**Method 1: Static Threshold Canny Edge Detection:**
 
 
 **img = cv2.imread(r"A:\computer_Vision\43.jpg")
 img = cv2.resize(img, (250, 250))
 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 canny = cv2.Canny(img_gray, 50, 150)**
-
-
-# Explanation:
 
 
 ***Image is loaded and resized
@@ -1044,28 +1026,23 @@ These thresholds are fixed values.
 Edges are detected based on these constant limits.***
 
 
-# Output Windows:
-
-
 **cv2.imshow("Original Image:", img)
 cv2.imshow("Gray Image:", img_gray)
 cv2.imshow("Canny:", canny)**
 
-
-# Displays:
 
 **Original image
 Grayscale image
 Edge detected image**
 
 
-# Method 2: Dynamic Threshold Using Trackbar:
+**Method 2: Dynamic Threshold Using Trackbar:**
 
 
 *This method allows interactive threshold adjustment.*
 
 
-# Creating Trackbars:
+**Creating Trackbars:**
 
 
 **cv2.namedWindow("Canny")
@@ -1075,7 +1052,7 @@ cv2.createTrackbar("Threshold", "Canny", 0, 255, nothing)**
 **Trackbar is created to control threshold value.**
 
 
-# Reading Trackbar Value:
+**Reading Trackbar Value:**
 
 
 **a = cv2.getTrackbarPos("Threshold", "Canny")**
@@ -1099,7 +1076,7 @@ if k == 110:
     break**
 
 
-# Press n key to stop program:
+*Press n key to stop program:*
 
 
 ***Difference Between Two Methods
@@ -1115,29 +1092,15 @@ Medical image analysis
 Feature extraction***
 
 
-# Conclusion:
-
-
 ***This program demonstrates two methods of Canny edge detection. The first method uses fixed thresholds, while the second method uses a trackbar for interactive adjustment. Canny edge detection is an effective technique for detecting object boundaries and important image features.***
-
-
-# THIS IS THE FULL CODE:
 
 
 ```Pthon Code:
 
 
-                  # ----Canny edge detection----
-# Cannye edge detection using open cv
+                  Canny edge detection
 
-# Canny edge detection is a popular edge detection approach.
-# It is use multi-stage algorithm to detect a edge.
-# It was developed by Jhon f. Canny in 1986.
-# This approach combine with 5 steps.
-# step no1):-Noise reduction (gauss,2) and (Gradient clacilation).
-# step no2):-None maximum supperson,4) and (Double Threshold).
-# step no3):-Edge tracking by Hystresis.
-'''
+
 import cv2
 import numpy as np
 
@@ -1187,35 +1150,33 @@ cv2.destroyAllWindows()
 ***THIS CODE HAS USES 2 IAMGES***
 
 
-# THIS IS THE IMAGE NO 1:
+***OUT PUT***
 
 
 ![Alt Text](43.jpg)
 
 
-# THIS IS THE IMAGE NO 2:
+***OUTPUT NO 2:**
 
 
 ![Alt Text](54.jpg)
 
 
 
-# CODE NO 6-) WITH THEORY:
-
-
-# Simple Theory: Contours and Its Functions (Two Methods):
+***Contours and Its Functions (Two Methods):***
 
 
 ***This program demonstrates contours and their functions in OpenCV. Contours are curves that join all continuous points having the same intensity. They are used for shape detection, object detection, and boundary extraction.***
 
 
-# The code shows two methods:
+**The code shows two methods:**
+
 
 *Method 1 → Contour Moments (Center detection)
 Method 2 → Approximation and Convex Hull.*
 
 
-# Step 1: Reading and Preprocessing Image:
+**Step 1: Reading and Preprocessing Image:**
 
 
 ***img = cv2.imread("shapes.png")
@@ -1224,7 +1185,8 @@ img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 ret, thresh = cv2.threshold(img1, 250, 255, cv2.THRESH_BINARY_INV)***
 
 
-# Steps:
+**Steps:**
+
 
 *Read image
 Resize image
@@ -1245,7 +1207,7 @@ Each contour contains boundary points (x,y)
 Contours represent object boundaries.***
 
 
-# Method 1: Contour Moments (Center Detection):
+**Contour Moments (Center Detection):**
 
 
 **This method finds center of each contour using image moments.**
@@ -1256,25 +1218,26 @@ cX = int(M["m10"] / M["m00"])
 cY = int(M["m01"] / M["m00"])**
 
 
-# Moment formula:
+*Moment formula:*
 
 **m00 → area
 m10, m01 → centroid calculation**
 
 
-# Center is calculated as:
+**Center is calculated as:**
+
 
 **cX = m10 / m00
 cY = m01 / m00**
 
 
-# Then center is drawn:
+**Then center is drawn:**
 
 
 **cv2.circle(img,(cX,cY),3,(222,222,22),-1)**
 
 
-# This method is used for:
+**This method is used for:**
 
 
 **object center detection
@@ -1282,45 +1245,48 @@ tracking
 shape analysis**
 
 
-# Method 2: Approximation and Convex Hull:
+**Approximation and Convex Hull:**
 
 
 **This method simplifies contour shape and finds bounding region.**
 
-# 1. Contour Area:
+**1. Contour Area:**
 
 
 ***area = cv2.contourArea(c)
 Calculates area of contour.**
 
 
-# 2. Contour Approximation:
+**2. Contour Approximation:**
 
 
 **epsilon = 0.01*cv2.arcLength(c,True)
 data = cv2.approxPolyDP(c,epsilon,True)**
 
-# Approximation:
+
+***Approximation:***
+
 
 **Reduces contour points
 Simplifies shape
 Helps identify shapes (triangle, square, etc.)**
 
 
-# 3. Convex Hull:
+***3. Convex Hull:***
 
 
 **hull = cv2.convexHull(data)**
 
 
-# Convex hull:
+***Convex hull:***
+
 
 **Creates outer boundary
 Removes concave parts
 Makes contour smooth**
 
 
-# Used for:
+***Used for:***
 
 
 **shape correction
@@ -1328,14 +1294,14 @@ object detection
 contour smoothing**
 
 
-# 4. Bounding Rectangle:
+***4. Bounding Rectangle:***
 
 
 **x,y,w,h = cv2.boundingRect(hull)
 img = cv2.rectangle(img,(x,y),(x+w,y+h),(125, 10, 20), 1)**
 
 
-# Draws rectangle around object
+***Draws rectangle around object***
 
 
 ***Display Images:***
@@ -1346,7 +1312,7 @@ cv2.imshow("gray image:", img1)
 cv2.imshow("thresh image:", thresh)**
 
 
-# Shows:
+*Shows:*
 
 
 **original image with contours
@@ -1354,17 +1320,17 @@ grayscale image
 threshold image**
 
 
-# Conclusion:
+***Conclusion:***
 
 
 ***This code demonstrates two contour methods. The first method uses moments to find the center of objects. The second method uses approximation and convex hull to simplify contours and draw bounding boxes. Contours are important for shape detection, object localization, and image analysis.***
 
 
 
-# This Code Uses The Same Image Twice:
+*This Code Uses The Same Image Twice:*
 
 
-# THIS IS THE FULL CODE:
+**THIS IS THE FULL CODE:**
 
 
 ```Python Code:
@@ -1373,9 +1339,9 @@ threshold image**
 Contours and its functoins:
 
 
-#no1-) Moment. 
-#no2-) Approximation.
-#no3-) Convexhull
+#No1 Moment. 
+#No2 Approximation.
+#No3 Convexhull
 
 
 import cv2
@@ -1421,7 +1387,7 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE 1ST OUTPUT OF IAMGE:
+***THIS IS THE 1ST OUTPUT OF IAMGE:***
 
 
 ![Alt Text](shapes.png)
@@ -1433,7 +1399,7 @@ cv2.destroyAllWindows()
 ***now we read the Approximation and Convexhull.***
 
 
-# THIS IS THE 2ND CODE:
+***THIS IS THE 2ND CODE:***
 
 
 ```Python Code:
@@ -1495,27 +1461,23 @@ cv2.destroyAllWindows()
 
 
 
-
-# CODE NO 7-) WITH THEORY:
-
-
-## 4-IN-1 OpenCV CODE — THEORY:
+***4-IN-1 OpenCV CODE — THEORY:***
 
 
 ***This program contains four different OpenCV codes. Each code demonstrates a different way of capturing, displaying, and saving video using Python and OpenCV.***
 
 
-***CODE NO 1 — Video File Loading***
+***NO 1 — Video File Loading***
 
 
-### Theory:
+*Theory:*
 
 
 ***This code is used to load and display a video file from your computer.
 OpenCV reads the video frame by frame, resizes each frame, and shows it in a window.***
 
 
-# How it works:
+*How it works:*
 
 
 **cv2.VideoCapture() loads the video file
@@ -1526,9 +1488,6 @@ cv2.waitKey() controls playback speed
 Press 'n' to exit**
 
 
-# Purpose:
-
-
 ***This code teaches:***
 
 
@@ -1537,10 +1496,10 @@ How to process frames
 How to display video using OpenCV**
 
 
-# CODE NO 2 — Webcam Capture + Gray Conversion:
+**NO 2 — Webcam Capture + Gray Conversion:**
 
 
-***Theory:***
+***Theory*
 
 
 ***This code opens PC webcam and shows two frames:***
@@ -1562,10 +1521,7 @@ Two imshow() windows are created
 Loop runs until user presses 'n'**
 
 
-***Purpose:***
-
-
-# This code teaches:
+**This code teaches:**
 
 
 **How to open webcam
@@ -1573,10 +1529,10 @@ How to convert video to grayscale
 How to show multiple windows:**
 
 
-# CODE NO 3 — Mobile Camera Connection (IP Camera):
+**NO 3 — Mobile Camera Connection (IP Camera):**
 
 
-***Theory:***
+***Theory:*
 
 
 **This code connects mobile camera to PC using IP address.
@@ -1586,7 +1542,7 @@ Both devices must be connected to same WiFi network.**
 ***Mobile camera streams video → PC receives → OpenCV displays and saves video.***
 
 
-# How it works:
+**How it works:**
 
 
 **Mobile IP camera URL used
@@ -1596,26 +1552,23 @@ Frames resized and recorded
 Press 'n' to stop recording.**
 
 
-# Purpose:
-
-
-## This code teaches:
+**This code teaches:**
 
 **How to connect mobile camera
 How to stream IP camera
 How to record video to file**
 
-# CODE NO 4 — YouTube Video Streaming:
+**NO 4 — YouTube Video Streaming:**
 
 
-***Theory:***
+***Theory:*
 
 
 **This code is used to stream YouTube video using Python.
 It uses pafy library to fetch YouTube stream and OpenCV to display it.**
 
 
-# How it works:
+*How it works:*
 
 
 **pafy.new(url) loads YouTube video
@@ -1624,10 +1577,8 @@ OpenCV reads frames
 Frames displayed and saved
 Press 'n' to exit.**
 
-# Purpose:
 
-
-## This code teaches:
+**This code teaches:**
 
 
 **How to stream YouTube video
@@ -1645,7 +1596,7 @@ Mobile camera streaming
 YouTube video streaming**
 
 
-# All codes use:
+**All codes use:**
 
 
 **OpenCV (cv2)
@@ -1655,20 +1606,20 @@ Video recording**
 
 
 
-# THIS IS THE FULL CODE:
+*THIS IS THE FULL CODE:*
 
 
 ```Python Code:
 
 
-# 4_in_1_code):-
+# 4_in_1_code.
 
 # There we have 4 different code with a little bit of theory.
 
 # SOME THEORY ABOUT THIS ALL CODE:
 
 
-# CODE NO1):-
+# CODE NO1.
 
 #IN THE FIRST CODEIS ABOUT VIDEO LOADING. 
 #IN THIS CODE WRITTENED THAT HOW TO SHOW A VIDEO WITH CODING.
@@ -1694,10 +1645,11 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 
+
 # THIS CODE IS SHOWING THAT HOW TO OPEN THE PC'S WEB CAM AND 
 # CONVERT IT INTO TWO DIFFERENT FRAMES 1 IS ORIGINAL AND 2 IS GRAY.
 
-# CODE NO 2):-
+# CODE NO 2.
 
 import v2
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -1729,7 +1681,9 @@ cv2.destroyAllWindows()
 
 # connect your laptop and android device with the same network either wifi
 
-# CODE NO 3):-
+# CODE NO 3.
+
+
 import cv2
 camera = "http://192.168.100.4:8080/video"
 cap = cv2.VideoCapture(0)
@@ -1759,7 +1713,8 @@ cv2.destroyAllWindows()
 # IN THIS CODE HAVE WRITTENED THAT HOW TO PLAY 
 # LIVE VIDEO IN TO YOUTUBE WITH CODING.
 
-# CODE NO 4):-
+# CODE NO 4.
+
 
 import cv2
 import pafy
@@ -1795,10 +1750,9 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 8-) WITH THEORY:
 
 
-## OFFLINE COLOR PICKER — SIMPLE THEORY:
+**OFFLINE COLOR PICKER**
 
 
 ***This code creates an offline color picker using Python, OpenCV, and NumPy.
@@ -1806,7 +1760,7 @@ It allows the user to select colors manually by adjusting R, G, and B trackbars.
 The program shows a blank window, and when you move the sliders, the background color changes according to the selected values.***
 
 
-# How This Code Works:
+*How This Code Works:*
 
 
 **1. Create Blank Image
@@ -1814,20 +1768,20 @@ img = np.zeros((300, 512, 3), np.uint8)
 This creates a black image where colors will be displayed.**
 
 
-# 2. Create Window:
+**2. Create Window:**
 
 
 **cv2.namedWindow("Color picker")
 This Code creates a window named Color picker.**
 
 
-# 3. Create ON/OFF Switch:
+**3. Create ON/OFF Switch:**
 
 
 **cv2.createTrackbar(s1, "Color picker", 0, 1, cross)**
 
 
-# This trackbar works like a switch:
+**This trackbar works like a switch:**
 
 
 **0 = OFF (black screen)
@@ -1838,7 +1792,7 @@ cv2.createTrackbar("G", ...)
 cv2.createTrackbar("B", ...)**
 
 
-# These trackbars control:
+**These trackbars control:**
 
 
 **Red color value
@@ -1877,7 +1831,7 @@ if k == 110:
 ***Purpose of This Code.***
 
 
-# This code teaches:
+**This code teaches:**
 
 
 **How to create trackbars in OpenCV
@@ -1889,10 +1843,10 @@ How RGB/BGR color system works**
 ***This is called Offline Color Picker because it works without camera or internet.***
 
 
-# THIS IS THE FULL CODE:
+**THIS IS THE FULL CODE:**
 
 
-# OFFLINE COLOR PICKER
+**OFFLINE COLOR PICKER**
 
 
 ```Python Code:
@@ -1937,14 +1891,10 @@ while True:
 cv2.destroyAllWindows()
 ```
 
-# THE UPPER CODE IS FOR CHOOSING OR CREATING  ANY TYPE OF COLOR, WHICH WOULD YOU WANT.
+***THE UPPER CODE IS FOR CHOOSING OR CREATING  ANY TYPE OF COLOR, WHICH WOULD YOU WANT.***
 
 
 
-
-
-
-# CODE NO 9-) WITH THEORY:
 
 
 # Detecting Everything by Webcam Using Trackbars:
@@ -1955,7 +1905,7 @@ It uses trackbars to adjust HSV color range and detect specific colored objects 
 The program captures webcam video, applies color filtering, and then draws contours around detected objects.***
 
 
-# Step 1 — Webcam Capture:
+**Step 1 — Webcam Capture:**
 
 
 ***The code starts by opening the webcam using:***
@@ -1965,13 +1915,13 @@ The program captures webcam video, applies color filtering, and then draws conto
 It reads video frame by frame for processing.**
 
 
-# Step 2 — Trackbars for Color Adjustment:
+**Step 2 — Trackbars for Color Adjustment:**
 
 
 ***Trackbars are created to control HSV color values.***
 
 
-# Lower range trackbars:
+**Lower range trackbars:**
 
 
 **Lower_H → Hue minimum
@@ -1979,7 +1929,7 @@ Lower_S → Saturation minimum
 Lower_V → Value minimum**
 
 
-# Upper range trackbars:
+**Upper range trackbars:**
 
 
 **Upper_H → Hue maximum
@@ -1990,7 +1940,9 @@ Upper_V → Value maximum**
 *These trackbars help select which color to detect.*
 
 
-**Step 3 — Threshold Trackbar
+# Step 3 — Threshold Trackbar.
+
+
 cv2.createTrackbar("Thresh", ...)
 This trackbar controls threshold value.
 It helps remove noise and improve object detection.**
@@ -2038,7 +1990,7 @@ Dilation makes detected objects thicker**
 Contours are detected around objects that match the selected color.**
 
 
-# The code draws:
+**The code draws:**
 
 
 **Blue contour (object boundary)
@@ -2046,7 +1998,7 @@ Pink convex hull (smooth outer shape)
 Step 9 — Output Windows**
 
 
-# The program shows four windows:
+**The program shows four windows:**
 
 
 **Mask → detected color only
@@ -2056,7 +2008,7 @@ Result → final contour detection
 Purpose of This Code**
 
 
-# This code teaches:
+**This code teaches:**
 
 
 **Webcam color detection
@@ -2066,7 +2018,7 @@ Contour detection
 Object detection by color**
 
 
-# You can detect:
+***You can detect:***
 
 
 **red object
@@ -2077,7 +2029,7 @@ any colored object
 Just adjust the trackbars.**
 
 
-# THIS IS THE FULL CODE:
+**THIS IS THE FULL CODE:**
 
 
 ```Python Code:
@@ -2169,7 +2121,7 @@ cv2.destroyAllWindows()
 ```
 
 
-# IN THIS UPER CODE YOU HAVE DETECT ANYTHING BY WEBCAM LIVE.
+**IN THIS UPER CODE YOU HAVE DETECT ANYTHING BY WEBCAM LIVE.**
 
 
 
@@ -2177,17 +2129,15 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 10-) WITH THEORY:
 
-
-# Video Information Display (Date, Time, Width, Height):
+**Video Information Display (Date, Time, Width, Height):**
 
 
 ***This code is used to play a video and display information on the screen.
 It shows video width, height, current date, and time on each frame while the video is running.***
 
 
-# Step 1 — Import Libraries:
+## Step 1 — Import Libraries:
 
 
 **import cv2
@@ -2196,14 +2146,14 @@ cv2 is used for video processing
 datetime is used to get current date and time**
 
 
-# Step 2 — Load Video File:
+### Step 2 — Load Video File:
 
 
 **cap = cv2.VideoCapture(r"A:\computer_Vision\2006.mp4")
 This loads a video file from computer and prepares it for reading.**
 
 
-# Step 3 — Get Video Width and Height:
+#### Step 3 — Get Video Width and Height:
 
 
 **cap.get(3)  # width
@@ -2218,28 +2168,28 @@ Height of video frame
 The values are printed in the console.**
 
 
-# Step 4 — Read Video Frame by Frame:
+##### Step 4 — Read Video Frame by Frame:
 
 
 **ret, frame = cap.read()
 This reads the video frame by frame for processing and display.**
 
 
-# Step 5 — Add Width and Height Text:
+###### Step 5 — Add Width and Height Text:
 
 
 **cv2.putText(frame, text, (10, 30), font, 1, color, 2)
 This displays video width and height on the frame using text.*
 
 
-# Step 6 — Add Date and Time:
+**Step 6 — Add Date and Time:**
 
 
 **datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 This gets the current system date and time and prints it on video.**
 
 
-# Example:
+*Example:*
 
 
 ***Date: 2026-04-09 12:35:20
@@ -2248,14 +2198,14 @@ frame = cv2.resize(frame, (500, 600))
 This resizes the video window to 500 × 600.***
 
 
-# Step 8 — Display Video:
+**Step 8 — Display Video:**
 
 
 **cv2.imshow("frame", frame)
 This shows the video with text overlay.**
 
 
-# Step 9 — Exit Condition:
+**Step 9 — Exit Condition:**
 
 
 **if cv2.waitKey(10) & 0xFF == ord('n'):
@@ -2265,7 +2215,7 @@ Press 'enter' key to stop the video.**
 *Purpose of This Code:*
 
 
-# This code teaches:
+*This code teaches:*
 
 
 **How to display video using OpenCV
@@ -2275,7 +2225,7 @@ How to display date and time
 How to resize video frames.**
 
 
-# This is useful for:
+*This is useful for:*
 
 
 ***CCTV systems
@@ -2284,7 +2234,7 @@ Video annotation
 Computer vision projects.***
 
 
-# THIS IS THE FULL CODE:
+*THIS IS THE FULL CODE:*
 
 
 ```Python Code:
@@ -2323,10 +2273,8 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 11-) WITH THEORY:
 
-
-# Face + Eyes Detecting Live:
+***Face + Eyes Detecting Live:***
 
 
 ***This code is used to detect face and eyes in real-time using webcam.
@@ -2360,8 +2308,8 @@ haarcascade_eye.xml → detects eyes**
 **cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)**
 
 
-# IF YOU ARE USING A PYTHON VERSION LOWER THAN 8, YOU MUST WRITE THIS LINE >>cv2.CAP_DSHOW << IF YOU ARE 
-# USING A VERSION HIGHER THAN 8, YOU DO NOT NEED TO WRITE THIS LINE, OTHERWISE A WARNING MAY APPEAR.
+**IF YOU ARE USING A PYTHON VERSION LOWER THAN 8, YOU MUST WRITE THIS LINE >>cv2.CAP_DSHOW << IF YOU ARE 
+USING A VERSION HIGHER THAN 8, YOU DO NOT NEED TO WRITE THIS LINE, OTHERWISE A WARNING MAY APPEAR.**
 
 
 ***This opens the default webcam and starts capturing live video.***
@@ -2420,7 +2368,7 @@ This improves accuracy.**
 **cv2.imshow("Face & Eyes Detection", detector(frame))**
 
 
-# This shows:
+**This shows:**
 
 
 **Face rectangle
@@ -2429,7 +2377,9 @@ Live webcam video
 Step 10 — Exit Condition
 if key == 13 or key == ord('n'):**
 
-# Press:
+
+*Press:*
+
 
 **Enter key OR
 n key
@@ -2437,7 +2387,7 @@ to stop the program.
 Purpose of This Code**
 
 
-# This code teaches:
+**This code teaches:**
 
 
 **Face detection
@@ -2447,7 +2397,7 @@ Real-time webcam processing
 Region of Interest (ROI) detection**
 
 
-# This is used in:
+**This is used in:**
 
 **Face recognition systems
 Attendance systems
@@ -2455,10 +2405,10 @@ Security cameras
 AI camera applications**
 
 
-# THIS IS THE FULL CODE:
+THIS IS THE FULL CODE:
 
 
-# THIS IS THE LIVE DETECTION CODE:
+**THIS IS THE LIVE DETECTION CODE:**
 
 
 ```Python Code:
@@ -2470,11 +2420,11 @@ import cv2
 import numpy as np
 
 
-# ----------Load Haar Cascades----------
+Load Haar Cascades.
 face = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 eyes = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye.xml")
 
-# ----------Open Webcam----------
+Open Webcam
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 def detector(img):
@@ -2506,7 +2456,9 @@ while True:
     if key == 13 or key == ord('n'):
         break
 
-# ----------Release Camera----------
+Release Camera.
+
+
 cap.release()
 cv2.destroyAllWindows()
 ```
@@ -2517,10 +2469,9 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 12-) WITH THEORY:
 
 
-## Face and Eye Detection on Image:
+**Face and Eye Detection on Image:**
 
 
 ***This code is used to detect face and eyes from a single image using Haar Cascade classifiers.
@@ -2599,19 +2550,23 @@ A pink rectangle is drawn around each eye.**
 **cv2.imshow("Face and Eyes Detection:", image)**
 
 
-# The final image is shown with:
+**The final image is shown with:**
 
 
 **Blue rectangle → Face
-Pink rectangles → Eyes
-Step 9 — Wait and Close
-cv2.waitKey(0)
+Pink rectangles → Eyes**
+
+
+# Step 9 — Wait and Close:
+
+
+**cv2.waitKey(0)
 cv2.destroyAllWindows()
 The program waits until a key is pressed, then closes the window.
 Purpose of This Code**
 
 
-# This code teaches:
+**This code teaches:**
 
 
 **Face detection on image
@@ -2621,7 +2576,7 @@ ROI (Region of Interest)
 Drawing rectangles on image**
 
 
-# This is useful for:
+**This is useful for:**
 
 
 **Face recognition systems
@@ -2630,7 +2585,7 @@ Security applications
 Computer vision projec.**
 
 
-# THIS IS THE FULL CODE:
+**THIS IS THE FULL CODE:**
 
 
 ```Python Code:
@@ -2700,7 +2655,7 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE OUTPUT IMAGE:
+**THIS IS THE OUTPUT IMAGE:**
 
 
 ![Alt Text](56.jpg)
@@ -2709,19 +2664,18 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 13-) WITH THEORY:
 
-
-***Feature Detection in Images (Corner Detection):***
+# Feature Detection in Images (Corner Detection
 
 
 
-## feature detection in images.
+**feature detection in images.**
 
-### Feature detection and description.
+
+**Feature detection and description.**
 
  
-#### Corner detection:
+***Corner detection:***
 
  
  ***For understanding this we recall jigsaw puzzle game where we combine multiple
@@ -2740,7 +2694,7 @@ cv2.destroyAllWindows()
 
 
 
-# shi-tomasi
+**shi-tomasi:**
 
 
 ***We will learn about the another corner detector):- Shi-Tomasi corner detector.
@@ -2785,7 +2739,7 @@ The image is converted to grayscale because corner detection works better on gra
 This function detects strong corners in the image.**
 
 
-# Parameters:
+*Parameters:*
 
 
 **140 → maximum number of corners
@@ -2815,7 +2769,7 @@ The final image shows all detected corners marked with circles.
 Purpose of This Code**
 
 
-# This code teaches:
+*This code teaches:*
 
 
 **Feature detection in images
@@ -2825,7 +2779,7 @@ Detecting important points in shapes
 Drawing points on image**
 
 
-# Corner detection is used in:
+**Corner detection is used in:**
 
 
 **Object detection
@@ -2834,9 +2788,11 @@ Motion tracking
 Computer vision projects**
 
 
-# THIS IS THE FULL CODE:
+**THIS IS THE FULL CODE:**
 
-## PRT NO 1:
+
+*PRT NO 1:*
+
 
 ```Python Code:
 
@@ -2914,16 +2870,16 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE OUTPUT IMAGE:
+**THIS IS THE OUTPUT IMAGE:**
 
 
 ![Alt Text](shapes.png)
 
 
-# THIS IS THE FULL CODE:
+**THIS IS THE FULL CODE:**
 
 
-## PRT 2:
+**PRT 2:**
 
 
 ```Python Code:
@@ -2961,7 +2917,7 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
 
-# THIS IS THE OUTPUT IMAGE:
+**THIS IS THE OUTPUT IMAGE:**
 
 
 ![Alt Text](shapes.png)
@@ -2977,8 +2933,6 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 14-) WITH THEORY:
-
 
 # GrabCut Algorithm:
 
@@ -2988,9 +2942,12 @@ It selects an object inside a rectangle and removes everything outside it.***
 
 
 
-#                   Grabcut Algorithm
+**Grabcut Algorithm**
 
-##          Here is the some theory of grabcut algorithm
+
+*Here is the some theory of grabcut algorithm*
+
+
 
 ***Grabcut algorithm with the help of this algorithm we easily cutoff any 
  graound object from image or video. Its work like a rectangle portion mark on
@@ -3074,7 +3031,7 @@ The final image shows car only, background removed.
 Purpose of This Code**
 
 
-# This code teaches:
+**This code teaches:**
 
 
 **GrabCut algorithm
@@ -3084,7 +3041,7 @@ Mask creation
 Image segmentation**
 
 
-# Used for:
+**Used for:**
 
 
 **Background removal
@@ -3093,7 +3050,7 @@ Photo editing
 Computer vision projects**
 
 
-# THIS IS THE FULL CODE:
+***THIS IS THE FULL CODE:***
 
 
 ```Python Code:
@@ -3136,7 +3093,7 @@ cv2.destroyAllWindows()
 
 
 
-# THIS IS THE OUTPUT IMAGE:
+***THIS IS THE OUTPUT IMAGE:***
 
 
 ![Alt Text](car.jpg)
@@ -3144,10 +3101,9 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 15-) WITH THEORY:
 
 
-# Hand Detection Using Contours:
+**Hand Detection Using Contours:**
 
 
 ***This code is used to detect a hand from an image using contours, convex hull, and convexity defects.
@@ -3249,7 +3205,8 @@ Threshold image
 Purpose of This Code**
 
 
-# This code teaches:
+**This code teaches:**
+
 
 **Hand detection using contours
 Convex hull and convexity defects
@@ -3258,7 +3215,7 @@ Extreme point detection
 Image thresholding**
 
 
-# Used for:
+**Used for:**
 
 
 **Hand gesture recognition
@@ -3267,7 +3224,7 @@ Sign language detection
 Computer vision hand tracking**
 
 
-# THIS IS THE FULL CODE:
+***THIS IS THE FULL CODE:***
 
 
 ```Pthon Code:
@@ -3369,7 +3326,7 @@ cv2.destroyAllWindows()
 
 
 
-# THIS IS THE OUTPUT IAMGE:
+***THIS IS THE OUTPUT IAMGE:***
 
 
 ![Alt Text](hand.jpg)
@@ -3377,8 +3334,6 @@ cv2.destroyAllWindows()
 
 
 
-
-# CODE NO 17-) WITH THEORY:
 
 
 # Detecting Circle by Hough Transform:
@@ -3398,7 +3353,7 @@ Circle detection using webcam (live)**
 *This method detects circles from a saved image.*
 
 
-# How it works:
+**How it works:**
 
 
 **Image is loaded and resized
@@ -3411,7 +3366,7 @@ circles = cv2.HoughCircles(...)
 This function detects circular shapes based on edges.**
 
 
-# Parameters:
+**Parameters:**
 
 
 **dp → resolution of detection
@@ -3434,7 +3389,7 @@ maxRadius → maximum circle size**
 **This method detects circles in real-time using webcam.**
 
 
-# How it works:
+**How it works:**
 
 
 **Webcam is opened
@@ -3445,7 +3400,8 @@ HoughCircles() detects circles
 Circles drawn live on screen**
 
 
-# If circles are found:
+**If circles are found:**
+
 
 **Outer circle drawn
 Center point marked
@@ -3453,7 +3409,8 @@ Press 'n' to exit the program.
 Purpose of This Code**
 
 
-# This code teaches:
+**This code teaches:**
+
 
 **Hough Circle Transform
 Circle detection in image
@@ -3461,7 +3418,8 @@ Real-time circle detection
 Webcam processing
 Shape detection in OpenCV**
 
-# Used for:
+**Used for:**
+
 
 **Ball detection
 Coin detection
@@ -3470,7 +3428,7 @@ Shape recognitio**
 
 
 
-# THIS IS THE FULL CODE:
+***THIS IS THE FULL CODE:***
 
 
 ```Pyhton Code:
@@ -3493,9 +3451,10 @@ img2 = img.copy()
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 gray = cv2.medianBlur(gray, 5)
 
-# ...Now writing the parameters of hough circle detection...
+Now writing the parameters of hough circle detection.
 
-# parameters):--(img,circle_method,dp,mindist,parm1,parm2[p1>p2],)
+
+parameters: (img,circle_method,dp,mindist,parm1,parm2[p1>p2],)
 
 circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 20,
                            param1=50, param2=30,
@@ -3503,13 +3462,13 @@ circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 20,
 
 data = np.uint16(np.around(circles))
 
-# Starting there loop):--
+# Starting there loop.
 for (x, y, r) in data[0, :]:
     cv2.circle(img2, (x, y), r, (50, 10, 50),3)
     cv2.circle(img2, (x, y), 2, (123, 53, 234), -1)
     
       
-# Display Side):--
+# Display Side.
 
 cv2.imshow("result:", img2)
 cv2.imshow("gray:", gray)
@@ -3517,7 +3476,7 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
 
-# THIS IS THE OUTPUT IMAGE:
+**THIS IS THE OUTPUT IMAGE:**
 
 
 ![Alt Text](color_balls.jpg)
@@ -3525,10 +3484,10 @@ cv2.destroyAllWindows()
 
 
 
-# PRT(2) OF THE CODE:
+***PRT(2) OF THE CODE:***
 
 
-# IN THIS CODE USES THE LIVE DETCETION:
+*IN THIS CODE USES THE LIVE DETCETION:*
 
 
 ```Python Code:
@@ -3576,7 +3535,7 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 17:
+***HOUGH LINES TRANSFORMATION***
 
 
 # Method 1 — HoughLines (Standard Line Detection):
@@ -3590,32 +3549,32 @@ cv2.destroyAllWindows()
  even if it is broken or distored a little bit.**
  
  
- # Functions:
+*Functions:*
 
  
  cv2.houghLines(), cv2.houghLinesP()
 
  
- # Its steps:
+ **Its steps:**
 
  
- ## step no1:
+ **step no1:**
 
  
  Convert image into gray.
  
- ### step no2:
- 
+ **step no2:**
+
  
  detect edges.
  
  
- #### step no3:
+ **step no3:**
 
  
  then apply hough method.
  
-# cv2.houghLines():
+**cv2.houghLines():**
  
  
  **We represent the shpes with the help of lines.
@@ -3626,7 +3585,7 @@ cv2.destroyAllWindows()
 **This method detects infinite straight lines using rho and theta values.**
 
 
-# How it works:
+**How it works:**
 
 
 **Image is loaded and resized
@@ -3637,7 +3596,7 @@ Lines are drawn on image
 lines = cv2.HoughLines(edges, 1, np.pi/180, 200)**
 
 
-# This function detects lines using:
+*This function detects lines using:*
 
 
 **rho → distance from origin
@@ -3646,7 +3605,7 @@ threshold → line detection strength
 The code converts rho and theta into line coordinates and draws them.**
 
 
-# This part:
+**This part:**
 
 
 **if y1 < 100 and y2 < 100:
@@ -3660,7 +3619,7 @@ draws only top lines in the image.**
 It is faster and more accurate.**
 
 
-# How it works:
+**How it works:**
 
 
 **Image loaded and resized
@@ -3671,7 +3630,7 @@ Lines drawn directly using endpoints
 lines = cv2.HoughLinesP(...)**
 
 
-# Parameters:
+*Parameters:*
 
 
 **minLineLength → minimum line size
@@ -3679,7 +3638,7 @@ maxLineGap → gap between lines
 threshold → detection accuracy**
 
 
-# Each detected line has:
+**Each detected line has:**
 
 
 **x1, y1, x2, y2
@@ -3687,7 +3646,7 @@ These are start and end points of the line.
 Purpose of This Code**
 
 
-# This code teaches:
+**This code teaches:**
 
 
 **Hough Line Transform
@@ -3696,7 +3655,7 @@ Line detection in images
 Standard vs Probabilistic Hough**
 
 
-# Used for:
+*Used for:*
 
 
 **Road lane detection
@@ -3705,7 +3664,7 @@ Object boundaries
 Computer vision projects**
 
 
-# THIS IS THE FULL CODE:
+***THIS IS THE FULL CODE:***
 
 
 ```Python Code:
@@ -3743,13 +3702,13 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE OUTPUT IMAGE:
+***THIS IS THE OUTPUT IMAGE:***
 
 
 ![Alt Text](chess_1.png)
 
 
-# Type No2 Of Hough Transformation:
+***Type No2 Of Hough Transformation:***
 
 
 **THIS IS THE FULL CODE PRT(2)**
@@ -3783,7 +3742,7 @@ cv2.destroyAllWindows()
 ```
 
 
-# THIS IS THE OUTPUT IMAGE:
+***THIS IS THE OUTPUT IMAGE:***
 
 
 ![Alt Text](square.jpg)
@@ -3794,11 +3753,11 @@ cv2.destroyAllWindows()
 
 
 
-# CODE NO 18-) WITH THEORY:
+
+***Image Background Removal Using Histogram Back Projection***
 
 
-***Image Background Removal Using Histogram Back Projection
-This code is used to remove background from an image using Histogram Back Projection.
+***This code is used to remove background from an image using Histogram Back Projection.
 It compares a sample image (ROI) with the original image and detects similar colors, keeping the object and removing background.***
 
 
@@ -3888,7 +3847,7 @@ HSV image
 Purpose of This Code**
 
 
-# This code teaches:
+**This code teaches:**
 
 
 **Background removal
@@ -3898,7 +3857,7 @@ Mask creation
 Image segmentation**
 
 
-# Used for:
+*Used for:*
 
 **Object tracking
 Background removal
@@ -3907,41 +3866,41 @@ Computer vision projects**
 
 
 
-# THIS IS THE FULL CODE:
+***THIS IS THE FULL CODE:***
 
 
 ```Pyhton Code:
 
 
 
-#                    ---image backgraound removal---
+                    .image backgraound removal.
 
 
 #BACK PROJECTION USING HISTOGRAM TECNIQUES.
 
 import cv2
 import numpy as np
-original_image = cv2.imread(r"A:\computer_Vision\bike.jp3g")
+original_image = cv2.imread(r"A:\computer_Vision\bike.jpeg")
 original_image = cv2.resize(original_image, (250, 250))
 
 hsv_original = cv2.cvtColor(original_image, cv2.COLOR_BGR2HSV)
 
-#roi of second image):-
+#roi of second image.
 roi = cv2.imread(r"A:\computer_Vision\bike-Copy.jpeg")
 hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
-#HISTOGRAM Roi):-
+#HISTOGRAM Roi.
 roi_hist = cv2.calcHist([hsv_roi], [0,1], None,
                         [180, 256], [0, 180, 0, 256], 1)
 mask = cv2.calcBackProject([hsv_original],
                         [0, 1], roi_hist, [0, 180, 0, 256], 1)
 
-#Filtering remove noise):-
+#Filtering remove noise.
 kernal = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
 mask = cv2.filter2D(mask, -1, kernal)
 _, mask = cv2.threshold(mask, 200, 500, cv2.THRESH_BINARY)
 
-#merging mask):-
+#merging mask.
 mask = cv2.merge((mask, mask, mask))
 result = cv2.bitwise_or(original_image, mask)
 
@@ -3952,23 +3911,25 @@ cv2.imshow("result:",result)
 cv2.imshow("hsv_original:",hsv_original)
 
 
-#---Display Side---
+Display Side.
+
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
 
 
 
-# THIS IS THE OUTPUT IAMGE:
+***THIS IS THE OUTPUT IAMGE:***
 
 
 ![Alt Text](bike.jpeg)
 
 
-# THIS IMAGE USED TWICE IN THE THE CODE:
+***THIS IMAGE USED TWICE IN THE THE CODE:***
 
 
-## OUTPUT:
+**OUTPUT:**
 
 
 ![Alt Text](bike-Copy.jpeg)
@@ -3976,6 +3937,123 @@ cv2.destroyAllWindows()
 
 
 
+
+
+
+# Image Blending with OpenCV
+
+
+***This project demonstrates **image blending using OpenCV**.  
+Two images are loaded, resized to the same size, and blended together using `cv2.addWeighted()`.***
+
+## How It Works!
+
+
+- Read two images from disk  
+- Check if images loaded correctly  
+- Resize both images to same dimensions  
+- Blend images using weighted addition  
+- Display original and blended results  
+
+### Blending Formula
+
+result = img1 * alpha + img2 * beta + gamma
+
+
+- `alpha` → weight of first image  
+- `beta` → weight of second image  
+- `gamma` → brightness value  
+
+#### Example Used
+
+
+result = cv2.addWeighted(img1, 0.5, img2, 0.5, 1)
+
+This blends both images 50% each.
+
+Features
+Image blending
+Weighted addition
+Resize handling
+Multiple blending methods
+Requirements
+Python
+OpenCV
+NumPy
+
+Install dependencies:
+
+pip install opencv-python numpy
+Output
+
+The program displays:
+
+First image
+Second image
+Blended image result
+
+
+
+***THIS IS THE FULL CODE***
+
+
+```Python Code:
+
+
+# Image blending with OpenCV
+
+import cv2
+import numpy as np
+
+# Read images (with correct file extensions)
+img1 = cv2.imread(r"A:\computer_Vision\pic_1.jpg")
+img2 = cv2.imread(r"A:\computer_Vision\pic_2.jpg")
+
+# Check images loaded
+if img1 is None or img2 is None:
+    print("Error: One or both images not found")
+    exit()
+
+# Resize images to same size
+img1 = cv2.resize(img1, (500, 500))
+img2 = cv2.resize(img2, (500, 500))
+
+# Blend images
+blend = cv2.addWeighted(img1, 0.5, img2, 0.5, 0)
+
+# Show images
+cv2.imshow("pic_1", img1)
+cv2.imshow("pic_2", img2)
+
+# Now start blending
+# result = img2+img1
+# cv2.imshow("result==",result)
+
+# This is the correcr blending>>
+# result1 = cv2.add(img1,img2)
+# cv2.imshow("result1==",result1)
+
+# function cv2.addweight(img1,wght1, img2,wght2, gama_val)
+result2 = cv2.addWeighted(img1,0.5,img2,0.5,1)
+cv2.imshow("result2==",result2)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+***THESE ARE THE TWO IMAGES WHICH ARE USED INTO THE CODE:***
+
+
+**IMAGE No1:**
+
+
+![Alt Text](pic_1.jpg)
+
+
+**IMAGE No2:**
+
+
+![Alt Text](pic_2.jpg)
 
 
 
