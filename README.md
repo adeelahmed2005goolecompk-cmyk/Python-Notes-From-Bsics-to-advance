@@ -3928,7 +3928,7 @@ cv2.destroyAllWindows()
 **OUTPUT:**
 
 
-![Alt Text](bike-Copy.jpg)
+![Alt Text](bike-Copy.jpeg)
 
 
 
@@ -3943,7 +3943,8 @@ cv2.destroyAllWindows()
 ***This project demonstrates **image blending using OpenCV**.  
 Two images are loaded, resized to the same size, and blended together using `cv2.addWeighted()`.***
 
-## How It Works!
+
+**How It Works!**
 
 
 - Read two images from disk  
@@ -3952,7 +3953,8 @@ Two images are loaded, resized to the same size, and blended together using `cv2
 - Blend images using weighted addition  
 - Display original and blended results  
 
-### Blending Formula
+***Blending Formula***
+
 
 result = img1 * alpha + img2 * beta + gamma
 
@@ -3961,7 +3963,7 @@ result = img1 * alpha + img2 * beta + gamma
 - `beta` → weight of second image  
 - `gamma` → brightness value  
 
-#### Example Used
+**Example Used**
 
 
 result = cv2.addWeighted(img1, 0.5, img2, 0.5, 1)
@@ -3978,12 +3980,14 @@ Python
 OpenCV
 NumPy
 
-Install dependencies:
+
+**Install dependencies:**
+
 
 pip install opencv-python numpy
 Output
 
-The program displays:
+**The program displays:**
 
 First image
 Second image
@@ -4053,5 +4057,102 @@ cv2.destroyAllWindows()
 ![Alt Text](pic_2.jpg)
 
 
+
+
+
+
+# Creating Image Border using OpenCV
+
+This program demonstrates how to **add a border around an image** using OpenCV.  
+The `cv2.copyMakeBorder()` function is used to create borders on all sides of the image.
+
+**How It Works:**
+
+
+- Load image from disk  
+- Resize image to fixed size  
+- Apply border using `cv2.copyMakeBorder()`  
+- Display final bordered image  
+
+
+**Function Syntax:**
+
+
+cv2.copyMakeBorder(image, top, bottom, left, right, borderType, value)
+
+
+**Parameters:**
+
+
+- `image` → input image  
+- `top` → top border width  
+- `bottom` → bottom border width  
+- `left` → left border width  
+- `right` → right border width  
+- `borderType` → type of border  
+- `value` → border color (BGR format)  
+
+**Example Used**
+
+
+***python Example:***
+
+
+brdr = cv2.copyMakeBorder(
+    img1,
+    20, 20, 5, 5,
+    cv2.BORDER_CONSTANT,
+    value=[160, 27, 141]
+)
+
+**This creates:**
+
+Top border = 20 px
+Bottom border = 20 px
+Left border = 5 px
+Right border = 5 px
+Color = Purple (BGR)
+RequirementsS
+Python
+OpenCV
+NumPy
+
+
+***THIS IS THE FULL CODE***
+
+
+```Python Code:
+
+
+# Creating image border
+
+# with the help of cv2.Copy make border()finction.
+# It takes parameters like(img,border_width,4-sides,bordertype,val_border).
+# border width = top,bottom,right,left.
+
+
+import cv2
+import numpy as np
+
+img1 = cv2.imread("A:\computer_Vision\lion.jpg")
+img1 = cv2.resize(img1,(500, 500))
+
+# Creating image border
+
+brdr = cv2.copyMakeBorder(img1, 20,20,5,5,cv2.BORDER_CONSTANT, value = [160, 27, 141])
+
+cv2.imshow("res",brdr)
+# cv2.imshow("img",img1)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+
+
+***THIS IS THE OUTPUT***
+
+
+![Alt Text](lion.jpg)
 
 
