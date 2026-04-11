@@ -306,7 +306,7 @@ Indicate object movement
 Visualize vectors**
 
 
-6. Putting Text:
+# 6. Putting Text:
 
 
 **img = cv2.putText(img, "MR.SHAMEER", (20, img.shape[0]-20),
@@ -380,7 +380,7 @@ Used for drawing shapes on blank canvas**
 ***THIS IS THE DISPLAY SIDE:***
 
 
-# 10. Displaying Image:**
+# 10. Displaying Image:
 
 
 cv2.imshow("Image", img)
@@ -456,7 +456,7 @@ cv2.destroyAllWindows()
 This technique is widely used in object tracking, segmentation, and foreground extraction.***
 
 
-**1. Importing Libraries:**
+# 1. Importing Libraries:
 
 
 **import cv2
@@ -474,7 +474,7 @@ NumPy is used for matrix operations.**
 This loads the original image from disk. The image is stored in BGR color format.**
 
 
-# 3. Resizing the Image:**
+# 3. Resizing the Image:
 
 
 **img = cv2.resize(img, (400, 400))**
@@ -486,7 +486,7 @@ Height = 400
 Resizing ensures consistent processing speed and reduces computation.***
 
 
-# 4. Converting Image to HSV:**
+# 4. Converting Image to HSV:
 
 
 **hsv_original = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)**
@@ -499,7 +499,7 @@ Saturation represents purity
 Value represents brightness
 HSV makes color-based segmentation more robust than RGB.***
 
-# 5. Creating Region of Interest (ROI):**
+# 5. Creating Region of Interest (ROI):
 
 
 **roi = cv2.imread(r"A:\computer_Vision\bgr.jpg")
@@ -515,7 +515,7 @@ Resize ROI
 Convert ROI to HSV**
 
 
-# 6. Creating Histogram of ROI:**
+# 6. Creating Histogram of ROI:
 
 
 **roi_hist = cv2.calcHist([hsv_roi], [0, 1], None, [180, 256],
@@ -528,7 +528,7 @@ Channel 1 → Saturation
 The histogram represents color distribution of the object.***
 
 
-# 7. Normalizing Histogram:**
+# 7. Normalizing Histogram:
 
 
 **cv2.normalize(roi_hist, roi_hist, 0, 255, cv2.NORM_MINMAX)**
@@ -541,7 +541,7 @@ Makes matching more stable
 This step is important for better segmentation.***
 
 
-# 8. Back Projection:**
+# 8. Back Projection:
 
 
 **mask = cv2.calcBackProject([hsv_original], [0, 1], roi_hist,
@@ -559,7 +559,7 @@ Dark pixels → background
 This produces a probability mask.***
 
 
-# 9. Noise Filtering:**
+# 9. Noise Filtering:
 
 
 **kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
@@ -575,7 +575,7 @@ Improves segmentation
 Elliptical kernel preserves object shape.**
 
 
-*# 10. Binary Thresholding:**
+# 10. Binary Thresholding:
 
 
 **_, mask = cv2.threshold(mask, 200, 255, cv2.THRESH_BINARY)**
@@ -586,7 +586,7 @@ White → objectBlack → background
 This step removes weak matches.***
 
 
-# 11. Merging Mask Channels:**
+# 11. Merging Mask Channels:
 
 
 **mask_3ch = cv2.merge([mask, mask, mask])**
@@ -597,7 +597,7 @@ This step removes weak matches.***
 This is required for bitwise operation.***
 
 
-# 12. Removing Background:**
+# 12. Removing Background:
 
 
 **result = cv2.bitwise_and(img, mask_3ch)**
@@ -609,7 +609,7 @@ Background pixels → removed
 This produces the final foreground image.***
 
 
-# 13. Displaying Results:**
+# 13. Displaying Results:
 
 
 **cv2.imshow("ORIGINAL IMAGE (BGR):", img)
@@ -641,7 +641,7 @@ Conclusion***
 ```Python:
 
 
-            Removing the back ground in image
+Removing the back ground in image
 
 
 import cv2
@@ -681,7 +681,7 @@ _, mask = cv2.threshold(mask, 200, 255, cv2.THRESH_BINARY)
 mask_3ch = cv2.merge([mask, mask, mask])
 result = cv2.bitwise_and(img, mask_3ch)
 
-# -----:(DISPLAY SIDE):-----
+DISPLAY SIDE.
 
 cv2.imshow("ORIGINAL IMAGE (BGR):", img)
 cv2.imshow("HSV ORIGINAL IMAGE:", hsv_original)
@@ -723,7 +723,7 @@ NOT
 XOR***
 
 
-# 1. Importing Libraries:**
+# 1. Importing Libraries:
 
 
 ***import cv2
@@ -732,7 +732,7 @@ OpenCV (cv2) is used for image processing
 NumPy is used to create blank images***
 
 
-# 2. Creating Blank Images:**
+# 2. Creating Blank Images:
 
 
 **img1 = np.zeros((250, 500, 3), np.uint8)
@@ -748,7 +748,7 @@ Channels = 3 (color image)
 np.zeros() creates completely black images.***
 
 
-# 3. Drawing Rectangles:**
+# 3. Drawing Rectangles:
 
 
 **img1 = cv2.rectangle(img1, (150, 100), (200, 250), (255, 255, 255), -1)
@@ -762,7 +762,7 @@ Thickness → -1 (filled)
 These rectangles act as binary shapes for bitwise operations.***
 
 
-# 4. Displaying Images:**
+# 4. Displaying Images:
 
 
 **cv2.imshow("img1", img1)
@@ -776,7 +776,7 @@ White = 255
 Black = 0***
 
 
-# 5. Bitwise AND Operation:**
+# 5. Bitwise AND Operation:
 
 
 **bitAnd = cv2.bitwise_and(img1,img2)**
@@ -802,7 +802,7 @@ masking
 ROI extraction***
 
 
-# 6. Bitwise OR Operation:**
+# 6. Bitwise OR Operation:
 
 
 **bitOr = cv2.bitwise_or(img1,img2)**
@@ -821,7 +821,7 @@ Black + Black → Black***
 combining objects**
 
 
-# 7. Bitwise NOT Operation:**
+# 7. Bitwise NOT Operation:
 
 
 **bitNot1 = cv2.bitwise_not(img1)
@@ -840,7 +840,7 @@ Black → White**
 mask reversal**
 
 
-# 8. Bitwise XOR Operation:**
+# 8. Bitwise XOR Operation:
 
 
 **bitXor = cv2.bitwise_xor(img1, img2)**
@@ -856,7 +856,7 @@ Black + Black → Black**
 This removes the common region and keeps different parts.**
 
 
-# 9. Displaying XOR Result:**
+# 9. Displaying XOR Result:
 
 
 **cv2.imshow('bitXor', bitXor)**
@@ -865,7 +865,7 @@ This removes the common region and keeps different parts.**
 *Shows XOR output image.*
 
 
-# 10. Closing Windows**
+# 10. Closing Windows:
 
 
 **cv2.waitKey(0)
@@ -960,7 +960,7 @@ Canny Edge Detection Steps***
 **The Canny algorithm consists of the following stages:**
 
 
-# 1. Noise Reduction:***
+# 1. Noise Reduction:
 
 
 **Gaussian filter is applied
@@ -968,7 +968,7 @@ Removes noise from image
 Prevents false edges.**
 
 
-# 2. Gradient Calculation:**
+# 2. Gradient Calculation:
 
 
 **Finds intensity change in image
@@ -976,14 +976,14 @@ Detects strong edges
 Uses Sobel operators**
 
 
-# 3. Non-Maximum Suppression:**
+# 3. Non-Maximum Suppression:
 
 
 **Removes unwanted thick edges
 Keeps only thin edge lines**
 
 
-# 4. Double Threshold:**
+# 4. Double Threshold:
 
 
 **Uses two thresholds:
@@ -995,7 +995,7 @@ Weak edges
 Non edges**
 
 
-# 5. Edge Tracking by Hysteresis:**
+# 5. Edge Tracking by Hysteresis:
 
 
 ***Weak edges connected to strong edges are kept
@@ -1031,7 +1031,7 @@ Grayscale image
 Edge detected image**
 
 
-***Method 2: Dynamic Threshold Using Trackbar:***
+# Method 2: Dynamic Threshold Using Trackbar:
 
 
 *This method allows interactive threshold adjustment.*
@@ -1172,7 +1172,7 @@ cv2.destroyAllWindows()
 Method 2 → Approximation and Convex Hull.*
 
 
-# Step 1: Reading and Preprocessing Image:**
+# Step 1: Reading and Preprocessing Image:
 
 
 ***img = cv2.imread("shapes.png")
@@ -1246,14 +1246,14 @@ shape analysis**
 
 **This method simplifies contour shape and finds bounding region.**
 
-**1. Contour Area:**
+# 1. Contour Area:
 
 
 ***area = cv2.contourArea(c)
-Calculates area of contour.**
+Calculates area of contour.***
 
 
-# 2. Contour Approximation:**
+# 2. Contour Approximation:
 
 
 **epsilon = 0.01*cv2.arcLength(c,True)
@@ -1268,7 +1268,7 @@ Simplifies shape
 Helps identify shapes (triangle, square, etc.)**
 
 
-# 3. Convex Hull:***
+# 3. Convex Hull:
 
 
 **hull = cv2.convexHull(data)**
@@ -1290,7 +1290,7 @@ object detection
 contour smoothing**
 
 
-# 4. Bounding Rectangle:***
+# 4. Bounding Rectangle:
 
 
 **x,y,w,h = cv2.boundingRect(hull)
@@ -1463,7 +1463,7 @@ cv2.destroyAllWindows()
 ***This program contains four different OpenCV codes. Each code demonstrates a different way of capturing, displaying, and saving video using Python and OpenCV.***
 
 
-***NO 1 — Video File Loading***
+# NO 1 — Video File Loading:
 
 
 *Theory:*
@@ -1492,7 +1492,7 @@ How to process frames
 How to display video using OpenCV**
 
 
-**NO 2 — Webcam Capture + Gray Conversion:**
+# NO 2 — Webcam Capture + Gray Conversion:
 
 
 ***Theory*
@@ -1525,7 +1525,7 @@ How to convert video to grayscale
 How to show multiple windows:**
 
 
-**NO 3 — Mobile Camera Connection (IP Camera):**
+# NO 3 — Mobile Camera Connection (IP Camera):
 
 
 ***Theory:*
@@ -1554,7 +1554,7 @@ Press 'n' to stop recording.**
 How to stream IP camera
 How to record video to file**
 
-**NO 4 — YouTube Video Streaming:**
+# NO 4 — YouTube Video Streaming:
 
 
 ***Theory:*
@@ -1759,19 +1759,21 @@ The program shows a blank window, and when you move the sliders, the background 
 *How This Code Works:*
 
 
-**1. Create Blank Image
-img = np.zeros((300, 512, 3), np.uint8)
+# 1. Create Blank Image:
+
+
+**img = np.zeros((300, 512, 3), np.uint8)
 This creates a black image where colors will be displayed.**
 
 
-**2. Create Window:**
+# 2. Create Window:
 
 
 **cv2.namedWindow("Color picker")
 This Code creates a window named Color picker.**
 
 
-**3. Create ON/OFF Switch:**
+# 3. Create ON/OFF Switch:
 
 
 **cv2.createTrackbar(s1, "Color picker", 0, 1, cross)**
@@ -1808,7 +1810,7 @@ b = cv2.getTrackbarPos("B", "Color picker")**
 ***This reads the slider values selected by user.***
 
 
-**6. Apply Color to Image
+# 6. Apply Color to Image:
 img[:] = [b, g, r]**
 
 
@@ -1816,7 +1818,9 @@ img[:] = [b, g, r]**
 OpenCV uses BGR format, not RGB.**
 
 
-**7. Exit Condition
+# 7. Exit Condition:
+
+
 if k == 110:
     break**
     
@@ -1901,7 +1905,7 @@ It uses trackbars to adjust HSV color range and detect specific colored objects 
 The program captures webcam video, applies color filtering, and then draws contours around detected objects.***
 
 
-**Step 1 — Webcam Capture:**
+# Step 1 — Webcam Capture:
 
 
 ***The code starts by opening the webcam using:***
@@ -1936,7 +1940,7 @@ Upper_V → Value maximum**
 *These trackbars help select which color to detect.*
 
 
-# Step 3 — Threshold Trackbar.
+# Step 3 — Threshold Trackbar:
 
 
 cv2.createTrackbar("Thresh", ...)
@@ -2133,7 +2137,7 @@ cv2.destroyAllWindows()
 It shows video width, height, current date, and time on each frame while the video is running.***
 
 
-## Step 1 — Import Libraries:
+# Step 1 — Import Libraries:
 
 
 **import cv2
@@ -2164,14 +2168,14 @@ Height of video frame
 The values are printed in the console.**
 
 
-##### Step 4 — Read Video Frame by Frame:
+# Step 4 — Read Video Frame by Frame:
 
 
 **ret, frame = cap.read()
 This reads the video frame by frame for processing and display.**
 
 
-###### Step 5 — Add Width and Height Text:
+# Step 5 — Add Width and Height Text:
 
 
 **cv2.putText(frame, text, (10, 30), font, 1, color, 2)
@@ -2188,20 +2192,23 @@ This gets the current system date and time and prints it on video.**
 *Example:*
 
 
-***Date: 2026-04-09 12:35:20
-Step 7 — Resize Frame
-frame = cv2.resize(frame, (500, 600))
+***Date: 2026-04-09 12:35:20***
+
+# Step 7 — Resize Frame:
+
+
+***frame = cv2.resize(frame, (500, 600))
 This resizes the video window to 500 × 600.***
 
 
-**Step 8 — Display Video:**
+# Step 8 — Display Video:
 
 
 **cv2.imshow("frame", frame)
 This shows the video with text overlay.**
 
 
-**Step 9 — Exit Condition:**
+# Step 9 — Exit Condition:
 
 
 **if cv2.waitKey(10) & 0xFF == ord('n'):
@@ -2342,6 +2349,7 @@ cv2.rectangle(...)**
 **The program searches eyes only inside the face area (ROI).
 This improves accuracy.**
 
+
 # Step 7 — Draw Circles on Eyes:
 
 
@@ -2349,6 +2357,7 @@ This improves accuracy.**
 
 
 *This draws pink circles around detected eyes.*
+
 
 # Step 8 — Flip Frame:
 
@@ -3928,7 +3937,7 @@ cv2.destroyAllWindows()
 **OUTPUT:**
 
 
-![Alt Text](bike-Copy.jpeg)
+![Alt Text](bike.jpeg)
 
 
 
@@ -4154,5 +4163,320 @@ cv2.destroyAllWindows()
 
 
 ![Alt Text](lion.jpg)
+
+
+
+
+# Image Contours using OpenCV:
+
+
+**This project demonstrates **image contour detection** using OpenCV.  
+Contours are curves joining continuous points along object boundaries. They are useful for **shape analysis** and **object detection**.
+
+***Theory***:
+
+
+- Contours detect object boundaries in an image  
+- Works best on **binary images**  
+- Object should be **white** and background **black**  
+- `cv2.findContours()` finds contour points  
+- `cv2.drawContours()` draws contours on image  
+
+***How It Works***:
+
+
+- Load image  
+- Resize image  
+- Convert to grayscale  
+- Apply threshold (binary image)  
+- Find contours  
+- Draw contours on original image  
+- Display results  
+
+**Functions Used**
+
+
+***Find Contours***
+
+
+cv2.findContours(image, mode, method)
+
+
+- `image` → binary image  
+- `mode` → contour retrieval mode  
+- `method` → contour approximation  
+
+***Draw Contours***:
+
+
+cv2.drawContours(image, contours, index, color, thickness)
+
+
+- `index = -1` → draw all contours  
+
+**Requirements**:
+
+
+- Python  
+- OpenCV  
+- NumPy  
+
+
+
+***Output***:
+
+
+The program displays:
+- Original image  
+- Grayscale image  
+- Threshold image  
+- Image with detected contours
+
+
+
+#                                  Image Contours:
+
+
+ ***SOME THOERY ABOUT THE IMAGE CONTOURS:***
+ 
+
+***Contours can be explained simply as a curve joining all the continuous points
+(along the boundary), having same color or intensity.
+The contours are a usefull tools for shape analysis and object detection.
+For better accuracy, use binary images and also apply edge detection before
+finding countours.
+Findecountour function manipulate original image so copy it before proceedig.
+findcountour is like finding white object from black backgraound.
+so you must turn image in white and backgraound is black.
+we have to find and draw contours as per the requirement.***
+
+
+# THIS IS THE EXAMPLE CODE:
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\wow_pic.jpg")
+img = cv2.resize(img, (350, 350))
+cv2.imshow("original image:", img)
+
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+ret, thresh = cv2.threshold(img1, 127, 255, cv2.THRESH_BINARY)
+
+# findContour(img, contour_retrieval_mode, method)
+cnts, hier = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+print(cnts, len(cnts))
+
+#Drawcontours(img,cnts,id of cnts,colo,thikness).
+#countour just pass -1.
+# draw the conyours.
+img = cv2.drawContours(img, cnts, -1, (20, 250, 15), 4)
+
+
+# DISPLAY PLACE:
+
+
+cv2.imshow("gray image:", img1)
+cv2.imshow("thresh:", thresh)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+# THIS IS THE FULL CODE:
+
+
+```Python Code:
+
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\wow_pic.jpg")
+img = cv2.resize(img, (350, 350))
+cv2.imshow("original image:", img)
+
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+ret, thresh = cv2.threshold(img1, 127, 255, cv2.THRESH_BINARY)
+
+# findContour(img, contour_retrieval_mode, method)
+cnts, hier = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+print(cnts, len(cnts))
+
+#Drawcontours(img,cnts,id of cnts,colo,thikness).
+#countour just pass -1.
+# draw the conyours.
+img = cv2.drawContours(img, cnts, -1, (20, 250, 15), 4)
+
+
+# DISPLAY PLACE:
+
+
+cv2.imshow("gray image:", img1)
+cv2.imshow("thresh:", thresh)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+***THIS IS THE OUTPUT:***
+
+
+![Alt Text](wow_pic.jpg)
+
+
+
+
+
+
+
+
+
+
+# Image Gradient and Edge Detection using OpenCV:
+
+
+This project demonstrates **image gradient and edge detection** using **Laplacian** and **Sobel operators**.  
+Image gradient represents the **change in intensity or color** in an image and is mainly used to **detect edges**.
+
+***Theory***:
+
+
+**Image gradient helps find:**
+
+- Object boundaries  
+- Edges in images  
+- Shape information  
+- Important features  
+
+**Common gradient methods:**
+
+- Laplacian  
+- Sobel X  
+- Sobel Y  
+- Derivatives  
+
+All gradient methods work better on **grayscale images**.
+
+
+**How It Works**:
+
+
+- Load image  
+- Resize image  
+- Convert to grayscale  
+- Apply Laplacian edge detection  
+- Apply Sobel X detection  
+- Apply Sobel Y detection  
+- Combine Sobel X and Sobel Y  
+- Display results  
+
+**Laplacian Operator**:
+
+
+Detects edges in **all directions** using second derivative.
+
+
+# THESE ARE ALL THE LINES ARE FOR EXAMPLE:
+
+
+lap = cv2.Laplacian(img_gray, cv2.CV_64F, ksize=3)
+lap = np.uint8(np.absolute(lap))
+Sobel X (Vertical Edges)
+
+Detects vertical lines in the image.
+
+sobelx = cv2.Sobel(img_gray, cv2.CV_64F, 1, 0, ksize=3)
+Sobel Y (Horizontal Edges)
+
+Detects horizontal lines in the image.
+
+sobely = cv2.Sobel(img_gray, cv2.CV_64F, 0, 1, ksize=3)
+Combine Sobel X and Y
+sobelcombine = cv2.bitwise_or(sobelx, sobely)
+Requirements
+Python
+OpenCV
+NumPy
+
+Install dependencies:
+
+pip install opencv-python numpy
+Output
+
+The program displays:
+
+Original image
+Grayscale image
+Laplacian edges
+Sobel X edges
+Sobel Y edges
+Combined Sobel result
+
+
+
+
+# THIS IS THE FULL CODE:
+
+
+```Python code:
+import cv2
+import numpy as np
+
+# load image
+img = cv2.imread(r"A:\computer_Vision\ben-10.jpg")
+
+# resize image
+img = cv2.resize(img, (250, 250))
+
+# convert to grayscale
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+#Laplacion derivat---it calculate laplace derivat parameters like:
+# (img,data_type,for -ve val,ksize).
+lap = cv2.Laplacian(img_gray, cv2.CV_64F, ksize = 3)
+lap = np.uint8(np.absolute(lap))
+
+
+# THIS IS THE INTRO ABOUT THE BOBEL X AND SOBEL Y:
+
+
+ Sobel operation is a joint gaussing smoothing plus defferention operaion,
+ so it is more resistant to noise.
+ This is use for X and Y boths.
+ It takes some parameters):-
+ Parameters = (img, type for -ve val, x = 1, y = 0, ksize)
+ Sobel x: this parameter is focused on vertical lines.
+ Sobel y: this parameter is focused on horizontal lines.
+
+sobelx = cv2.Sobel(img_gray,cv2.CV_64F,1,0,ksize = 3)
+sobely = cv2.Sobel(img_gray,cv2.CV_64F,0,1,ksize = 3)
+sobelx = np.uint8(np.absolute(sobelx))
+sobely = np.uint8(np.absolute(sobely))
+
+# finally combine sobelX and sobely together.
+
+sobelcombine = cv2.bitwise_or(sobelx,sobely)
+
+cv2.imshow("original image:", img)
+cv2.imshow("gray:", img_gray)
+cv2.imshow("Laplacian:", lap)
+cv2.imshow("sobelx:",sobelx)
+cv2.imshow("sobely:",sobely)
+cv2.imshow("Sobel combine:",sobelcombine)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+# THIS IS THE OUTPUT:
+
+
+![Alt Text](ben-10.jpg)
 
 
