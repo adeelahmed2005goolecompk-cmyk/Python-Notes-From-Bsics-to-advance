@@ -5697,4 +5697,396 @@ cv2.destroyAllWindows()
 
 
 
+# Object Tracking & Human Detection (OpenCV):
+
+
+***This project demonstrates **basic object tracking and human detection** using OpenCV.***
+
+
+***(Short & Simple)***
+
+
+***1. MeanShift Tracking (Concept)***
+
+
+**MeanShift is a tracking algorithm that:**
+
+
+* Moves a **search window** to the region with **highest pixel density**
+* Uses **histogram back projection**
+* Tracks object based on **color distribution**
+
+**Steps:**
+
+1. Select target and compute histogram
+2. Set initial window location
+3. Run algorithm until termination criteria
+
+
+
+***2. HOG Human Detection***
+
+
+**HOG (Histogram of Oriented Gradients):**
+
+
+* Extracts **edge/gradient features**
+* Uses **SVM classifier**
+* Detects **human shapes** in frames
+
+
+
+***Code Implementation***
+
+
+# Part 1 — Random ROI + Human Detection
+
+```python
+Object tracking and detecting.
+
+
+import cv2
+import numpy as np
+
+Load video.
+
+
+cap = cv2.VideoCapture(r"A:\computer_Vision\2008.mp4")
+if not cap.isOpened():
+    print("Error: Video not found")
+    exit()
+
+Initialize HOG human detector.
+
+hog = cv2.HOGDescriptor()
+hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+
+Random ROI settings.
+
+
+width, height = 120, 180
+roi_frozen = False
+frozen_roi = None
+
+Select initial random ROI.
+
+
+ret, frame = cap.read()
+if ret:
+    frame = cv2.resize(frame, (500, 300))
+    h, w, _ = frame.shape
+    x = np.random.randint(0, w - width)
+    y = np.random.randint(0, h - height)
+    frozen_roi = frame[y:y + height, x:x + width]
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    frame = cv2.resize(frame, (500, 300))
+    output_frame = frame.copy()
+
+Detect humans.
+
+
+    boxes, weights = hog.detectMultiScale(
+        frame,
+        winStride=(8,8),
+        padding=(16,16),
+        scale=1.05
+    )
+
+    for (hx, hy, hw, hh) in boxes:
+        cv2.rectangle(output_frame, (hx, hy),
+                      (hx + hw, hy + hh),
+                      (0, 255, 0), 2)
+
+        cv2.putText(output_frame,
+                    "Person",
+                    (hx, hy-5),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.5,
+                    (0,255,0),
+                    2)
+
+Draw rectangle around frozen ROI.
+
+
+    cv2.rectangle(output_frame,
+                  (x, y),
+                  (x + width, y + height),
+                  (255, 0, 0), 2)
+
+Show video.
+
+
+    cv2.imshow("Video with Humans", output_frame)
+
+    if frozen_roi is not None:
+        cv2.imshow("Frozen ROI", frozen_roi)
+
+    k = cv2.waitKey(30) & 0xff
+
+    if k == 32:   # SPACE
+        roi_frozen = True
+
+    if k == 110:  # n to exit
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+```
+
+
+
+# Part 2 — Rotated Rectangle Human Detection.
+
+
+```python
+import cv2
+import numpy as np
+
+Load video.
+
+
+cap = cv2.VideoCapture(r"A:\computer_Vision\2008.mp4")
+if not cap.isOpened():
+    print("Error: Video not found")
+    exit()
+
+HOG Human Detector.
+
+
+hog = cv2.HOGDescriptor()
+hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    frame = cv2.resize(frame, (800, 450))
+
+Detect humans.
+
+
+    boxes, weights = hog.detectMultiScale(
+        frame,
+        winStride=(8, 8),
+        padding=(8, 8),
+        scale=1.05
+    )
+
+    all_pts = []
+
+    for (x, y, w, h) in boxes:
+        cx = float(x + w / 2)
+        cy = float(y + h / 2)
+        ww = float(w)
+        hh = float(h)
+
+        rect = ((cx, cy), (ww, hh), 0.0)
+
+        box = cv2.boxPoints(rect)
+        pts = np.int64(box)
+
+        all_pts.append(pts)
+
+    # Draw rotated rectangles
+    if len(all_pts) > 0:
+        cv2.polylines(frame, all_pts, True, (255, 0, 0), 1)
+
+    cv2.imshow("Human Detection frames:", frame)
+
+    key = cv2.waitKey(1) & 0xFF
+    if key == 27 or key == ord('n'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+```
+
+
+
+***Controls***:
+
+
+
+| Key   | Action     |
+| ----- | ---------- |
+| SPACE | Freeze ROI |
+| N     | Exit       |
+| ESC   | Exit       |
+
+---
+
+***Requirements:***
+
+
+
+***Output***
+
+* Human detection boxes
+* Random ROI selection
+* Rotated detection rectangles
+* Real-time video processing
+
+
+
+
+***THESE CODES FOR VIDEOS***
+
+
+***THIS IS THE FULL CODE***
+
+```Python Code:
+import cv2
+import numpy as np
+
+
+Load video.
+
+cap = cv2.VideoCapture(r"A:\computer_Vision\2008.mp4")
+if not cap.isOpened():
+    print("Error: Video not found")
+    exit()
+
+Initialize HOG human detector.
+
+
+hog = cv2.HOGDescriptor()
+hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+
+Random ROI settings.
+
+
+width, height = 120, 180
+roi_frozen = False
+frozen_roi = None
+
+Select initial random ROI.
+
+
+ret, frame = cap.read()
+if ret:
+    frame = cv2.resize(frame, (500, 300))
+    h, w, _ = frame.shape
+    x = np.random.randint(0, w - width)
+    y = np.random.randint(0, h - height)
+    frozen_roi = frame[y:y + height, x:x + width]
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    frame = cv2.resize(frame, (500, 300))
+    output_frame = frame.copy()
+
+Detect humans.
+
+
+    boxes, weights = hog.detectMultiScale(frame, winStride=(8,8), padding=(16,16), scale=1.05)
+    for (hx, hy, hw, hh) in boxes:
+        cv2.rectangle(output_frame, (hx, hy), (hx + hw, hy + hh), (0, 255, 0), 2)
+        cv2.putText(output_frame, "Person", (hx, hy-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 2)
+
+Draw rectangle around frozen ROI.
+
+
+    cv2.rectangle(output_frame, (x, y), (x + width, y + height), (255, 0, 0), 2)
+
+Show video and frozen ROI.
+
+
+    cv2.imshow("Video with Humans", output_frame)
+    if frozen_roi is not None:
+        cv2.imshow("Frozen ROI", frozen_roi)
+
+    k = cv2.waitKey(30) & 0xff
+    if k == 32:  # SPACE to freeze ROI permanently
+        roi_frozen = True
+    if k == 110:  # n to exit
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+```
+
+
+
+***CODE NO 2***
+
+
+```Python Code:
+import cv2
+import numpy as np
+
+Load video.
+
+
+cap = cv2.VideoCapture(r"A:\computer_Vision\2008.mp4")
+if not cap.isOpened():
+    print("Error: Video not found")
+    exit()
+
+HOG Human Detector.
+
+
+hog = cv2.HOGDescriptor()
+hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    frame = cv2.resize(frame, (800, 450))
+
+Detect humans.
+
+
+    boxes, weights = hog.detectMultiScale(
+        frame,
+        winStride=(8, 8),
+        padding=(8, 8),
+        scale=1.05
+    )
+
+    all_pts = []
+
+    for (x, y, w, h) in boxes:
+        # Convert all values to float (IMPORTANT FIX)
+        cx = float(x + w / 2)
+        cy = float(y + h / 2)
+        ww = float(w)
+        hh = float(h)
+
+        rect = ((cx, cy), (ww, hh), 0.0)
+
+        box = cv2.boxPoints(rect)   # Now works correctly
+        pts = np.int64(box)         # Save as int64
+        all_pts.append(pts)
+
+    # Draw all rotated rectangles
+    if len(all_pts) > 0:
+        final = cv2.polylines(frame, all_pts, True, (255, 0, 0), 1)
+
+    cv2.imshow("Human Detection frames:", frame)
+
+    key = cv2.waitKey(1) & 0xFF
+    if key == 27 or key == ord('n'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+```
+
+
+
+
+
+
+
 
