@@ -4929,3 +4929,772 @@ cv2.destroyAllWindows()
 ![Alt Text](HARD.jpg)
 
 
+
+
+
+
+
+
+
+
+# Image Smoothing (Blurring) using OpenCV
+
+***Theory***:
+
+
+**Image smoothing (or blurring) is a common operation in image processing.  
+It is used to remove noise from an image and make it smoother.**
+
+
+***There are different filters used for smoothing:***
+
+
+- Low Pass Filters → remove noise
+- High Pass Filters → detect edges
+
+
+***Some common smoothing filters:***
+
+
+- Homogeneous filter
+- Averaging (Blur)
+- Gaussian filter
+- Median filter
+- Bilateral filter
+
+
+## Code for example only:
+
+
+**Image smoothing.**
+
+
+**Image smoothing or blurring is most commonly used operation in image processing.
+It is used to remove noise from the image.**
+
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\534.jpg")
+img = cv2.resize(img, (250, 250))
+
+cv2.imshow("original img:", img)
+
+# Filter 1: Homogeneous filter
+kernel = np.ones((5, 5), np.float32) / 25
+h_filter = cv2.filter2D(img, -1, kernel)
+cv2.imshow("homogeneous", h_filter)
+
+# Filter 2: Averaging blur
+blur = cv2.blur(img, (8, 8))
+cv2.imshow("blur:", blur)
+
+# Filter 3: Gaussian filter
+gau = cv2.GaussianBlur(img, (5, 5), 0)
+cv2.imshow("gau blur:", gau)
+
+# Filter 4: Median filter
+med = cv2.medianBlur(img, 5)
+cv2.imshow("median filter:", med)
+
+# Filter 5: Bilateral filter
+bi_f = cv2.bilateralFilter(img, 9, 75, 75)
+cv2.imshow("bi_f:", bi_f)
+
+titles = ["original image", "homoblur", "blur", "gauss", "med", "bi_f"]
+images = [img, h_filter, blur, gau, med, bi_f]
+
+from matplotlib import pyplot as plt
+
+for i in range(6):
+    plt.subplot(2, 3, i + 1)
+    plt.imshow(images[i], cmap='gray')
+    plt.title(titles[i])
+    plt.xticks([])
+    plt.yticks([])
+
+plt.tight_layout()
+plt.show()
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+# THIS IS THE FULL CODE:
+
+
+```Pthon Code:
+
+
+
+import cv2
+import numpy as np
+
+img = cv2.imread(r"A:\computer_Vision\534.jpg")
+img = cv2.resize(img, (250, 250))
+
+cv2.imshow("original img:", img)
+
+Filter no1.
+
+ 
+# This filter work like each output pixel is the mean of its kernel neigbour. 
+# It is aka homogeneuos filter in this all pixels contribute with equal weight. 
+# kernel is a small shape or matrix which we apply on image. 
+# in this filter kernel is [(1/kernel(h,w))*kernel].
+
+kernel = np.ones((5, 5), np.float32) / 25
+h_filter = cv2.filter2D(img, -1, kernel)
+cv2.imshow("homogeneous", h_filter)
+
+
+# Filter no2.
+
+
+# Blur method or averaging.
+# It takes the avg of all the pixels under kernel area and replaces the centeral 
+# element with this image.
+
+blur = cv2.blur(img, (8, 8))
+cv2.imshow("blur:", blur)
+
+# Filter no3. 
+# Gaussian filter-- Here it using different weight kernel, in row as well.
+# Its means that side values are small then center.Its image distance b/w value of pixels
+
+gau = cv2.GaussianBlur(img, (5, 5), 0)
+cv2.imshow("gau blur:", gau)
+
+# Filter no4.
+#median filter-- computes the median of all the pixels under kernel,winsows and the centeral 
+#pixels is replace with this median value. 
+# this is highly effective in removing salt-and-pepper noise.
+# Here kernel size must be odd except one.
+
+med  = cv2.medianBlur(img,5)
+cv2.imshow("median filter:",med)
+
+# bilateral filter --- is highly effective at noise removal while preserving edges.
+# Its work like gaussian filter but more focus on edges.
+# it is slow as compare with other filters .
+# argument(img, neigbour_pixels_diameter,simga color, simga_space)
+
+bi_f = cv2.bilateralFilter(img, 9,75,75)
+cv2.imshow("bi_f:",bi_f)
+titles = ["original image", "homoblur", "blur", "gauss", "med", "bi_f"]
+images = [img, h_filter, blur, gau, med, bi_f]
+
+from matplotlib import pyplot as plt
+
+for i in range(6):
+    plt.subplot(2, 3, i + 1)
+    plt.imshow(images[i], cmap='gray')
+    plt.title(titles[i])
+    plt.xticks([])
+    plt.yticks([])
+
+plt.tight_layout()
+plt.show()
+
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+# THIS IS THE OUTPUT IMAGE:
+
+
+![Alt Text](534.JPG)
+
+
+
+
+# Histogram Image (OpenCV):
+
+
+***Theory.***
+
+
+**Image histogram is used to find, plot, and analyze the intensity distribution of an image.**
+
+**- X-axis → pixel intensity values (0–255)**  
+**- Y-axis → number of pixels**
+**- Histogram helps to understand:**
+**- Brightness**
+**- Contrast**
+
+   
+   **Intensity distribution**
+   
+
+**This file shows different histogram methods:**
+
+
+**- calcHist() method.**
+**- Color channel histogram.**
+**- Grayscale histogram.**
+**- Histogram equalization.**
+**- CLAHE (Adaptive histogram equalization).**
+
+
+# The Code For Example:
+
+
+***Histogramic Image***
+
+
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+***Contrast equalization histogram***
+
+
+**CLAHE (Contrast Limited Adaptive Histogram Equalization)
+Used to enhance contrast and handle noise
+Works on grayscale image.**
+
+
+**img = cv2.imread(r"A:/computer_Vision/54.jpg")
+img = cv2.resize(img, (250, 250))**
+
+
+**img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)**
+
+
+***CLAHE:***
+
+
+**clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+cl1 = clahe.apply(img_gray)
+cv2.imshow("clahe", cl1)**
+
+# Histogram plot:
+
+
+**hist2 = cv2.calcHist([cl1], [0], None, [256], [0, 256])
+plt.plot(hist2)
+plt.title("CLAHE:")
+plt.show()
+cv2.waitKey(0)
+cv2.destroyAllWindows()**
+
+
+# Methods Included
+
+
+**- Histogram using `calcHist()`**
+**- Histogram for color channels (BGR)**
+**- Grayscale histogram**
+**- Histogram Equalization***
+**- CLAHE (Adaptive Histogram Equalization)**
+
+
+# Requirements:
+
+
+**- Python**
+**- OpenCV**
+**- NumPy**
+**- Matplotlib**
+
+
+# THIS IS THE FULL CODE:
+
+
+***No 1 (FOR PLOTTING)***
+
+
+**THIS CODE HAVE NO USEING ANY IMAGE AND VIDEO**
+
+
+```Python Code:
+
+
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+plotting calcHist method,
+img = np.zeros((200, 200), np.uint8)
+
+Drawing rectanlgles.
+cv2.rectangle(img, (0,100), (200, 200), (100), -1)
+cv2.rectangle(img, (0, 50), (50, 100), (127), -1)
+
+calcHist code.
+It accepts parameters like ([img], [channel], mask, [histsize], range [0-255])
+hist = cv2.calcHist([img], [0], None, [256], [0, 256])
+plt.plot(hist)
+
+
+Display Side.
+
+plt.show()
+cv2.imshow("Result:", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+
+***No 2 (FOR PLOTTING DIFFERENT CHANNELS)***
+
+
+```Python Code:
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+with image color.
+img = cv2.imread(r"A:\computer_Vision\54.jpg")
+img = cv2.resize(img, (250, 250))
+
+b, g, r = cv2.split(img)
+
+cv2.imshow("img:", img)
+cv2.imshow("b:", b)
+# cv2.imshow("g:", g)
+# cv2.imshow("r:", r)
+
+# plotting different channel with hist.
+# plt.hist(b.ravel(), 256, [0, 256])
+# plt.hist(g.ravel(), 256, [0, 256])
+# plt.hist(r.ravel(), 256, [0, 256])
+# plt.title("ColorFull Image:")
+# plt.show()
+
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+```
+
+
+***THIS IS THE OUTPUT IMAGE:***
+
+
+![Alt Text](54.jpg)
+
+
+
+**No 3(FOR PLOTTING HISTOGRAME)**
+
+
+```Python Code:
+# import cv2
+# import numpy as np
+# from matplotlib import pyplot as plt
+
+# # with image color):--
+# img = cv2.imread(r"A:\computer_Vision\54.jpg")
+# img = cv2.resize(img, (250, 250))
+
+# # Gray scale graph):-
+# img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+# hist = cv2.calcHist([img_gray], [0], None, [256], [0, 256])
+
+# plt.plot(hist)
+# plt.title("Gray Image:")
+# plt.show()
+```
+
+
+# THIS IS THE OUTPUT IMAGE:
+
+
+![Alt Text](54.jpg)
+
+
+**No 4(FOR EQUALIZE HISTOGRAME)**
+
+
+```Python Code:
+# import cv2
+# import numpy as np
+# from matplotlib import pyplot as plt
+
+# Read and resize image
+# img = cv2.imread(r"A:\computer_Vision\54.jpg")
+# img = cv2.resize(img, (250, 250))
+
+# Convert to gray scale
+# img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Histogram equalization
+# equ = cv2.equalizeHist(img_gray)
+# res = np.hstack((img_gray, equ))
+
+# cv2.imshow("Original and Equalized", res)
+
+# Plot equalized histogram
+# hist1 = cv2.calcHist([equ], [0], None, [256], [0, 256])
+# plt.plot(hist1)
+# plt.title("Equalized Histogram:")
+# plt.show()
+
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+```
+
+***THIS IS THE OUTPUT IMAGE:**
+
+
+![Alt Text](54.jpg)
+
+
+**No 5 (CLAHE)**
+
+
+```Python Code:
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+
+Contrast equalization histrogram.
+
+
+#CLAHE):--(.Contrats Limited Addaptive Histogram Equalization)
+#Create a CLAHE object, (Arguments are optional)
+#It is used to enhance image and also handle noise from image region.
+#Gray scale image is required.
+
+img = cv2.imread(r"A:/computer_Vision/54.jpg")
+img = cv2.resize(img, (250, 250))
+
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+cl1 = clahe.apply(img_gray)
+
+cv2.imshow("clahe", cl1)
+
+hist2 = cv2.calcHist([cl1], [0], None, [256], [0, 256])
+plt.plot(hist2)
+plt.title("CLAHE:")
+plt.show()
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+
+
+***THIS IS THE OUTPUT IMAGE:***
+
+
+![Alt Text](54.jpg)
+
+
+
+
+
+
+# Morphological Transformations (OpenCV)
+
+***Theory***:
+
+
+**Morphological transformations are operations based on image shape.  
+These operations are normally performed on **binary images**.**
+
+
+***They require two inputs:***
+
+
+- Original image
+- Structuring element (kernel)
+
+***Two basic morphological operations:***
+
+
+- Opening = Erosion → Dilation  
+- Closing = Dilation → Erosion  
+
+
+
+
+# Method 1: Opening and Closing:
+
+
+import cv2
+import numpy as np
+
+
+**OPENING MORPHOLOGICAL OPERATION**
+
+**Opening = Erosion followed by Dilation**
+
+img = cv2.imread(r"A:\computer_Vision\collor_balls.jpg", cv2.IMREAD_GRAYSCALE)
+img = cv2.resize(img, (200, 200))
+
+_, mask = cv2.threshold(img, 230, 255, cv2.THRESH_BINARY_INV)
+
+kernel = np.ones((3, 3), np.uint8)
+
+opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+
+cv2.imshow("img:", img)
+cv2.imshow("mask:", mask)
+cv2.imshow("opening:", opening)
+
+
+**CLOSING MORPHOLOGICAL OPERATION**
+
+**Closing = Dilation followed by Erosion**
+
+closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+cv2.imshow("closing:", closing)
+
+**Other operations:**
+
+
+x1 = cv2.morphologyEx(mask, cv2.MORPH_TOPHAT, kernel)
+x2 = cv2.morphologyEx(mask, cv2.MORPH_GRADIENT, kernel)
+x3 = cv2.morphologyEx(mask, cv2.MORPH_BLACKHAT, kernel)
+
+cv2.imshow("x1", x1)
+cv2.imshow("x2", x2)
+cv2.imshow("x3", x3)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+***Method 2: Multiple Morphological Operations:***
+
+
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+
+***LOAD COLOR IMAGE:***
+
+
+img = cv2.imread(r"A:\computer_Vision\girl.jpg")
+img = cv2.resize(img, (300, 300))
+
+***CONVERT TO GRAYSCALE***
+
+
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+
+***THRESHOLD:***
+
+
+_, mask = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY_INV)
+
+***KERNEL***:
+
+
+kernel = np.ones((2, 2), np.uint8)
+
+***MORPHOLOGICAL OPERATIONS:***
+
+
+e = cv2.erode(mask, kernel, iterations=1)
+d = cv2.dilate(mask, kernel, iterations=1)
+o = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+c = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+x1 = cv2.morphologyEx(mask, cv2.MORPH_TOPHAT, kernel)
+x2 = cv2.morphologyEx(mask, cv2.MORPH_GRADIENT, kernel)
+x3 = cv2.morphologyEx(mask, cv2.MORPH_BLACKHAT, kernel)
+
+
+***DISPLAY WITH OPENCV:***
+
+
+cv2.imshow("Original Color", img)
+cv2.imshow("Gray", gray)
+cv2.imshow("Mask", mask)
+cv2.imshow("Erosion", e)
+cv2.imshow("Dilation", d)
+cv2.imshow("Opening", o)
+cv2.imshow("Closing", c)
+cv2.imshow("TopHat", x1)
+cv2.imshow("Gradient", x2)
+cv2.imshow("BlackHat", x3)
+
+
+***DISPLAY WITH MATPLOTLIB:***
+
+
+titles = ['Original Color', 'Mask', 'Erosion', 'Dilation', 'Opening', 
+          'Closing', 'TopHat', 'Gradient', 'BlackHat']
+
+images = [img, mask, e, d, o, c, x1, x2, x3]
+
+plt.figure(figsize=(10, 10))
+for i in range(9):
+    plt.subplot(3, 3, i+1)
+    plt.title(titles[i])
+    plt.xticks([])
+    plt.yticks([])
+
+  if len(images[i].shape) == 3:
+        plt.imshow(cv2.cvtColor(images[i], cv2.COLOR_BGR2RGB))
+  else:
+        plt.imshow(images[i], cmap='gray')
+
+plt.tight_layout()
+plt.show()
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+***THIS IS THE FULL CODE:***
+
+
+
+# CODE NO 1:
+
+
+```Python Code:
+
+
+import cv2
+import numpy as np
+
+OPENING MORPHOLOGICAL OPERATION.
+# Opening = Erosion followed by Dilation
+
+img = cv2.imread(r"A:\computer_Vision\collor_balls.jpg", cv2.IMREAD_GRAYSCALE)
+
+img = cv2.resize(img, (200, 200))
+
+_, mask = cv2.threshold(img, 230, 255, cv2.THRESH_BINARY_INV)
+
+kernel = np.ones((3, 3), np.uint8)
+
+opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+
+cv2.imshow("img:", img)
+cv2.imshow("mask:", mask)
+cv2.imshow("opening:", opening)
+
+CLOSING MORPHOLOGICAL OPERATION.
+
+
+# It is opposite of opening.
+# Closing = Dilation followed by Erosion
+
+kernel = np.ones((3, 3), np.uint8)
+closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+
+cv2.imshow("closing:", closing)
+
+OPTIONS.
+
+
+x1 = cv2.morphologyEx(mask,cv2.MORPH_TOPHAT,kernel)
+x2 = cv2.morphologyEx(mask,cv2.MORPH_GRADIENT,kernel)
+x3 = cv2.morphologyEx(mask,cv2.MORPH_BLACKHAT,kernel)
+
+cv2.imshow("x1",x1)
+cv2.imshow("x2",x2)
+cv2.imshow("x3",x3)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+***THIS IS THE OUTPUT IMAGE:***
+
+
+![Alt Text](collor_balls.jpg)
+
+
+
+
+***CODE NO 2:***
+
+
+
+**THIS IS THE FULL CODE No 2:**
+
+
+```Python Code:
+
+
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+# LOAD COLOR IMAGE
+img = cv2.imread(r"A:\computer_Vision\girl.jpg")
+img = cv2.resize(img, (300, 300))
+
+# CONVERT TO GRAYSCALE
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# BETTER THRESHOLD (LESS HARSH)
+_, mask = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY_INV)
+
+# BIGGER KERNEL (VISIBLE EFFECT)
+kernel = np.ones((2, 2), np.uint8)
+
+# MORPHOLOGICAL OPERATIONS
+e = cv2.erode(mask, kernel, iterations=1)
+d = cv2.dilate(mask, kernel, iterations=1)
+o = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+c = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+x1 = cv2.morphologyEx(mask, cv2.MORPH_TOPHAT, kernel)
+x2 = cv2.morphologyEx(mask, cv2.MORPH_GRADIENT, kernel)
+x3 = cv2.morphologyEx(mask, cv2.MORPH_BLACKHAT, kernel)
+
+# DISPLAY ALL IMAGES WITH OPENCV
+cv2.imshow("Original Color", img)
+cv2.imshow("Gray", gray)
+cv2.imshow("Mask", mask)
+cv2.imshow("Erosion", e)
+cv2.imshow("Dilation", d)
+cv2.imshow("Opening", o)
+cv2.imshow("Closing", c)
+cv2.imshow("TopHat", x1)
+cv2.imshow("Gradient", x2)
+cv2.imshow("BlackHat", x3)
+
+# DISPLAY ALL IMAGES USING MATPLOTLIB
+titles = ['Original Color', 'Mask', 'Erosion', 'Dilation', 'Opening', 'Closing', 'TopHat', 'Gradient', 'BlackHat']
+images = [img, mask, e, d, o, c, x1, x2, x3]
+
+plt.figure(figsize=(10, 10))
+for i in range(9):
+    plt.subplot(3, 3, i+1)
+    plt.title(titles[i])
+    plt.xticks([])
+    plt.yticks([])
+    # For color image use BGR->RGB conversion
+    if len(images[i].shape) == 3:  # Color image
+        plt.imshow(cv2.cvtColor(images[i], cv2.COLOR_BGR2RGB))
+    else:  # Grayscale image
+        plt.imshow(images[i], cmap='gray')
+
+plt.tight_layout()
+plt.show()
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+***THIS IS THE OUTPUT IMAGE:***
+
+
+![Alt Text](girl.jpg)
+
+
+
+
+
+
+
+
+
