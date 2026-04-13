@@ -6425,3 +6425,707 @@ cv2.destroyAllWindows()
 
 
 
+
+
+
+
+# ROI (Region of Interest) in OpenCV.
+
+
+***Theory***
+
+
+**ROI (Region of Interest) is a selected part of an image.
+We can **crop**, **copy**, and **paste** this region to another location.**
+
+
+***Format:***
+
+
+**roi = img[y1:y2, x1:x2]**
+
+
+
+
+***Code For Example:***
+
+
+***Today we dissciting about roi[region of intrest]***
+
+
+**import cv2
+import numpy as np**
+
+
+***Read image***
+
+
+**img = cv2.imread(r"A:\computer_Vision\52.jpg")**
+
+
+**Check image loaded**
+
+
+**if img is None:
+    print("Error: Image not found")
+    exit()**
+    
+
+***Resize image***
+
+
+**img = cv2.resize(img, (500, 500))
+ROI = Region of Interest
+format: img[y1:y2, x1:x2]
+roi = img[241:833, 2857:3321]**
+
+
+***Paste ROI to another location:***
+
+
+***img[241:833, 2977:3441] = roi
+img[241:833, 3097:3561] = roi
+img[241:833, 2857:3321] = roi***
+
+
+***8Show image:***
+
+
+**cv2.imshow("img", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()**
+
+
+***THIS IS THE FULL CODE:***
+
+
+```Python Code:
+# R.O.I[region of intrest]
+
+
+import cv2
+import numpy as np
+
+# Read image
+img = cv2.imread(r"A:\computer_Vision\52.jpg")
+
+# Check image loaded
+if img is None:
+    print("Error: Image not found")
+    exit()
+
+# Resize image
+img = cv2.resize(img, (500, 500))
+
+# ROI = Region of Interest
+# format: img[y1:y2, x1:x2]
+roi = img[241:833, 2857:3321]
+
+# Paste ROI to another location (same size)
+img[241:833, 2977:3441] = roi
+img[241:833, 3097:3561] = roi
+img[241:833, 2857:3321] = roi
+
+# Show images
+cv2.imshow("img", img)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+
+***THIS IS THE OUTPUT IMAGE:***
+
+
+![Alt Text](52.jpg)
+
+
+
+
+
+# Template Matching in OpenCV.
+
+
+***Theory***
+
+
+**Template Matching is used to find a small image (template) inside a larger image.
+OpenCV uses `cv2.matchTemplate()` which slides the template over the image and compares pixels.**
+
+***Two approaches:***
+
+
+`* Method 1 → Face detection then draw template box`
+`* Method 2 → Direct template matching using OpenCV methods`
+
+
+***CODES FOR EAXMPLE***
+
+
+# Method 1 — Face Based Template Area
+
+
+***import cv2
+import numpy as np***
+
+
+***load image***
+
+
+**img = cv2.imread(r"A:\computer_Vision\ben-ten.jpg")
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)**
+
+
+***load face cascade***
+
+
+**face_cascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_frontalface_default.xml")**
+
+
+***detect face***
+
+
+**faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
+if len(faces) > 0:
+    x, y, w, h = max(faces, key=lambda f: f[2] * f[3])
+    x = int(x - 0.2 * w)
+    y = int(y - 0.6 * h)
+    w = int(w * 1.4)
+    h = int(h * 2.0)
+    x = max(0, x)
+    y = max(0, y)
+    w = min(w, img.shape[1] - x)
+    h = min(h, img.shape[0] - y)
+    print("Head Coordinates:", (x, y))
+    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+img = cv2.resize(img, (250, 250))
+gray = cv2.resize(gray, (250, 250))
+cv2.imshow("Image 1:", img)
+cv2.imshow("Image 2:", gray)
+cv2.waitKey(0)
+cv2.destroyAllWindows()**
+
+
+
+
+# Method 2 — OpenCV Template Matching
+
+
+**import cv2
+import numpy as np**
+
+
+***READ IMAGE***
+
+**img = cv2.imread(r"A:\computer_Vision\ben-ten.jpg")
+img = cv2.resize(img, (250, 250))**
+
+
+***GRAYSCALE***
+
+
+**gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imshow("Gray Image", gray)**
+
+
+***THRESHOLD***
+
+
+**_, thresh = cv2.threshold(gray, 120, 255, cv2.THRESH_BINARY)
+cv2.imshow("Threshold Image", thresh)**
+
+
+***TEMPLATE***
+
+
+**template = thresh[50:120, 50:120]
+h, w = template.shape**
+
+
+***METHODS***
+
+
+**methods = [
+    cv2.TM_CCOEFF,
+    cv2.TM_CCOEFF_NORMED,
+    cv2.TM_CCORR,
+    cv2.TM_CCORR_NORMED,
+    cv2.TM_SQDIFF,
+    cv2.TM_SQDIFF_NORMED]**
+
+***APPLY METHODS***
+
+**for method in methods:
+    img_draw = img.copy()
+    res = cv2.matchTemplate(thresh, template, method)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+    if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+        top_left = min_loc
+    else:
+        top_left = max_loc
+    bottom_right = (top_left[0] + w, top_left[1] + h)
+    cv2.rectangle(img_draw, top_left, bottom_right, (0, 255, 0), 2)
+    cv2.imshow(f"Method: {method}", img_draw)
+    cv2.waitKey(0)
+cv2.destroyAllWindows()**
+
+
+
+***THIS IS THE FULL CODE***
+
+
+
+```Python Code:
+
+
+# METHOD NO1.
+
+import cv2
+import numpy as np
+
+# load image
+img = cv2.imread(r"A:\computer_Vision\ben-ten.jpg")
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# load face cascade
+face_cascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+)
+
+# detect face
+faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
+
+# make face box = full head (hair to chin)
+if len(faces) > 0:
+    x, y, w, h = max(faces, key=lambda f: f[2] * f[3])
+
+    # extend box upward (hair) and downward (chin)
+    x = int(x - 0.2 * w)
+    y = int(y - 0.6 * h)
+    w = int(w * 1.4)
+    h = int(h * 2.0)
+
+    # keep box inside image
+    x = max(0, x)
+    y = max(0, y)
+    w = min(w, img.shape[1] - x)
+    h = min(h, img.shape[0] - y)
+
+    print("Head Coordinates:", (x, y))
+    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+
+# resize
+img = cv2.resize(img, (250, 250))
+gray = cv2.resize(gray, (250, 250))
+
+# show images
+cv2.imshow("Image 1:", img)
+cv2.imshow("Image 2:", gray)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+***THIS IS THE OUTPUT IMAGE:***
+
+
+![Alt Text](ben-ten.jpg)
+
+
+```
+# METHOD NO2:-
+  
+import cv2
+import numpy as np
+
+READ IMAGE.
+
+img = cv2.imread(r"A:\computer_Vision\ben-ten.jpg")
+img = cv2.resize(img, (250, 250))
+
+GRAYSCALE.
+
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imshow("Gray Image", gray)
+
+THRESHOLD.
+
+_, thresh = cv2.threshold(gray, 120, 255, cv2.THRESH_BINARY)
+cv2.imshow("Threshold Image", thresh)
+
+TEMPLATE Matching.
+
+template = thresh[50:120, 50:120]
+h, w = template.shape
+
+METHODS.
+
+methods = [
+    cv2.TM_CCOEFF,
+    cv2.TM_CCOEFF_NORMED,
+    cv2.TM_CCORR,
+    cv2.TM_CCORR_NORMED,
+    cv2.TM_SQDIFF,
+    cv2.TM_SQDIFF_NORMED
+]
+
+APPLY ALL METHODS.
+
+for method in methods:
+    img_draw = img.copy()
+
+    res = cv2.matchTemplate(thresh, template, method)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+
+    if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+        top_left = min_loc
+    else:
+        top_left = max_loc
+
+    bottom_right = (top_left[0] + w, top_left[1] + h)
+    cv2.rectangle(img_draw, top_left, bottom_right, (0, 255, 0), 2)
+
+    cv2.imshow(f"Method: {method}", img_draw)
+    cv2.waitKey(0)
+
+cv2.destroyAllWindows()
+```
+
+***THIS IS THE OUTPUT IAMGE***
+
+
+![Alt Text](ben-ten.jpg)
+
+
+
+
+
+
+# Video Background Removal (OpenCV):
+
+
+***Theory***
+
+
+**Background subtraction is used to extract **moving objects** from a video.
+It separates **foreground (moving objects)** from **background (static scene)**.**
+
+
+***Methods used:***
+
+
+`* MOG2 → Gaussian mixture background model`
+`* KNN → K-nearest neighbors background model`
+
+
+***Code For Example***
+
+
+***video background removing***
+
+
+**import cv2
+import numpy as np**
+
+
+***Loading Video***
+
+
+**cap = cv2.VideoCapture(r"A:\computer_Vision\2008.mp4")**
+
+
+***Background subtractors***
+
+
+**algo1 = cv2.createBackgroundSubtractorMOG2(detectShadows=True)
+algo2 = cv2.createBackgroundSubtractorKNN(detectShadows=True)**
+
+
+***Check video***
+
+
+**if not cap.isOpened():
+    print("Error: Could not open video file.")
+    exit()**
+
+***Loop***
+
+
+**while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+    frame = cv2.resize(frame, (500, 300))
+    res1 = algo1.apply(frame)
+    res2 = algo2.apply(frame)
+    cv2.imshow("Video", frame)
+    cv2.imshow("result1:", res1)
+    cv2.imshow("result2:", res2)
+    # press n to exit
+    if cv2.waitKey(25) & 0xFF == 110:
+        break
+cap.release()
+cv2.destroyAllWindows()**
+
+
+
+***THIS IS THE FULL CODE***
+
+
+```Python Code:
+import cv2
+import numpy as np
+
+Loading Video (use raw string r"" for path).
+
+cap = cv2.VideoCapture(r"A:\computer_Vision\2008.mp4")
+
+#Old_algo = cv2.bgsegm.createBackgorundSubtractorMOG()
+algo1 = cv2.createBackgroundSubtractorMOG2(detectShadows=True)
+algo2 = cv2.createBackgroundSubtractorKNN(detectShadows=True)
+
+
+# Check if video opened successfully
+if not cap.isOpened():
+    print("Error: Could not open video file.")
+    exit()
+
+Starting Loop.
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    frame = cv2.resize(frame, (500, 300))
+    res1 = algo1.apply(frame)
+    res2 = algo2.apply(frame)
+    
+Display Side.
+
+
+    cv2.imshow("Video", frame)
+    cv2.imshow("result1:",res1)
+    cv2.imshow("result2:",res2)
+
+    # Press n to exit
+    if cv2.waitKey(25) & 0xFF == 110:  #press >>>n<<< to exit...
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+```
+
+
+
+
+
+
+# Video Capture Methods in OpenCV.
+
+
+***Theory***
+
+
+**This program shows different ways to capture video:**
+
+
+*Webcam capture
+*Mobile camera (IP camera) capture*
+*YouTube video capture*
+*Save video using VideoWriter*
+*Convert frame to grayscale*
+
+
+
+# Method 1 — Webcam Capture.
+
+
+**import cv2
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+try:
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        frame = cv2.resize(frame, (700, 600))
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        cv2.imshow("frame", frame)
+        cv2.imshow("gray", gray)
+        key = cv2.waitKey(1)
+        if key == 27:   # ESC key
+            break
+except Exception as e:
+    print("Error:", e)
+finally:
+    cap.release()
+    cv2.destroyAllWindows()**
+
+
+
+
+***Method 2 — Mobile Camera (IP Camera)***
+
+
+
+**import cv2
+camera = "http://192.168.100.4:8080/video"
+cap = cv2.VideoCapture(0)
+cap.open(camera)
+print("check ===", cap.isOpened())
+fourcc = cv2.VideoWriter_fourcc(*"XVID")
+output = cv2.VideoWriter("A:\\KING.mp4", fourcc, 20.0, (700, 600))
+while cap.isOpened():
+    ret, frame = cap.read()
+    if ret:
+        frame = cv2.resize(frame, (700, 600))
+        output.write(frame)
+        cv2.imshow("color frame", frame)
+        if cv2.waitKey(1) & 0xFF == ord('k'):
+            break
+    else:
+        break
+cap.release()
+output.release()
+cv2.destroyAllWindows()**
+
+
+
+
+# Method 3 — YouTube Video Capture.
+
+
+**import cv2
+import pafy
+url = "https://www.youtube.com/watch?v=DIf8twwgDzw"
+video = pafy.new(url)
+best = video.getbest(preftype="mp4")
+cap = cv2.VideoCapture(cv2.CAP_DSHOW)
+print("check ===", cap.isOpened())
+fourcc = cv2.VideoWriter_fourcc(*"XVID")
+output = cv2.VideoWriter("A:\\KING.mp4", fourcc, 20.0, (700, 600))
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+    frame = cv2.resize(frame, (700, 600))
+    output.write(frame)
+    cv2.imshow("color frame", frame)
+    if cv2.waitKey(1) & 0xFF == ord('k'):
+        break
+cap.release()
+output.release()
+cv2.destroyAllWindows()**
+
+
+
+***Controls***
+
+
+**| Key | Action         |
+| --- | -------------- |
+| ESC | Exit webcam    |
+| k   | Stop recording |**
+
+
+
+
+
+
+***THIS IS THE FULL CODE***
+
+
+***CODE NO 1***
+
+
+```Python Code
+import cv2
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+try:
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        frame = cv2.resize(frame, (700, 600))
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        cv2.imshow("frame", frame)
+        cv2.imshow("gray", gray)
+        key = cv2.waitKey(1)
+        if key == 27:   # ESC key
+            break
+except Exception as e:
+    print("Error:", e)
+finally:
+    cap.release()
+    cv2.destroyAllWindows()
+```
+
+
+
+***connect your laptop and android device with the same network either wifi***
+
+
+**CODE NO 2**
+
+
+```Python Code
+import cv2
+camera = "http://192.168.100.4:8080/video"
+cap = cv2.VideoCapture(0)
+cap.open(camera)
+print("check ===", cap.isOpened())
+
+fourcc = cv2.VideoWriter_fourcc(*"XVID")
+output = cv2.VideoWriter("A:\\KING.mp4", fourcc, 20.0, (700, 600))
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if ret:
+        frame = cv2.resize(frame, (700, 600))
+        output.write(frame)
+        cv2.imshow("color frame", frame)
+        if cv2.waitKey(1) & 0xFF == ord('k'):
+            break
+    else:
+        break
+
+cap.release()
+output.release()
+cv2.destroyAllWindows()
+```
+
+
+**CODE NO 3**
+
+```Python Code:
+import cv2
+import pafy
+
+url = "https://www.youtube.com/watch?v=DIf8twwgDzw"
+
+video = pafy.new(url)
+best = video.getbest(preftype="mp4")
+
+cap = cv2.VideoCapture(cv2.CAP_DSHOW)
+print("check ===", cap.isOpened())
+
+fourcc = cv2.VideoWriter_fourcc(*"XVID")
+output = cv2.VideoWriter("A:\\KING.mp4", fourcc, 20.0, (700, 600))
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    frame = cv2.resize(frame, (700, 600))
+    output.write(frame)
+    cv2.imshow("color frame", frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('k'):
+        break
+
+cap.release()
+output.release()
+cv2.destroyAllWindows()
+```
