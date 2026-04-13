@@ -6815,8 +6815,10 @@ It separates **foreground (moving objects)** from **background (static scene)**.
 ***Methods used:***
 
 
-`* MOG2 → Gaussian mixture background model`
-`* KNN → K-nearest neighbors background model`
+` MOG2 → Gaussian mixture background model`
+
+
+` KNN → K-nearest neighbors background model`
 
 
 ***Code For Example***
