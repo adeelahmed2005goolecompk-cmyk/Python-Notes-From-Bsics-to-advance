@@ -6090,3 +6090,338 @@ cv2.destroyAllWindows()
 
 
 
+# Project: Image Blending using Trackbars:
+
+
+**import cv2
+import numpy as np
+def nothing(x):
+    pass**
+    
+
+***Read images:***
+
+
+**img1 = cv2.imread(r"A:\computer_Vision\pic_3.jpg")
+img2 = cv2.imread(r"A:\computer_Vision\pic_4.jpg")**
+
+***Check images:***
+
+
+**if img1 is None or img2 is None:
+    print("Error: Image not found")
+    exit()**
+
+***Resize images to same size:***
+
+
+**img1 = cv2.resize(img1, (400, 400))
+img2 = cv2.resize(img2, (400, 400))**
+
+
+***Create window***
+
+
+**cv2.namedWindow("click")**
+
+
+***Create trackbars:***
+
+
+**cv2.createTrackbar("alpha", "click", 0, 100, nothing)
+switch = "0 : OFF \n1 : ON"
+cv2.createTrackbar(switch, "click", 0, 1, nothing)**
+
+
+**while True:
+    s = cv2.getTrackbarPos(switch, "click")
+    a = cv2.getTrackbarPos("alpha", "click")
+    n = a / 100.0**
+    
+
+**if s == 0:
+    output = img1.copy()
+else:
+    output = cv2.addWeighted(img1, 1 - n, img2, n, 0)
+cv2.putText(output, str(a), (20, 50),
+cv2.FONT_ITALIC, 2, (102, 0, 17), 2)
+cv2.imshow("click", output)
+if cv2.waitKey(1) & 0xFF == 110:
+    break**
+
+
+**PRESS "n" TO EXIT.
+cv2.destroyAllWindows()**
+
+
+
+***THIS IS THE FULL CODE***
+
+
+```Pyhton Code:
+import cv2
+import numpy as np
+
+def nothing(x):
+    pass
+
+# Read images
+img1 = cv2.imread(r"A:\computer_Vision\pic_3.jpg")
+img2 = cv2.imread(r"A:\computer_Vision\pic_4.jpg")
+
+# Check images
+if img1 is None or img2 is None:
+    print("Error: Image not found")
+    exit()
+
+# Resize images to same size
+img1 = cv2.resize(img1, (400, 400))
+img2 = cv2.resize(img2, (400, 400))
+
+# Create window
+cv2.namedWindow("click")
+
+# Create trackbars
+cv2.createTrackbar("alpha", "click", 0, 100, nothing)
+switch = "0 : OFF \n1 : ON"
+cv2.createTrackbar(switch, "click", 0, 1, nothing)
+
+while True:
+    s = cv2.getTrackbarPos(switch, "click")
+    a = cv2.getTrackbarPos("alpha", "click")
+    n = a / 100.0
+
+    if s == 0:
+        output = img1.copy()
+    else:
+        output = cv2.addWeighted(img1, 1 - n, img2, n, 0)
+        cv2.putText(output, str(a), (20, 50),
+                    cv2.FONT_ITALIC, 2, (102, 0, 17), 2)
+
+    cv2.imshow("click", output)
+
+    if cv2.waitKey(1) & 0xFF == 110:
+        break
+
+
+# PRESS "n" TO EXIT.
+
+cv2.destroyAllWindows()
+```
+
+
+
+***THESE ARE THE 2 IMAGES WHICH ARE USED INTO THE CODE:***
+
+
+![Alt Text](pic_3.jpg)
+
+
+![Alt Text](pic_4.jpg)
+
+
+
+
+
+
+
+
+
+# ROI using Thresholding and Bitwise Operations (OpenCV).
+
+
+***Theory***
+
+
+***ROI (Region of Interest)** is a selected part of an image where we want to place another image.*
+
+
+***Steps:***
+
+
+*Select ROI from first image*
+*Convert second image to grayscale*
+*Create binary mask using threshold*
+*Use bitwise operations to separate foreground & background*
+*Combine both images safely*
+
+
+***Bitwise functions used:***
+
+
+* `bitwise_and()` → keep selected pixels
+* `bitwise_not()` → invert mask
+* `add()` → combine images
+
+
+
+***Code For Example:***
+
+
+***Project > Roi using, Thresholding and Bitwise operations.***
+
+
+**import cv2
+import numpy as np**
+
+
+***LOAD 2 IMAGES***
+**img1 = cv2.imread(r"A:\computer_Vision\pic_2.jpg")
+img2 = cv2.imread(r"A:\computer_Vision\pic_1.jpg")**
+
+
+***CHECK IMAGES:***
+
+
+**if img1 is None or img2 is None:
+    print("Error loading images")
+    exit()**
+
+    
+***RESIZE IMAGES:***
+
+
+**img1 = cv2.resize(img1, (800, 800))
+img2 = cv2.resize(img2, (400, 400))**
+
+
+***IMAGE 2 SIZE:***
+**r, c, ch = img2.shape**
+
+
+***ROI FROM IMAGE 1:***
+
+**roi = img1[0:r, 0:c]**
+
+
+***CONVERT IMAGE 2 TO GRAYSCALE:***
+
+
+**gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)**
+
+
+***CREATE MASK:***
+
+
+**_, mask = cv2.threshold(gray, 10, 255, cv2.THRESH_BINARY)
+mask_inv = cv2.bitwise_not(mask)**
+
+
+***BACKGROUND:***
+
+
+**bg = cv2.bitwise_and(roi, roi, mask=mask_inv)**
+
+
+***FOREGROUND***:
+
+
+**fg = cv2.bitwise_and(img2, img2, mask=mask)**
+
+
+***COMBINE***
+
+
+**dst = cv2.add(bg, fg)**
+
+
+***PUT BACK INTO IMAGE:***
+
+
+**img1[0:r, 0:c] = dst**
+
+
+***SHOW RESULT:***
+
+
+**cv2.imshow("Final Image", img1)
+cv2.waitKey(0)
+cv2.destroyAllWindows()**
+
+
+
+***Output***:
+
+
+*ROI selected from image1*
+*Foreground extracted from image2*
+*Images combined using bitwise operations*
+
+
+
+
+***THIS IS THE FULL CODE:***
+
+
+```Python Code:
+# Project > Roi using, Thresholding and Bitwise operations.
+
+
+import cv2
+import numpy as np
+
+# LOAD 2 IMAGES
+img1 = cv2.imread(r"A:\computer_Vision\pic_2.jpg")
+img2 = cv2.imread(r"A:\computer_Vision\pic_1.jpg")
+
+# CHECK IMAGES
+if img1 is None or img2 is None:
+    print("Error loading images")
+    exit()
+
+# RESIZE IMAGES
+img1 = cv2.resize(img1, (800, 800))
+img2 = cv2.resize(img2, (400, 400))
+
+# IMAGE 2 SIZE
+r, c, ch = img2.shape
+
+# ROI FROM IMAGE 1
+roi = img1[0:r, 0:c]
+
+# CONVERT IMAGE 2 TO GRAYSCALE
+gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+
+# CREATE CLEAN MASK
+_, mask = cv2.threshold(gray, 10, 255, cv2.THRESH_BINARY)
+mask_inv = cv2.bitwise_not(mask)
+
+# KEEP BACKGROUND SAFE (CAPTAIN AMERICA)
+bg = cv2.bitwise_and(roi, roi, mask=mask_inv)
+
+# KEEP FOREGROUND SAFE (SPIDER-MAN)
+fg = cv2.bitwise_and(img2, img2, mask=mask)
+
+# COMBINE BOTH WITHOUT DAMAGE
+dst = cv2.add(bg, fg)
+
+# PUT RESULT BACK INTO IMAGE 1
+img1[0:r, 0:c] = dst
+
+# SHOW RESULT
+cv2.imshow("Final Image", img1)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+
+
+
+***THESE ARE THE 2 IAGES WHICH ARE USED INTO THE CODE:***
+
+
+***IMAGE No 1:***
+
+
+![Alt Text](pic_1.jpg)
+
+
+***IMAGE No 2:***
+
+
+![Alt Text](pic_2.jpg)
+
+
+
+
